@@ -179,7 +179,10 @@ def d4_mesaj(mesaj_yolu: Path, kriterler: dict, olcumler: dict) -> tuple[int, li
     bulgular: list[str] = []
 
     gecti, ozet = tum_kriterler_gecti(kriterler, olcumler)
-    if ozet and ozet not in metin:
+    # Özet satırı yalnızca ölçüm yapılmışsa (teslim aşaması) zorunludur; soru/kriter aşamasında ölçüm yoktur.
+    # Ölçüm yokken iddia yasağı yine geçerlidir: ölçülmemiş iş "bitti" olamaz.
+    olcum_var = any(isinstance(v, dict) and v.get("deger") is not None for v in (olcumler or {}).values())
+    if olcum_var and ozet and ozet not in metin:
         bulgular.append(f"Mesajda güncel ölçüm özeti yok. Rapordan aynen eklenmeli: \"{ozet}\"")
     if not gecti:
         # Kod blokları ve tablo satırları (script çıktısı) iddia sayılmaz.
