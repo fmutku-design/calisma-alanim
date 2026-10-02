@@ -2,3 +2,4 @@ skills/*-workspace/
 skills/inceleme-*.html
 skills/*.skill
 __pycache__/
+.ruff_cache/
