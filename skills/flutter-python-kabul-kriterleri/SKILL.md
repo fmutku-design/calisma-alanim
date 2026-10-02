@@ -81,7 +81,7 @@ python <skill>/scripts/olc.py --proje . --cikti olcumler.json [--python-klasoru 
 python <skill>/scripts/denetim.py kontrol --proje .
 ```
 
-`olc.py` araçla ölçülebilenleri (analyze, format, testler, kapsam, APK boyutu, izinler, minSdk, ağ kodu, ruff, pytest) ölçer. Araç yoksa değeri `null` yapar ve sebebini yazar; **tahmini değer yazmaz**. Cihaz gerektirenleri (soğuk açılış, bellek, jank, çıkarım süresi) katalogdaki komutlarla ölç ve `olcumler.json`'a `{"deger": x, "kanit": "<komut çıktısından satır>"}` ekle. Ölçemiyorsan `{"deger": null, "sebep": "..."}` yaz — `null` dürüsttür, uydurma değer yalandır.
+`olc.py` araçla ölçülebilenleri (analyze, format, testler, kapsam, APK boyutu, izinler, minSdk, ağ kodu, ruff, pytest) ölçer ve her F kriterinin test dosyasını kendisi çalıştırır (geçti = 1, kaldı = 0). F sonuçlarını elle yazma; script'in sonucu geçerlidir. Araç yoksa değeri `null` yapar ve sebebini yazar; **tahmini değer yazmaz**. Cihaz gerektirenleri (soğuk açılış, bellek, jank, çıkarım süresi) katalogdaki komutlarla ölç ve `olcumler.json`'a `{"deger": x, "kanit": "<komut çıktısından satır>"}` ekle. Ölçemiyorsan `{"deger": null, "sebep": "..."}` yaz — `null` dürüsttür, uydurma değer yalandır.
 
 ```bash
 python <skill>/scripts/kriterler.py rapor kabul_kriterleri.json olcumler.json > rapor.md

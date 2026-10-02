@@ -308,6 +308,45 @@ def model_boyutu(proje: Path, model: str | None) -> dict:
     return olcum(round(b / MB, 2), f"{model} → {b} bayt")
 
 
+# ---------------------------------------------------------------- Fonksiyonel (F) kriterler
+
+TEST_YOLU_RE = re.compile(r"((?:integration_test|test)/[\w/.-]+_test\.dart|[\w/.-]*test_[\w.-]+\.py|[\w/.-]+_test\.py)")
+
+
+def fonksiyonel_testler(proje: Path, kriterler: list[dict]) -> dict[str, dict]:
+    """Her F kriterinin ölçüm yöntemindeki test dosyasını çalıştırır: geçti = 1, kaldı = 0, çalıştırılamadı = null."""
+    sonuc: dict[str, dict] = {}
+    for k in kriterler:
+        if k.get("kategori") != "fonksiyonel":
+            continue
+        yollar = TEST_YOLU_RE.findall(k.get("olcum_yontemi", ""))
+        if not yollar:
+            sonuc[k["id"]] = olcum(sebep="Ölçüm yönteminde test dosyası yolu yok.")
+            continue
+        kanitlar, deger = [], 1
+        for y in yollar:
+            if not (proje / y).is_file():
+                sonuc[k["id"]] = olcum(sebep=f"{y} yok.")
+                break
+            if y.startswith("integration_test/"):
+                sonuc[k["id"]] = olcum(sebep=f"{y} cihaz/emülatör gerektirir: flutter test {y} -d <cihaz>")
+                break
+            komut = ["flutter", "test", y] if y.endswith(".dart") else [sys.executable, "-m", "pytest", "-q", y]
+            kod, cikti = calistir(komut, proje, zaman_asimi=900)
+            if kod is None:
+                sonuc[k["id"]] = olcum(sebep=cikti)
+                break
+            ozet_re = re.compile(r"All tests passed|Some tests failed|\d+ (passed|failed)|[+-]\d+")
+            son = next((s.strip() for s in reversed(cikti.splitlines()) if ozet_re.search(s)), "")
+            gosterim = f"flutter test {y}" if y.endswith(".dart") else f"pytest {y}"
+            kanitlar.append(f"{gosterim} → çıkış kodu {kod}: {son[-120:]}")
+            if kod != 0:
+                deger = 0
+        else:
+            sonuc[k["id"]] = olcum(deger, " | ".join(kanitlar))
+    return sonuc
+
+
 # ---------------------------------------------------------------- Ana akış
 
 def main() -> int:
@@ -324,9 +363,12 @@ def main() -> int:
     proje = Path(a.proje).resolve()
     atla = {x.strip() for x in a.atla.split(",") if x.strip()}
     izinli = None
+    kriter_listesi: list[dict] = []
     kriter_yolu = Path(a.kriterler) if a.kriterler else proje / "kabul_kriterleri.json"
     if kriter_yolu.is_file():
-        izinli = json.loads(kriter_yolu.read_text(encoding="utf-8")).get("izinli_android_izinleri")
+        kriter_verisi = json.loads(kriter_yolu.read_text(encoding="utf-8"))
+        izinli = kriter_verisi.get("izinli_android_izinleri")
+        kriter_listesi = kriter_verisi.get("kriterler", [])
 
     sonuc: dict[str, dict] = {}
 
@@ -364,6 +406,10 @@ def main() -> int:
         sonuc["python_basarisiz_test"], sonuc["python_kapsam_yuzde"] = t, k
         print(f"  python_basarisiz_test: {t.get('deger')}  {t.get('sebep', '')}")
         print(f"  python_kapsam_yuzde: {k.get('deger')}  {k.get('sebep', '')}")
+    for anahtar, kayit in fonksiyonel_testler(proje, kriter_listesi).items():
+        if anahtar not in atla:
+            sonuc[anahtar] = kayit
+            print(f"  {anahtar}: {kayit.get('deger')}  {kayit.get('sebep', '')}")
     if a.model:
         ekle("model_boyutu_mb", lambda: model_boyutu(proje, a.model))
 
