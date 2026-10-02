@@ -1,0 +1,139 @@
+{
+  "project": {
+    "title": "ÖRNEK — Ekran süresi ve uyku",
+    "question": "Ergenlerde günlük ekran süresi uyku süresini azaltır mı?",
+    "analyst": "örnek",
+    "scope_notes": "Bu dosya biçimi göstermek içindir; kaynaklar kurgusaldır. Kanıtlar değişken çifti düzeyinde kodlandı; C1–C3'ün hepsine otomatik uygulanır."
+  },
+  "settings": {},
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Ekran süresi arttıkça uyku süresi azalır",
+      "x": "ekran_saat",
+      "y": "uyku_saat",
+      "relation": "negative",
+      "causal": false,
+      "population": "13–17 yaş",
+      "prior": 0.6,
+      "prior_rationale": "Mekanizma makul (mavi ışık, uyku erteleme); alan tartışmalı → hafif olumlu önsel",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": true,
+      "counter_search_log": [
+        "screen time sleep no association adolescents",
+        "ekran süresi uyku ilişki yok"
+      ],
+      "source_of_claim": "kullanıcı"
+    },
+    {
+      "id": "C2",
+      "text": "Ekran süresi uyku süresini (nedensel olarak) azaltır",
+      "x": "ekran_saat",
+      "y": "uyku_saat",
+      "relation": "negative",
+      "causal": true,
+      "population": "13–17 yaş",
+      "prior": 0.5,
+      "prior_rationale": "Nedensellik iddiası ilişkiden daha güçlü bir iddia",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": true
+    },
+    {
+      "id": "C3",
+      "text": "Ekran süresi ile uyku süresi arasında ilişki yoktur",
+      "x": "ekran_saat",
+      "y": "uyku_saat",
+      "relation": "none",
+      "prior": 0.4,
+      "prior_rationale": "Bazı büyük çalışmalar ihmal edilebilir etki raporluyor",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "S1",
+      "kind": "source",
+      "citation": "Yazar A ve ark. (2021). Kurgusal meta-analiz. Dergi X.",
+      "design": "meta_analysis",
+      "n": 25000,
+      "year": 2021,
+      "peer_reviewed": true,
+      "strength": "moderate",
+      "reported_stats": {
+        "r": -0.12,
+        "n": 25000
+      },
+      "quote": "Ekran süresi ile uyku süresi arasında küçük negatif ilişki (r = −0.12)",
+      "verification": {
+        "exists": true,
+        "claim_matches_source": true,
+        "method": "tam metin okundu"
+      },
+      "cluster": "metaA",
+      "x": "ekran_saat",
+      "y": "uyku_saat"
+    },
+    {
+      "id": "S2",
+      "kind": "source",
+      "citation": "Haber sitesi (2023). 'Telefon uykuyu öldürüyor'",
+      "design": "news",
+      "year": 2023,
+      "strength": "strong",
+      "verification": {
+        "exists": true,
+        "claim_matches_source": true,
+        "method": "haber okundu; S1'i aktarıyor"
+      },
+      "cluster": "metaA",
+      "x": "ekran_saat",
+      "y": "uyku_saat",
+      "finding": "negative"
+    },
+    {
+      "id": "S3",
+      "kind": "source",
+      "citation": "Yazar B (2022). Kurgusal deney: yatmadan önce ekran yasağı. Dergi Y.",
+      "design": "rct",
+      "n": 120,
+      "year": 2022,
+      "peer_reviewed": true,
+      "preregistered": true,
+      "strength": "moderate",
+      "reported_stats": {
+        "d": -0.35,
+        "n1": 60,
+        "n2": 60
+      },
+      "notes": "Yasak grubu 0.35 SD daha fazla uyudu; X→Y yönünde (daha çok ekran → daha az uyku) işaret negatif girildi.",
+      "verification": {
+        "exists": true,
+        "claim_matches_source": true,
+        "method": "tam metin okundu"
+      },
+      "cluster": "rctB",
+      "x": "ekran_saat",
+      "y": "uyku_saat"
+    },
+    {
+      "id": "S4",
+      "kind": "source",
+      "citation": "Yazar C (2019). Kurgusal büyük kesitsel çalışma.",
+      "design": "cross_sectional",
+      "n": 120000,
+      "year": 2019,
+      "peer_reviewed": true,
+      "strength": "weak",
+      "verification": {
+        "exists": true,
+        "claim_matches_source": null,
+        "method": "yalnızca özet"
+      },
+      "cluster": "C",
+      "x": "ekran_saat",
+      "y": "uyku_saat",
+      "finding": "none"
+    }
+  ]
+}

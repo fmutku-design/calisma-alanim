@@ -1,0 +1,62 @@
+{
+  "skill_name": "iddia-dogrulama",
+  "evals": [
+    {
+      "id": 1,
+      "name": "ogrenci-verisi-iddialari",
+      "prompt": "elimde öğrenci verisi var: evals/files/ogrenci_verisi.csv (240 öğrenci). danışman hocam toplantıda şunları iddia etti: 1) haftada daha çok çalışan öğrencinin not ortalaması yüksek oluyor 2) sosyal medya notları düşürüyor 3) kızlar erkeklerden daha başarılı 4) uyku süresinin notla bir alakası yok. bunları benim verimle doğrula, hangisi tutuyor hangisi tutmuyor olasılıklarıyla birlikte söyle, raporu da kaydet",
+      "expected_output": "Her iddia için veri testi; 1 ve 2 desteklenir (2 için nedensellik uyarısı), 3 desteklenmez/çürütülür, 4 çürütülür. Olasılık + spektrum skoru + meta veri + rapor.",
+      "files": [
+        "evals/files/ogrenci_verisi.csv"
+      ],
+      "assertions": [
+        "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+        "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+        "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+        "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+        "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+        "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+        "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+        "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+        "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "aralikli-oruc-literatur",
+      "prompt": "Bir sağlık sitesinde şu yazıyor: \"Aralıklı oruç (16:8), aynı kaloriyi alan klasik diyete göre çok daha fazla kilo verdirir ve insülin direncini tamamen düzeltir.\" Bunu bilimsel literatürle doğrulamanı istiyorum. Kaynakları bul, ne kadar güvenilir olduklarını puanla, iddianın parçalarının doğru olma olasılığını ver. Sonuçları bir klasöre kaydet.",
+      "expected_output": "Bileşik iddia en az 2 atomik iddiaya bölünür; eşit kalori karşılaştırmasında üstünlük iddiası düşük olasılık alır; 'tamamen düzeltir' abartısı çürütülür; kaynaklar doğrulanır ve kalite puanı alır; karşı kanıt aranır.",
+      "files": [],
+      "assertions": [
+        "Bileşik iddia en az 2 ayrı alt iddiaya bölünmüş (eşit kaloride kilo üstünlüğü; insülin direnci)",
+        "Eşit kalori koşulunda 'daha fazla kilo verdirir' alt iddiası için olasılık < 0.5",
+        "'İnsülin direncini tamamen düzeltir' alt iddiası için olasılık < 0.3",
+        "Kullanılan her kaynak için sayısal kalite puanı veya kalite derecesi verilmiş",
+        "Karşı kanıt araması yapıldığı belgelenmiş",
+        "Her kaynağın doğrulama durumu (bulundu mu / içerik eşleşiyor mu) belirtilmiş",
+        "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+        "Her alt iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "uzaktan-calisma-celiskili-iddialar",
+      "prompt": "Şirkette uzaktan çalışma tartışması var, üç taraf üç farklı şey söylüyor:\n- Genel müdür: \"Evden çalışan verimsiz oluyor, uzaktan çalışma verimliliği düşürüyor.\"\n- Çalışanlar: \"Uzaktan çalışma verimliliğimizi artırıyor.\"\n- İK: \"Uzaktan çalışma ile verimlilik arasında hiçbir ilişki yok.\"\nElimde 180 çalışanın verisi var: evals/files/calisan_verimlilik.csv (departman, kıdem, haftalık uzaktan gün sayısı, verimlilik puanı). Ayrıca İK şu iki kaynağı gönderdi: (a) Bloom ve ark. 2015, Quarterly Journal of Economics — Çin'de bir çağrı merkezinde rastgele deney, evden çalışanların performansı %13 artmış. (b) 2023 tarihli bir iş dergisi haberi: yöneticilerle yapılan ankete göre yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.\nHangi taraf haklı? İddiaların birbirleriyle uyuşup uyuşmadığını da görmek istiyorum. Yönetim kuruluna sunacağım, sonuçları kaydet.",
+      "expected_output": "Üç iddia aynı X–Y çiftinde karşılaştırılır; ham korelasyonun kıdem nedeniyle karıştırıldığı tespit edilir (kontrollü regresyonda etki ≈ 0); nedensel/ilişkisel ayrımı yapılır; Bloom RCT'si yüksek kalite ama farklı popülasyon olarak ele alınır; anket haberi düşük kalite; iddialar arası uyum/çelişki ölçülür.",
+      "files": [
+        "evals/files/calisan_verimlilik.csv"
+      ],
+      "assertions": [
+        "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+        "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+        "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+        "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+        "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+        "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+        "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+        "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+        "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş"
+      ]
+    }
+  ]
+}
