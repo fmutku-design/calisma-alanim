@@ -251,4 +251,46 @@ C8  −1 ──────●───┼────────── +1  S=-
 
 ## 6. Yorum ve Uygulama
 
-<!-- YORUM_UYGULAMA: Bu bölüm SKILL.md Adım 7'ye göre doldurulur. -->
+> **Önemli not:** Bu bir sağlık konusudur; karar eşikleri bu yüzden sıkılaştırıldı (kabul için P ≥ 0.95, koşullu kabul için P ≥ 0.80). Sonuçlar bir hekimin veya diyetisyenin görüşünün yerini tutmaz. Diyabet ilacı (özellikle insülin veya sülfonilüre) kullananlarda uzun açlık pencereleri hipoglisemi riski taşır; bu kişiler başlamadan önce hekimine danışmalıdır.
+
+### Ana bulgular
+- **Asıl iddianın kilo kısmı desteklenmiyor.** "Aynı kaloride daha fazla kilo verdirir" iddiası (C1) zayıf çelişki aldı (S=−0.25, P=0.10, büyük olasılıkla yanlış; ret sınırının hemen üstünde). Rakip iddia "eşit kaloride fark yok" (C3) koşullu kabul bandında (S=+0.29, P=0.87). Kalorinin gerçekten eşitlendiği kontrollü besleme çalışması (S8, Maruthur 2024) TRE kolunda biraz *daha az* kilo kaybı buldu (−2.3 kg, karşılaştırma kolunda −2.6 kg). En kapsamlı iki derleme de (S1 BMJ 2025, 99 RCT; S2 Cochrane 2026, 22 RCT) TRE'nin kalori kısıtlı klasik diyetten üstün olmadığını bildiriyor.
+- **"Çok daha fazla" ifadesi reddedildi** (C2: S=−0.68 güçlü çelişki, P=0.012). Destekleyen tek kanıt Jamshed 2022 (S13): 14 haftada 2.3 kg ek kayıp bulmuş, ama yağ kütlesinde fark yok. Diğer dört kanıt bu farkı tekrarlamıyor.
+- **İddianın daha zayıf bir hali büyük olasılıkla doğru:** 16:8, hiçbir diyet uygulamayan kontrole göre kilo verdiriyor (C4: S=+0.49 orta destek, P=0.82 koşullu kabul). Mekanizma kalorinin kendiliğinden azalması: S17'de (Lin 2023) TRE grubu günde ~425 kcal daha az yedi, S19'da ~550 kcal daha az. Etki küçük. 16:8 meta-analizinde (S15) fark −1.48 kg, Cochrane'de (S16) "klinik anlamlı eşiğin altında".
+- **"İnsülin direncini tamamen düzeltir" reddedildi** (C8: S=−0.44 orta çelişki, P=0.010). Hiçbir kaynak insülin direncinin normale döndüğünü bildirmiyor. 16:8 meta-analizlerinde HOMA-IR iyileşmesi alt gruba bağlı: yalnızca fazla kilolularda görülüyor, obezlerde görülmüyor (S40). Bir başka meta-analizde yalnızca ≥6 aylık çalışmalarda görülüyor (S39).
+- **İnsülin direncinde "bir miktar azalma" belirsiz kaldı** (C5: S=+0.19, P=0.73). Kalori eşitken klasik diyetten üstün olduğu iddiası ise büyük olasılıkla yanlış (C6: S=−0.30, P=0.15). Kalorinin eşitlendiği tek güçlü olumlu kanıt Sutton 2018 (S35). Bu çalışmada yalnızca 8 erkek vardı ve 6 saatlik *erken* pencere (18:6, son öğün 15:00) kullanıldı; yani 16:8 değil. Daha büyük bir izokalorik çalışma olan Maruthur 2024 (S34) ise glukoz ölçümlerinde ve HOMA-IR'da fark bulmadı.
+
+### İddialar arası tutarlılık
+- Mantıksal olarak çelişen iki çift var: C1↔C3 (P=0.104 / 0.873) ve C6↔C7 (P=0.154 / 0.784). İkisinde de tutarsızlık 0.000; olasılıkların toplamı 1'i aşmıyor, yani kodlama tutarlı. Betik C6↔C7 için "popülasyonlar farklı" notu ekledi. Bu nüans gerçek: C6'ya katkı yapan kanıtların bir kısmı prediyabetik erkeklerden (S35), bir kısmı tip 2 diyabetlilerden (S33) geliyor.
+- Kanıtlar karşılaştırma koluna göre ayrışıyor. TRE eşit kalorili diyetle karşılaştırıldığında, TRE'nin üstün olduğunu söyleyen iddialar çelişki aldı (C1 S=−0.25, C6 S=−0.30). Hiçbir müdahale yapılmayan kontrolle karşılaştırıldığında ise destek var (C4 S=+0.49, C5 S=+0.19; `TRE_16_8_vs_mudahalesiz_kontrol` ortalaması S=+0.34). Kısacası faydanın büyük bölümü saatten değil, daha az kaloriden geliyor. (Not: `TRE_16_8_vs_esit_kalorili_diyet` değişkeninin ortalaması S=0.008; bu sayı rakip iddiaları da içerdiği için tek başına yorumlanmamalı.)
+- C1 ve C3'te uyum düşük (C≈0.33). Bunun ana nedeni, serbest yaşam koşullarındaki çalışmalarda kalorinin tam eşitlenmemesi. Jamshed 2022 (S4) ve EJCN 2023 meta-analizi (S7) TRE lehine küçük fark buluyor. Kalorinin kontrol edildiği çalışmalarda (S8, S9) bu fark kayboluyor. Bu, TRE'nin bazı kişilerde ek kalori azaltımı sağladığı yorumuyla uyumlu.
+
+### Sınırlılıklar
+- `unverified_sources` (tüm iddialarda): WebFetch tüm yayıncı ve indeks alan adlarında (PubMed, PMC, NEJM, JAMA, BMJ, Cochrane vb.) ağ politikası yüzünden engellendi. Kaynakların varlığı ve bulguları yalnızca WebSearch özetlerinden doğrulandı. Bu nedenle her kaynakta Q ×0.7 cezası var (ortalama Q ≈ 0.51–0.60, "Orta"). Tam metinler okunursa P değerleri büyük olasılıkla aynı yönde ama daha uç değerlere kayar.
+- `fragile_decision` (C1, C3–C8): Sağlamlık %33–%67 arasında. Örneğin C1'in P aralığı 0.015–0.52. Kararın yönü (iddia lehine değil) senaryoların çoğunda korunuyor, ama hangi banda düştüğü önsele ve küme korelasyonuna duyarlı. Yönü güvenilir, bant sınırları kesin değil.
+- `conflicting_evidence` (C1, C3, C4): Kanıtlar arasındaki ayrışmanın olası moderatörleri kalorinin eşitlenip eşitlenmediği, pencerenin erken mi geç mi olduğu ve süre. TREAT (S21) 16:8 ile kontrole göre bile anlamlı fark bulmadı.
+- `insufficient_evidence` (C4): Tüm kanıtlar tek bir "havuz" kümesine konduğu için çıktı (meta-analizler ve içerdikleri RCT'ler bağımsız sayılmadı). Bu tutucu bir kümeleme tercihi; kanıt hacmi gerçekte düşük değil.
+- Örtüşme: Meta-analizler kısmen aynı RCT'leri içeriyor. Aynı soruya ait örtüşen kaynaklar tek kümeye alındı (ρ=0.5). Kümeler arasında kalan örtüşme kanıtı biraz şişirebilir; duyarlılık analizindeki ρ=0.8 senaryosu bunu kısmen yakalıyor.
+- Popülasyon ve protokol farkları: Bazı çalışmalar 16:8 değil (S19 20:4/18:6, S35 18:6, S8 10 saat). Bazıları tüm aralıklı oruç türlerini kapsıyor (S1, S2, S9). Bu farklar notlarda belirtildi ve gerektiğinde strength düşürüldü.
+- Önsel: Önseller aramadan önce belirlendi. Ancak analistin alana dair genel ön bilgisi vardı, yani tamamen "kör" değiller (`prior_set_before_evidence: true`, gerekçede açıklandı).
+
+### Uygulama önerileri
+| İddia | Karar | Önerilen eylem | Koşul / izlenecek gösterge |
+|---|---|---|---|
+| C1 — eşit kaloride daha fazla kilo | Büyük olasılıkla yanlış (P=0.10) | Sitedeki bu cümle düzeltilmeli; 16:8, "kalori farkı olmadan ekstra kilo" vaadiyle önerilmemeli | Yeni izokalorik RCT'ler; C1'i belirsiz banda taşımak için LR ≈ 3.7 gerekiyor |
+| C2 — "çok daha fazla" | Ret (P=0.012) | İfade kullanılmamalı; yaygınsa düzeltme notu yazılmalı | — |
+| C3 — eşit kaloride fark yok | Koşullu kabul (P=0.87) | Kilo vermek için hangi saatte yendiğinden çok toplam kalori önemli; 16:8, kalori azaltmayı kolaylaştıran bir *araç* olarak sunulabilir | Kişinin toplam enerji alımı, 3–6 aylık kilo eğrisi |
+| C4 — 16:8, hiçbir şey yapmamaya göre kilo verdirir | Koşullu kabul (P=0.82) | Kalori saymakta zorlanan kişiler için geri dönüşü kolay bir deneme (pilot) olarak uygun | 8–12 haftada ≥%3 kilo kaybı yoksa yöntemi değiştir; açlık/yorgunluk, beslenme kalitesi |
+| C5 — insülin direncini azaltır | Belirsiz (P=0.73) | İnsülin direnci tedavisi olarak önerilmemeli; kilo kaybının dolaylı faydası olabilir | HOMA-IR / açlık insülini, HbA1c (hekim takibiyle) |
+| C6 — eşit kaloride klasik diyetten daha iyi insülin etkisi | Büyük olasılıkla yanlış (P=0.15) | "Saat, kaloriden bağımsız metabolik mucize" anlatısına dayanan kararlar gözden geçirilmeli | Erken pencereli (eTRE) izokalorik büyük RCT sonuçları |
+| C7 — eşit kaloride insülin farkı yok | Belirsiz (P=0.78) | Ek kanıt beklenmeli; koşullu kabule çok yakın (LR ≈ 1.1 yeterli) | — |
+| C8 — insülin direncini tamamen düzeltir | Ret (P=0.010) | Bu ifade yanlış ve potansiyel olarak zararlı (ilaç bırakma riski); düzeltme notu gerekli | — |
+
+### Sonraki en değerli kanıt
+VoI sıralaması (bir karar bandı yukarı geçmek için gereken LR, küçükten büyüğe):
+1. **C7 (LR ≈ 1.10 → koşullu kabul)** ve **C5 (LR ≈ 1.49 → koşullu kabul)** "bir çalışma uzaklıkta". C7 için en değerli çalışma: tüm yemeklerin sağlandığı, izokalorik, ≥12 hafta süren, 16:8 (geç ve erken pencere ayrı kollar), n ≥ 100 prediyabetik/obez yetişkinle yapılan ve birincil sonucu öglisemik klemp veya HOMA-IR olan bir RCT. Aynı çalışma C6'yı da (LR ≈ 2.4 → belirsiz) doğrudan test eder.
+2. **C6 (LR ≈ 2.36)**: Sutton 2018'in erken TRE bulgusunu daha büyük ve kadınları da içeren bir örneklemde tekrarlayan izokalorik bir çapraz deneme, C6 lehine veya aleyhine en bilgilendirici kanıt olur.
+3. **C3 (LR ≈ 2.77 → kabul)** ve **C1 (LR ≈ 3.68 → belirsiz)**: 16:8 ile CER'i 12 ay süreyle, enerji alımını çift etiketli su ile ölçerek karşılaştıran, n ≥ 200, ön kayıtlı bir RCT.
+4. **C4 (LR ≈ 4.1 → kabul)**: Farklı merkezlerden (Varady ekibi dışında), ≥12 ay süren, kontrol grubu olan pragmatik 16:8 denemeleri.
+5. **C2 (LR ≈ 9.1)** ve **C8 (LR ≈ 11.2)**: Ret bandından çıkmaları için çok güçlü yeni kanıt gerekiyor. Pratikte araştırma önceliği değiller.
+

@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+      "passed": true,
+      "evidence": "Ham r=+0.44 (C5) ve kıdem+departman kontrollü kısmi r=−0.08 ayrı kanıtlar"
+    },
+    {
+      "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+      "passed": true,
+      "evidence": "Kıdem r=0.70 / r=0.69, kontrollü etki p=0.26; ek_analiz/kidem_tabakali"
+    },
+    {
+      "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+      "passed": true,
+      "evidence": "C1 (GM, nedensel) P=0.139; C4 (ilişkisel) P=0.016"
+    },
+    {
+      "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+      "passed": true,
+      "evidence": "claim_relations: 15 çift, logical_compatibility + incoherence; ek normalizasyon analizi"
+    },
+    {
+      "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+      "passed": true,
+      "evidence": "C1–C3 nedensel, C4–C5 ilişkisel, C6 kontrollü ayrı iddialar"
+    },
+    {
+      "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+      "passed": true,
+      "evidence": "Bloom 2015: RCT, farklı popülasyon (Çin çağrı merkezi, gönüllüler) notu"
+    },
+    {
+      "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+      "passed": true,
+      "evidence": "Haber: algı ölçüyor, ağırlığı ≈0 (exists null)"
+    },
+    {
+      "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+      "passed": true,
+      "evidence": "6 iddianın hepsinde posterior_P"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+      "passed": true,
+      "evidence": "metadata.json + rapor.md"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  }
+}

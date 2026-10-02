@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+      "passed": true,
+      "evidence": "metadata.json: C1 P=0.997, C2/C2A P=0.848/0.974, C3 P=0.102, C4 P=0.018"
+    },
+    {
+      "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+      "passed": true,
+      "evidence": "C1 P=0.997 → accept"
+    },
+    {
+      "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+      "passed": true,
+      "evidence": "C3 P=0.102 → likely_false; rakip 'fark yok' C3R P=0.724"
+    },
+    {
+      "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+      "passed": true,
+      "evidence": "C4 P=0.018 → reject"
+    },
+    {
+      "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+      "passed": true,
+      "evidence": "C2 nedensel (P=0.848, causal_gap bayrağı) ve C2A ilişkisel (P=0.974) ayrı iddialar"
+    },
+    {
+      "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+      "passed": true,
+      "evidence": "Her iddiada spectrum_S ∈ [−1,1] (örn. C1 +1.0, C4 −0.899)"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+      "passed": true,
+      "evidence": "metadata.json kaydedilmiş"
+    },
+    {
+      "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+      "passed": true,
+      "evidence": "Kanıt kayıtlarında n ve missing_frac; final mesajda sosyal medya 6, uyku 9 eksik satır"
+    },
+    {
+      "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+      "passed": true,
+      "evidence": "27 senaryolu duyarlılık: sağlamlık %37–96, P_min/P_max"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  }
+}

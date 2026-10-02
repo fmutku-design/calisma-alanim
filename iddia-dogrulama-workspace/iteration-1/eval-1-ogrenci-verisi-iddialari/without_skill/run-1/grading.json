@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+      "passed": true,
+      "evidence": "rapor.md tablo: ≈%100, ≈%99.99, ≈%11, ≈%0.4"
+    },
+    {
+      "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+      "passed": true,
+      "evidence": "İddia 1 'TUTUYOR (güçlü)'"
+    },
+    {
+      "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+      "passed": true,
+      "evidence": "İddia 3 ≈%11, 'tutmuyor'"
+    },
+    {
+      "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+      "passed": true,
+      "evidence": "İddia 4 'alakası yok' olasılığı ≈%0.4"
+    },
+    {
+      "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+      "passed": true,
+      "evidence": "'ilişki olarak' tutuyor; gözlemsel veri, nedensellik kanıtlanamaz uyarısı"
+    },
+    {
+      "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+      "passed": false,
+      "evidence": "−1…+1 spektrum skoru yok; yalnızca r ve olasılık"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+      "passed": true,
+      "evidence": "sonuclar.json kaydedilmiş"
+    },
+    {
+      "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+      "passed": true,
+      "evidence": "Eksik değerler analiz bazında atılmış; regresyon n=226"
+    },
+    {
+      "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+      "passed": true,
+      "evidence": "Bootstrap, Spearman, Holm düzeltmesi, tavan etkisi kontrolü"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.889
+  }
+}

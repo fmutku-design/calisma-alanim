@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+      "passed": true,
+      "evidence": "Ham r=0.44 ve kontrollü eğim −0.66 [−1.82, 0.50] tablosu"
+    },
+    {
+      "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+      "passed": true,
+      "evidence": "Kıdem karıştırıcı; kıdem bantları içinde r≈0"
+    },
+    {
+      "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+      "passed": false,
+      "evidence": "GM iddiası 'desteklenmiyor' ama sayısal olasılık verilmemiş"
+    },
+    {
+      "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+      "passed": false,
+      "evidence": "Uyum yalnızca sözel ('doğrudan çelişiyor'); sayısal ölçü yok"
+    },
+    {
+      "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+      "passed": true,
+      "evidence": "Ham vs kontrollü vs nedensel ayrımı yapılmış; ters nedensellik notu"
+    },
+    {
+      "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+      "passed": true,
+      "evidence": "Bloom: 'genellenebilirlik düşük-orta: tek firma, rutin iş'"
+    },
+    {
+      "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+      "passed": true,
+      "evidence": "Anket: yönetici algısını ölçüyor, verimliliği değil"
+    },
+    {
+      "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+      "passed": false,
+      "evidence": "Hiçbir iddia için sayısal doğru olma olasılığı yok"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+      "passed": true,
+      "evidence": "rapor.md + iddia_degerlendirme.json"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 3,
+    "total": 9,
+    "pass_rate": 0.667
+  }
+}
