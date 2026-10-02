@@ -1,0 +1,54 @@
+{
+  "tarih": "2026-10-02",
+  "veri": "calisan_verimlilik.csv (n=180)",
+  "iddialar": [
+    {
+      "sahip": "Genel mudur",
+      "iddia": "Uzaktan calisma verimliligi dusuruyor",
+      "hukum": "Desteklenmiyor (genel haliyle)",
+      "kanit": "Kidem+departman kontrollu egim -0.66 puan/gun, %95 GA [-1.82, 0.50], p=0.26; yalniz 5 gun grubunda (n=12) zayif/kirilgan dusus isareti (-6.8 puan, p=0.07)"
+    },
+    {
+      "sahip": "Calisanlar",
+      "iddia": "Uzaktan calisma verimliligimizi artiriyor",
+      "hukum": "Desteklenmiyor (ham iliski kidemle karismis)",
+      "kanit": "Ham r=0.44 (p<0.001) ama kidem-uzaktan r=0.70, kidem-verimlilik r=0.69; kidem sabitken kismi r=-0.08 (p=0.26); kidem bantlari icinde r ~ 0"
+    },
+    {
+      "sahip": "IK",
+      "iddia": "Hicbir iliski yok",
+      "hukum": "Kismen dogru / fazla kesin",
+      "kanit": "Ham korelasyon var (r=0.44); nedensel/kontrollu etki sifirdan ayirt edilemiyor, ama GA 5 gunluk fark icin -9 ile +2.5 puan arasini dislamiyor"
+    }
+  ],
+  "iddialarin_uyumu": "GM ve calisanlar yon olarak dogrudan celisiyor; IK ikisiyle de celisiyor. Farkli seviyelerde (ham vs kontrollu vs uc nokta) bakildiginda kismen uzlastirilabilir. Veri en cok IK'nin (kontrollu) tutumuna yakin.",
+  "kaynaklar": [
+    {
+      "kaynak": "Bloom ve ark. 2015 QJE",
+      "dogrulandi": true,
+      "tur": "Rastgele kontrollu deney",
+      "bulgu": "+%13 performans (Ctrip cagri merkezi, 249 gonullu, haftada 4 gun WFH)",
+      "genellenebilirlik": "Dusuk-orta: tek firma, rutin olculebilir is, Cin 2010-11",
+      "destekledigi": "Calisanlar (baglamsal)"
+    },
+    {
+      "kaynak": "2023 is dergisi haberi (%60 yonetici)",
+      "dogrulandi": "Kismen - benzer rakam Owl Labs 2023'te; haber kaynagi belirtilmemis",
+      "tur": "Algi anketi (yalniz yoneticiler)",
+      "bulgu": "Yoneticilerin %60'i uzaktan calisanlari daha az verimli buluyor/endiseli",
+      "genellenebilirlik": "Verimlilik olcumu degil, kanaat",
+      "destekledigi": "GM (yalniz kanaat olarak)"
+    },
+    {
+      "kaynak": "Ek: Bloom, Han, Liang 2024 Nature",
+      "tur": "RCT, 1612 calisan, haftada 2 gun hibrit",
+      "bulgu": "Performansa etki yok, ayrilma 1/3 azaldi",
+      "destekledigi": "IK'ya yakin"
+    }
+  ],
+  "varsayimlar": [
+    "Verimlilik puani nesnel ve departmanlar arasi karsilastirilabilir varsayildi",
+    "Uzaktan gun sayisi kesit verisi; nedensellik icin gozlenmeyen karistiricilar dislanamaz",
+    "Anlamlilik esigi alpha=0.05"
+  ]
+}

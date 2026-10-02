@@ -1,0 +1,60 @@
+{
+  "iddia": "Aralikli oruc (16:8), ayni kaloriyi alan klasik diyete gore cok daha fazla kilo verdirir ve insulin direncini tamamen duzeltir.",
+  "kaynak_turu": "Saglik sitesi (birincil kaynak gosterilmemis)",
+  "varsayimlar": [
+    "'Klasik diyet' = gunluk surekli kalori kisitlamasi (CER) veya standart diyet onerisi olarak yorumlandi.",
+    "'Cok daha fazla' = klinik olarak anlamli ek kilo kaybi (yaygin esik: >=2 kg veya >=%2-3 vucut agirligi) olarak yorumlandi.",
+    "'Tamamen duzeltir' = insulin direncinin normal araliga donmesi (orn. clamp/HOMA-IR ile normallesme) olarak yorumlandi.",
+    "Hedef kitle: asiri kilolu/obez veya prediyabetik yetiskinler (literaturun cogu bu gruplarda).",
+    "Olasiliklar, bulunan kanitin agirligina dayanan oznel (Bayesci) tahminlerdir; resmi bir modelden hesaplanmamistir."
+  ],
+  "alt_iddialar": [
+    {
+      "id": "A1",
+      "ifade": "16:8, es-kalorili klasik diyete gore HERHANGI bir ek kilo kaybi saglar.",
+      "dogru_olma_olasiligi": 0.12,
+      "gerekce": "Es-kalorili/es-kalori hedefli RKC'ler (Liu 2022 NEJM, Maruthur 2024, Lin 2023) ve meta-analizler (BMJ 2025 NMA, Cochrane 2026) anlamli fark bulmadi. Kucuk bir etki tamamen dislanamaz: EJCN 2023 meta-analizi TRE+CR icin -1.4 kg, Jamshed 2022 erken TRE icin -2.3 kg gosterdi (ancak bunlar kalori alimi tam esitlenmemis, farkli pencereler).",
+      "destekleyen": ["K8", "K11"],
+      "curuten": ["K1", "K2", "K3", "K4", "K6", "K7"]
+    },
+    {
+      "id": "A2",
+      "ifade": "16:8, es-kalorili klasik diyete gore COK DAHA FAZLA (klinik anlamli) kilo kaybettirir.",
+      "dogru_olma_olasiligi": 0.03,
+      "gerekce": "Hicbir buyuk RKC veya meta-analiz klinik anlamli (>=2 kg) ustunluk gostermedi. BMJ 2025 NMA'da TRE, CER'den farksiz; Cochrane 2026'da aralikli oruc standart diyet onerisinden farksiz. Liu 2022'de 12 ayda fark -1.8 kg ve anlamsiz.",
+      "destekleyen": [],
+      "curuten": ["K1", "K2", "K3", "K4", "K6", "K7"]
+    },
+    {
+      "id": "A3",
+      "ifade": "16:8 insulin direncini (bir miktar) iyilestirir - herhangi bir karsilastirmaya gore (kontrol/ad libitum dahil).",
+      "dogru_olma_olasiligi": 0.60,
+      "gerekce": "16:8 meta-analizi kontrol diyetlerine gore HOMA-IR'de kucuk azalma (SMD -0.16) buldu; prediyabette aclik glukozu/HbA1c'de kucuk iyilesmeler var (Diabetologia 2026). Bu iyilesmenin buyuk kismi muhtemelen kilo kaybi/kalori azalmasi araciligiyla.",
+      "destekleyen": ["K9", "K10", "K12", "K13"],
+      "curuten": ["K5", "K6"]
+    },
+    {
+      "id": "A4",
+      "ifade": "16:8, es-kalorili klasik diyete gore insulin direncini DAHA FAZLA iyilestirir.",
+      "dogru_olma_olasiligi": 0.15,
+      "gerekce": "Es-kalorili calismalar (Maruthur 2024, ChronoFast 2025) ve TRE+CR vs CR karsilastirmalari (Liu 2022, Jamshed 2022, EJCN 2023 MA) ek fayda bulmadi. Sutton 2018 (n=8, 6 saatlik erken pencere) aksi yonde tek sinyal; daha buyuk calismalarda tekrarlanamadi. Erken pencerenin (16:8'den farkli) kucuk bir avantaji olabilir ihtimali nedeniyle olasilik sifira yakin degil.",
+      "destekleyen": ["K9"],
+      "curuten": ["K3", "K4", "K5", "K8", "K11", "K13"]
+    },
+    {
+      "id": "A5",
+      "ifade": "16:8 insulin direncini TAMAMEN duzeltir (normallestirir).",
+      "dogru_olma_olasiligi": 0.02,
+      "gerekce": "Hicbir RKC veya meta-analiz insulin direncinin tamamen duzeldigini/normallestigini raporlamiyor; etki buyuklukleri kucuk (SMD ~ -0.16 ile -0.29) veya anlamsiz. Sutton 2018 bile 'iyilesme' gosteriyor, 'tamamen duzelme' degil, ve glukoz duzelmedi. Cochrane 2026'daki hicbir calisma diyabet durumunu raporlamadi.",
+      "destekleyen": [],
+      "curuten": ["K3", "K4", "K5", "K8", "K10", "K12"]
+    }
+  ],
+  "butun_iddia": {
+    "ifade": "Iddianin yazildigi haliyle tamami (A2 VE A5)",
+    "dogru_olma_olasiligi": 0.01,
+    "hukum": "YANLIS / buyuk olcude yaniltici",
+    "kisa_ozet": "16:8, klasik kalori kisitlamasi kadar etkili olabilen gecerli bir secenek; ancak ayni kaloride daha fazla kilo verdirdigine ve insulin direncini tamamen duzelttigine dair kanit yok. Gozlenen faydalar buyuk olcude daha az kalori alinmasindan kaynaklaniyor."
+  },
+  "kanit_kesinligi_genel": "Orta (kilo karsilastirmasi icin birden fazla buyuk RKC + Cochrane + BMJ NMA tutarli); insulin direnci icin dusuk-orta (kucuk, kisa sureli calismalar, farkli olcum yontemleri)."
+}

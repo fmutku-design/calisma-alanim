@@ -1,0 +1,145 @@
+{
+  "puanlama_yontemi": {
+    "olcek": "0-10 (10 = en guvenilir)",
+    "bilesenler": {
+      "tasarim": "0-4: sistematik derleme/meta-analiz (Cochrane/GRADE) 4; buyuk/uzun RKC 3; kucuk veya kisa RKC 2; capraz gecisli cok kucuk RKC 1-1.5",
+      "orneklem_ve_sure": "0-2: n>=100 ve >=12 ay 2; n 40-100 veya 3-12 ay 1; n<40 veya <=5 hafta 0.5",
+      "dergi_ve_hakem": "0-2: NEJM/JAMA/BMJ/Annals/Cochrane/Cell Metab/Sci Transl Med 2; diger hakemli dergi 1-1.5",
+      "iddiaya_dogrudan_uygunluk": "0-2: es-kalorili karsilastirma ve/veya 16:8 protokolu dogrudan test edilmisse 2; dolayli ise 0.5-1.5"
+    },
+    "not": "Puanlar kaynagin kendi niteligi + bu iddiayi test etmeye uygunlugu birlesimidir; yazar gorusudur, standart bir arac (orn. RoB 2) ile resmi degerlendirme yapilmamistir."
+  },
+  "erisim_notu": "WebFetch ve dogrudan API erisimi (PubMed, Cochrane, ACP, Crossref vb.) ag politikasi nedeniyle engellendi. Sayisal bulgular arama motoru ozetlerinden (ozet/abstract alintilari) dogrulandi; tam metin okunmadi. 'dogrulama_durumu' alani bunu belirtir.",
+  "kaynaklar": [
+    {
+      "id": "K1",
+      "atif": "Garegnani LI, et al. Intermittent fasting for adults with overweight or obesity. Cochrane Database Syst Rev 2026;Issue 2:CD015610.",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD015610.pub2/full",
+      "tur": "Cochrane sistematik derleme ve meta-analiz (22 RKC, 1995 katilimci)",
+      "ana_bulgu": "Aralikli oruc, standart diyet onerisine gore kilo kaybinda az ya da hic fark yaratmiyor (dusuk kesinlik). Hic mudahale yapilmamasina gore MD -3.42% vucut agirligi (95% GA -4.95 ile -1.90; 6 calisma, 427 kisi; orta kesinlik) - klinik anlamlilik esiginin altinda. >=%5 kilo kaybi icin RR 0.98 (0.82-1.18). Hicbir calisma diyabet durumunu raporlamamis; takip <=12 ay.",
+      "iddia_ile_iliski": "Iddia 1'i (cok daha fazla kilo) CURUTUR; iddia 2 hakkinda veri yok.",
+      "puan": {"tasarim": 4, "orneklem_ve_sure": 2, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 9.5},
+      "dogrulama_durumu": "Arama ozetleri + Cochrane duz dil ozeti uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K2",
+      "atif": "Semnani-Azad Z, et al. Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis of randomised clinical trials. BMJ 2025;389:e082007.",
+      "url": "https://doi.org/10.1136/bmj-2024-082007",
+      "tur": "Ag (network) meta-analizi (99 RKC, 6582 yetiskin)",
+      "ana_bulgu": "Tum aralikli oruc turleri ve surekli kalori kisitlamasi (CER) ad libitum diyete gore kilo kaybettiriyor. Zaman kisitli beslenme (TRE) CER'den ustun degil. Yalnizca gun asiri oruc CER'e gore -1.29 kg (95% GA -1.99 ile -0.59) ek kayip gosterdi; bu da onceden tanimli 2 kg klinik esigin altinda. Kesinlik cogunlukla dusuk-orta.",
+      "iddia_ile_iliski": "Iddia 1'i CURUTUR (TRE ~ klasik kalori kisitlamasi).",
+      "puan": {"tasarim": 4, "orneklem_ve_sure": 2, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 9.5},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K3",
+      "atif": "Liu D, et al. Calorie Restriction with or without Time-Restricted Eating in Weight Loss. N Engl J Med 2022;386:1495-1504.",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114833",
+      "tur": "RKC, 139 obez yetiskin, 12 ay; iki kol ayni kalori hedefi (erkek 1500-1800, kadin 1200-1500 kcal/gun)",
+      "ana_bulgu": "08:00-16:00 TRE + kalori kisitlamasi vs yalniz kalori kisitlamasi: net fark -1.8 kg (95% GA -4.0 ile 0.4; P=0.11), anlamli degil. Bel cevresi, vucut yagi, visseral yag, kan basinci, glukoz ve lipidlerde benzer degisim; TRE+CR'nin glukoz profili/HOMA-IR uzerinde ek faydasi gosterilmedi.",
+      "iddia_ile_iliski": "Iddiaya en dogrudan test (es-kalori hedefli, 16:8 benzeri, 12 ay). Iddia 1 ve iddia 2'yi (klasik diyete gore ustunluk) CURUTUR.",
+      "puan": {"tasarim": 3, "orneklem_ve_sure": 2, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 2, "toplam": 9.0},
+      "dogrulama_durumu": "Arama ozetleri uzerinden (abstract sayilari tutarli); tam metin okunmadi."
+    },
+    {
+      "id": "K4",
+      "atif": "Maruthur NM, et al. Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 2024;177(5):549-558.",
+      "url": "https://www.acpjournals.org/doi/10.7326/M23-3132",
+      "tur": "Kontrollu besleme (tum yemekler saglanan) RKC, obezite + prediyabet/diyet kontrollu diyabet, 12 hafta",
+      "ana_bulgu": "Es-kalorili kosulda 10 saat TRE (kalorinin %80'i 13:00'ten once) -2.3 kg, olagan yeme duzeni -2.6 kg; fark 0.3 kg (95% GA -1.2 ile 1.9). Glisemik olcumlerde gruplar arasi fark yok.",
+      "iddia_ile_iliski": "'Ayni kalori' kosulunu en sikı test eden calismalardan; iddia 1 ve 2'yi CURUTUR. Pencere 10 saat (16:8 degil) - dogrudan uygunluk biraz dusuk.",
+      "puan": {"tasarim": 2.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 2, "toplam": 7.5},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K5",
+      "atif": "Peters B, et al. Intended isocaloric time-restricted eating shifts circadian clocks but does not improve cardiometabolic health in women with overweight. Sci Transl Med 2025;17(822):eadv6787. (ChronoFast)",
+      "url": "https://www.science.org/doi/10.1126/scitranslmed.adv6787",
+      "tur": "Randomize capraz gecisli calisma, 31 kadin, 2'ser hafta erken (08-16) ve gec (13-21) 8 saatlik TRE",
+      "ana_bulgu": "Hedeflenen es-kalorili 16:8 TRE'de insulin duyarliligi baslangica gore iyilesmedi; erken vs gec arasinda fark yok. Glukoz, lipid, inflamasyon belirteclerinde klinik anlamli degisim yok; ic saat kaydi.",
+      "iddia_ile_iliski": "Dogrudan 16:8 ve es-kalori; iddia 2'yi (insulin direnci duzelir) CURUTUR. Kisa sure (2 hafta) ve kucuk orneklem siniri.",
+      "puan": {"tasarim": 2, "orneklem_ve_sure": 0.5, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 2, "toplam": 6.5},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K6",
+      "atif": "Lowe DA, et al. Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 2020;180(11):1491-1499.",
+      "url": "https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2771095",
+      "tur": "RKC, 116 yetiskin, 12 hafta, 16:8 (12:00-20:00) vs 3 ogun duzenli",
+      "ana_bulgu": "TRE -0.94 kg, kontrol -0.68 kg; gruplar arasi fark -0.26 kg (95% GA -1.30 ile 0.78; P=0.63). Metabolik belirteclerde anlamli fark yok. TRE grubunda apendikuler yagsiz kutle kaybi (-0.64 kg) anlamli.",
+      "iddia_ile_iliski": "Tam olarak 16:8 protokolu; kalori esitlenmemis olsa da ustunluk gosterilemedi. Iddia 1 ve 2'yi CURUTUR.",
+      "puan": {"tasarim": 2.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 7.0},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K7",
+      "atif": "Lin S, et al. Time-Restricted Eating Without Calorie Counting for Weight Loss in a Racially Diverse Population: A Randomized Controlled Trial. Ann Intern Med 2023;176(7):885-895.",
+      "url": "https://www.acpjournals.org/doi/10.7326/M23-0052",
+      "tur": "RKC, 90 obez yetiskin, 12 ay; 16:8 TRE (12:00-20:00, kalori sayimi yok) vs %25 kalori kisitlamasi vs kontrol",
+      "ana_bulgu": "TRE ve kalori kisitlamasi kontrole gore benzer ve anlamli kilo kaybi (yaklasik -4.6 kg ve -5.4 kg, kontrole gore); TRE ile CR arasinda kilo ve kalori alimi acisindan anlamli fark yok.",
+      "iddia_ile_iliski": "16:8 klasik diyetten fazla kilo kaybettirmiyor; iddia 1'i CURUTUR. Insulin sonuclari bu oturumda dogrulanamadi.",
+      "puan": {"tasarim": 2.5, "orneklem_ve_sure": 1.5, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 7.5},
+      "dogrulama_durumu": "Kilo bulgulari arama ozetleriyle dogrulandi; -4.61/-5.42 kg degerlerinin 'kontrole gore' oldugu bilgisi bellekten, insulin/HOMA-IR sonuclari dogrulanmadi."
+    },
+    {
+      "id": "K8",
+      "atif": "Jamshed H, et al. Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med 2022;182(9):953-962.",
+      "url": "https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2794819",
+      "tur": "RKC, 90 obez yetiskin, 14 hafta; erken TRE (07:00-15:00) + enerji kisitlamasi vs >=12 saat pencere + enerji kisitlamasi",
+      "ana_bulgu": "eTRE ek -2.3 kg kilo kaybi (P=0.002) ve diyastolik KB'de iyilesme. Glukoz, insulin, HOMA-IR, HbA1c ve lipidlerde gruplar arasi anlamli fark YOK.",
+      "iddia_ile_iliski": "Iddia 1'i KISMEN destekleyen tek guclu RKC - ama 16:8 'ogle-aksam' degil erken pencere, kisa sure ve kalori alimi tam esitlenmemis. Iddia 2'yi CURUTUR (HOMA-IR farki yok).",
+      "puan": {"tasarim": 2.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 7.0},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K9",
+      "atif": "Sutton EF, et al. Early Time-Restricted Feeding Improves Insulin Sensitivity, Blood Pressure, and Oxidative Stress Even without Weight Loss in Men with Prediabetes. Cell Metab 2018;27(6):1212-1221.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29754952/",
+      "tur": "Randomize capraz gecisli kontrollu besleme, 8 prediyabetik erkek, 5'er hafta; 6 saatlik erken pencere (15:00'e kadar) vs 12 saat, es-kalorili",
+      "ana_bulgu": "Kilo kaybi olmadan aclik insulini -3.4 mU/L, ortalama/zirve insulin dususu, insulin duyarliligi ve beta hucre yanitinda iyilesme. Glukoz duzeyleri iyilesmedi.",
+      "iddia_ile_iliski": "Iddianin insulin kismini destekleyebilecek en guclu veri; ancak 16:8 degil (18:6 erken), n=8, sadece erkek, 5 hafta, 'tamamen duzelme' gostermiyor. Sonraki daha buyuk es-kalorili calismalar (K4, K5) tekrarlayamadi.",
+      "puan": {"tasarim": 1.5, "orneklem_ve_sure": 0.5, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1, "toplam": 5.0},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi."
+    },
+    {
+      "id": "K10",
+      "atif": "Effect of 8-Hour Time-Restricted Eating (16/8 TRE) on Glucose Metabolism and Lipid Profile in Adults: A Systematic Review and Meta-Analysis. Nutr Rev 2025/2026; doi:10.1093/nutrit/nuaf206.",
+      "url": "https://doi.org/10.1093/nutrit/nuaf206",
+      "tur": "Sistematik derleme ve meta-analiz (16:8'e ozgu)",
+      "ana_bulgu": "16:8 TRE kontrol diyetlerine gore aclik glukozu ve HOMA-IR'da hafif azalma (HOMA-IR SMD -0.16; 95% GA -0.29 ile -0.02); HbA1c'de az/hic fark yok (>6 ay calismalarda iyilesme).",
+      "iddia_ile_iliski": "Iddia 2'nin 'bir miktar iyilesme' kismini zayif destekler; 'tamamen duzeltir' kismini CURUTUR (cok kucuk etki). Kontrol gruplari cogunlukla es-kalorili degil, etki kilo kaybina bagli olabilir.",
+      "puan": {"tasarim": 3.5, "orneklem_ve_sure": 1.5, "dergi_ve_hakem": 1.5, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 8.0},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; yazarlar ve kesin kapsam (calisma sayisi) dogrulanmadi."
+    },
+    {
+      "id": "K11",
+      "atif": "Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr 2023. doi:10.1038/s41430-023-01311-w.",
+      "url": "https://www.nature.com/articles/s41430-023-01311-w",
+      "tur": "Meta-analiz (8 RKC, 579 katilimci)",
+      "ana_bulgu": "TRE+CR, yalniz CR'ye gore kucuk ek kilo kaybi (WMD -1.40 kg; 95% GA -1.81 ile -1.00) ama kan basinci, glukoz profili (HOMA-IR dahil) ve lipidlerde ek fayda yok.",
+      "iddia_ile_iliski": "Iddia 1 icin 'kucuk bir fark olabilir' sinyali (cok daha fazla degil); iddia 2'yi CURUTUR.",
+      "puan": {"tasarim": 3.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 1.5, "iddiaya_dogrudan_uygunluk": 1.5, "toplam": 7.5},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; tam metin okunmadi. Not: dergide bir duzeltme (correction) yayimlanmis."
+    },
+    {
+      "id": "K12",
+      "atif": "Effects of time-restricted eating on markers of glucose metabolism and regulation in individuals with prediabetes or type 2 diabetes: a systematic review and meta-analysis of randomised controlled trials. Diabetologia 2026. doi:10.1007/s00125-026-06792-5.",
+      "url": "https://link.springer.com/article/10.1007/s00125-026-06792-5",
+      "tur": "Sistematik derleme ve meta-analiz (prediyabet/T2D; ortalama sure 4 ay, 4-10 saat pencere)",
+      "ana_bulgu": "HbA1c'ye genel etki anlamli degil (-3.33 mmol/mol; 95% GA -6.87 ile 0.20; orta kesinlik); prediyabette kucuk HbA1c (-0.93 mmol/mol) ve aclik glukozunda azalma.",
+      "iddia_ile_iliski": "Glukoz metabolizmasinda kucuk/sinirda iyilesme; 'tamamen duzeltir' iddiasini CURUTUR.",
+      "puan": {"tasarim": 3.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1, "toplam": 7.5},
+      "dogrulama_durumu": "Arama ozetleri uzerinden; HOMA-IR sonucu dogrulanamadi."
+    },
+    {
+      "id": "K13",
+      "atif": "Pavlou V, et al. Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 2023;6(10):e2339337.",
+      "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2811116",
+      "tur": "RKC, obezite + T2D, 6 ay; 8 saat TRE (12-20, kalori sayimi yok) vs %25 CR vs kontrol",
+      "ana_bulgu": "HbA1c kontrole gore TRE'de -0.91%, CR'de -0.94% - yani iki yontem glisemi uzerinde benzer etkili. TRE kontrole gore daha fazla kilo kaybi.",
+      "iddia_ile_iliski": "Glisemik iyilesme TRE'ye ozgu degil, kalori kisitlamasiyla esdeger; iddia 2'nin 'klasik diyete gore' ustunluk kismini desteklemez.",
+      "puan": {"tasarim": 2.5, "orneklem_ve_sure": 1, "dergi_ve_hakem": 2, "iddiaya_dogrudan_uygunluk": 1, "toplam": 6.5},
+      "dogrulama_durumu": "HbA1c sayilari arama ozetinden; TRE vs CR kilo farkinin istatistiksel anlamliligi dogrulanamadi (arama ozeti celiskili)."
+    }
+  ]
+}
