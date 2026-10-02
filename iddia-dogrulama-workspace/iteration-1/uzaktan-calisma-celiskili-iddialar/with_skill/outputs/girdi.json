@@ -1,0 +1,176 @@
+{
+  "project": {
+    "title": "Uzaktan çalışma ve verimlilik — üç tarafın çelişkili iddiaları",
+    "question": "Bu şirkette haftalık uzaktan çalışma gün sayısı ile verimlilik puanı arasındaki ilişki nedir; Genel Müdür (düşürür), Çalışanlar (artırır) ve İK (ilişki yok) iddialarından hangisi kanıtlarla en uyumlu?",
+    "analyst": "Claude (iddia-dogrulama skill)",
+    "scope_notes": "Veri: calisan_verimlilik.csv (180 çalışan; departman, kidem_yil, haftalik_uzaktan_gun 0–5, verimlilik_puani). Kaynaklar: İK'nın gönderdiği 2 kaynak + karşı/ek kanıt araması. İddialar şirket popülasyonuna göre kapsamlandı; farklı popülasyonlardaki literatür bulguları bu yüzden 'moderate/weak' güçte, istatistik yerine bulgu yönüyle kodlandı. Öncelikler kanıta bakmadan, birbirini dışlayan üç ilişkisel durum (negatif/pozitif/yok) toplamı 1 olacak şekilde belirlendi. Kanıt eşleştirme kuralı (sonuçlar görülmeden belirlendi): ilişkisel iddialar (C3–C5) ham Pearson korelasyonuyla; nedensel iddialar (C1, C2) ve 'diğer koşullar sabitken' iddiası (C6) kıdem+departman kontrollü regresyon ve dış literatürle değerlendirildi. Dış literatür, şirket içi ham korelasyon hakkında bilgi vermediği için C3–C5'e uygulanmadı.",
+    "revisions": []
+  },
+  "settings": {},
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Genel Müdür: Uzaktan çalışma verimliliği (nedensel olarak) düşürür",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "negative",
+      "causal": true,
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.3,
+      "prior_rationale": "Literatür bağlama göre karışık (bazı deneylerde artış, bazılarında düşüş); nedensel iddia ilişkisel versiyondan (0.35) daha güçlü olduğu için biraz daha düşük önsel.",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "Genel Müdür"
+    },
+    {
+      "id": "C2",
+      "text": "Çalışanlar: Uzaktan çalışma verimliliği (nedensel olarak) artırır",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "positive",
+      "causal": true,
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.3,
+      "prior_rationale": "C1 ile simetrik: tartışmalı alan, nedensel iddia → 0.30.",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "Çalışanlar"
+    },
+    {
+      "id": "C3",
+      "text": "İK: Uzaktan çalışma ile verimlilik arasında hiçbir ilişki yoktur",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "none",
+      "causal": false,
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.3,
+      "prior_rationale": "Birbirini dışlayan üç ilişkisel durumdan biri (negatif 0.35 / pozitif 0.35 / yok 0.30); 'hiçbir ilişki' nokta iddiası olduğu için yönlü durumlardan biraz düşük.",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "İK"
+    },
+    {
+      "id": "C4",
+      "text": "(GM iddiasının ilişkisel hâli) Daha çok uzaktan çalışan çalışanların verimlilik puanı daha düşüktür",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "negative",
+      "causal": false,
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.35,
+      "prior_rationale": "Tarafsız başlangıç; üç ilişkisel durumun toplamı 1 olacak şekilde.",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "analist (rakip/ilişkisel versiyon)"
+    },
+    {
+      "id": "C5",
+      "text": "(Çalışanların iddiasının ilişkisel hâli) Daha çok uzaktan çalışan çalışanların verimlilik puanı daha yüksektir",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "positive",
+      "causal": false,
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.35,
+      "prior_rationale": "C4 ile simetrik.",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "analist (rakip/ilişkisel versiyon)"
+    },
+    {
+      "id": "C6",
+      "text": "(İK iddiasının 'diğer koşullar sabitken' yorumu) Kıdem ve departman sabitken uzaktan gün sayısı ile verimlilik arasında ilişki yoktur",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "relation": "none",
+      "causal": false,
+      "conditions": "kidem_yil ve departman sabitken",
+      "population": "Şirket çalışanları (n=180)",
+      "prior": 0.3,
+      "prior_rationale": "C3 ile aynı gerekçe (nokta-sıfır iddiası, üç durumdan biri).",
+      "prior_set_before_evidence": true,
+      "source_of_claim": "İK (yorum)"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "D1",
+      "kind": "data",
+      "cluster": "sirket_verisi",
+      "description": "pearson: haftalik_uzaktan_gun → verimlilik_puani",
+      "dataset": "calisan_verimlilik.csv",
+      "test": "pearson",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "n": 180,
+      "n_total_rows": 180,
+      "missing_frac": 0.0,
+      "experimental": false,
+      "data_quality_notes": "Şirket içi kesitsel veri; verimlilik puanının nasıl ölçüldüğü (yönetici değerlendirmesi mi, nesnel çıktı mı) bilinmiyor.",
+      "stats": {
+        "r": 0.440058,
+        "t": 6.5382,
+        "df": 178,
+        "p_two_sided": 6.36271e-10,
+        "r_equivalent": 0.440058,
+        "r_ci95": [
+          0.314,
+          0.5509
+        ],
+        "effect_size_label": "orta (0.3–0.5)",
+        "effect_sign": 1,
+        "log10_bf10": 7.28528,
+        "bf10": 19287700.0
+      },
+      "claim_ids": [
+        "C3",
+        "C4",
+        "C5"
+      ]
+    },
+    {
+      "id": "D2",
+      "kind": "data",
+      "cluster": "sirket_verisi",
+      "description": "regression: haftalik_uzaktan_gun → verimlilik_puani; kontroller: kidem_yil, departman",
+      "dataset": "calisan_verimlilik.csv",
+      "test": "regression",
+      "x": "haftalik_uzaktan_gun",
+      "y": "verimlilik_puani",
+      "n": 180,
+      "n_total_rows": 180,
+      "missing_frac": 0.0,
+      "experimental": false,
+      "data_quality_notes": "Kıdem ve departman kontrollü OLS; ölçülmemiş karıştırıcılar ve ters nedensellik (verimli/kıdemli çalışana uzaktan izin verilmesi) dışlanamaz.",
+      "stats": {
+        "coef": -0.657097,
+        "se": 0.586659,
+        "partial_r": -0.0846076,
+        "controls": [
+          "kidem_yil",
+          "departman"
+        ],
+        "dummy_coded": {
+          "departman": [
+            "finans",
+            "satis",
+            "yazilim"
+          ]
+        },
+        "t": -1.12007,
+        "df": 174,
+        "p_two_sided": 0.264229,
+        "r_equivalent": -0.0846076,
+        "r_ci95": [
+          -0.228,
+          0.0624
+        ],
+        "effect_size_label": "önemsiz (<0.1)",
+        "effect_sign": -1,
+        "log10_bf10": -0.846832,
+        "bf10": 0.142288
+      },
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C6"
+      ]
+    }
+  ]
+}
