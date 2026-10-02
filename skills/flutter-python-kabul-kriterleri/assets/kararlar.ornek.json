@@ -1,0 +1,60 @@
+{
+  "aciklama": "Her teknik karar (paket, mimari, davranış, değer) burada kaynağıyla kayıtlıdır. Kaynağı kullanıcı olmayan karar = varsayım (D1). Kod yazarken yeni bir karar gerekirse önce sor, sonra buraya ekle.",
+  "kararlar": [
+    {
+      "id": "K-01",
+      "konu": "State management",
+      "karar": "Riverpod (flutter_riverpod)",
+      "kaynak": "kullanici:S10",
+      "paketler": [
+        "flutter_riverpod"
+      ]
+    },
+    {
+      "id": "K-02",
+      "konu": "Yerel veritabanı",
+      "karar": "sqflite",
+      "kaynak": "kullanici:S8",
+      "paketler": [
+        "sqflite",
+        "path"
+      ]
+    },
+    {
+      "id": "K-03",
+      "konu": "flutter create şablon paketleri",
+      "karar": "cupertino_icons ve flutter_lints kalsın",
+      "kaynak": "öneri-onaylandı:S16",
+      "paketler": [
+        "cupertino_icons",
+        "flutter_lints"
+      ]
+    },
+    {
+      "id": "K-04",
+      "konu": "Çevrimdışı çıkarım paketi",
+      "karar": "tflite_flutter, CPU",
+      "kaynak": "öneri-onaylandı:S9",
+      "paketler": [
+        "tflite_flutter"
+      ]
+    },
+    {
+      "id": "K-05",
+      "konu": "Python test araçları",
+      "karar": "pytest + pytest-cov + ruff",
+      "kaynak": "kullanici:S20",
+      "paketler": [
+        "pytest",
+        "pytest-cov",
+        "ruff"
+      ]
+    },
+    {
+      "id": "K-06",
+      "konu": "Boş geçmiş ekranı",
+      "karar": "'Henüz kayıt yok' metni gösterilir",
+      "kaynak": "kullanici:S4"
+    }
+  ]
+}

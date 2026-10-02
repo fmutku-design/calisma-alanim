@@ -28,6 +28,15 @@ KATEGORILER = {
 }
 OPERATORLER = {"<=", ">=", "==", "<", ">"}
 BIRIMLER = {"ms", "sn", "MB", "KB", "%", "adet", "dp", "fps", "api_seviyesi", "oran", "evet_hayir"}
+KAYNAK_RE = re.compile(r"^(kullanici|öneri-onaylandı|öneri-bekliyor):\S+")
+
+# Claude'un davranış metrikleri. Kriter dosyasında olmasalar da her raporda zorunlu olarak yer alırlar
+# ve çıkarılamazlar. Değerleri scripts/denetim.py kontrol üretir.
+DAVRANIS_KRITERLERI = [
+    {"id": "D1", "metrik": "Kaynaksız karar (varsayım) sayısı", "operator": "==", "esik": 0, "birim": "adet"},
+    {"id": "D2", "metrik": "Onaysız yazılmış kod dosyası sayısı", "operator": "==", "esik": 0, "birim": "adet"},
+    {"id": "D3", "metrik": "Test dosyası olmayan fonksiyonel kriter sayısı", "operator": "==", "esik": 0, "birim": "adet"},
+]
 ZORUNLU_ALANLAR = ("id", "kategori", "metrik", "operator", "esik", "birim", "olcum_yontemi", "olcum_ortami", "kaynak")
 
 # Ölçüsüz, yoruma açık kelimeler. Kriter metninde geçerlerse kriter ölçülebilir değildir.
@@ -62,6 +71,10 @@ def dogrula(veri: dict) -> list[str]:
     onay = veri.get("onay")
     if not isinstance(onay, dict) or onay.get("durum") not in {"bekliyor", "onaylandi"}:
         hatalar.append("Üst seviye: 'onay.durum' 'bekliyor' veya 'onaylandi' olmalı.")
+        onay = {}
+    onaylandi = onay.get("durum") == "onaylandi"
+    if onaylandi and not (str(onay.get("kanit", "")).strip() and onay.get("tarih")):
+        hatalar.append("Üst seviye: 'onaylandi' için 'onay.kanit' (kullanıcının onay cümlesi, aynen) ve 'onay.tarih' zorunlu.")
     izinler = veri.get("izinli_android_izinleri")
     if izinler is not None and not (isinstance(izinler, list) and all(isinstance(i, str) for i in izinler)):
         hatalar.append("Üst seviye: 'izinli_android_izinleri' metin listesi olmalı.")
@@ -77,6 +90,16 @@ def dogrula(veri: dict) -> list[str]:
         for alan in ZORUNLU_ALANLAR:
             if alan not in k or k[alan] in (None, ""):
                 hatalar.append(f"{etiket}: '{alan}' alanı eksik veya boş.")
+        kaynak = str(k.get("kaynak") or "")
+        if kaynak and not KAYNAK_RE.match(kaynak):
+            hatalar.append(
+                f"{etiket}: kaynak '{kaynak}' geçersiz. 'kullanici:S3', 'öneri-onaylandı:S7' veya "
+                "'öneri-bekliyor:S7' olmalı. Kaynağı olmayan değer varsayımdır."
+            )
+        if onaylandi and kaynak.startswith("öneri-bekliyor"):
+            hatalar.append(f"{etiket}: dosya onaylandı ama kaynak hâlâ 'öneri-bekliyor'. Kullanıcı bu öneriyi onaylamadı.")
+        if str(k.get("id", "")).startswith("D"):
+            hatalar.append(f"{etiket}: 'D' önekli id'ler davranış metriklerine ayrılmıştır, başka harf kullan.")
         if k.get("id") in gorulen:
             hatalar.append(f"{etiket}: id tekrar ediyor.")
         gorulen.add(k.get("id"))
@@ -190,13 +213,31 @@ def rapor(veri: dict, olcumler: dict) -> tuple[str, bool]:
             f"| {k['id']} | {_hucre(k['metrik'])} | {hedef} | {olculen} | **{sonuc}** | {_hucre(aciklama)} |"
         )
 
+    satirlar += [
+        "",
+        "Davranış metrikleri (Claude — zorunlu, denetim.py kontrol):",
+        "",
+        "| ID | Metrik | Hedef | Ölçülen | Sonuç | Kanıt / Sebep |",
+        "|---|---|---|---|---|---|",
+    ]
+    for k in DAVRANIS_KRITERLERI:
+        kayit = olcumler.get(k["id"])
+        hedef = f"{k['operator']} {k['esik']} {k['birim']}"
+        if not isinstance(kayit, dict) or not sayi_mi(kayit.get("deger")):
+            sonuc, olculen, aciklama = "ÖLÇÜLEMEDİ", "—", "denetim.py kontrol çalıştırılmadı."
+        else:
+            sonuc = "GEÇTİ" if karsilastir(kayit["deger"], k["operator"], k["esik"]) else "KALDI"
+            olculen, aciklama = f"{kayit['deger']} {k['birim']}", kayit.get("kanit", "")
+        sayac[sonuc] += 1
+        satirlar.append(f"| {k['id']} | {k['metrik']} | {hedef} | {olculen} | **{sonuc}** | {_hucre(aciklama)} |")
+
     toplam = sum(sayac.values())
     hepsi_gecti = sayac["GEÇTİ"] == toplam and toplam > 0
     ozet = (
         f"\nToplam {toplam} kriter: {sayac['GEÇTİ']} GEÇTİ, {sayac['KALDI']} KALDI, "
         f"{sayac['ÖLÇÜLEMEDİ']} ÖLÇÜLEMEDİ.\n"
-        + ("SONUÇ: Tüm kabul kriterleri karşılandı." if hepsi_gecti
-           else "SONUÇ: İş tamamlanmadı — KALDI ve ÖLÇÜLEMEDİ satırları kapanmadan 'bitti' denemez.")
+        + ("DURUM: TAMAM — tüm kabul kriterleri ve davranış metrikleri karşılandı." if hepsi_gecti
+           else "DURUM: TAMAM DEĞİL — KALDI ve ÖLÇÜLEMEDİ satırları kapanmadan iş bitmiş sayılmaz.")
     )
     return "\n".join(satirlar) + "\n" + ozet, hepsi_gecti
 

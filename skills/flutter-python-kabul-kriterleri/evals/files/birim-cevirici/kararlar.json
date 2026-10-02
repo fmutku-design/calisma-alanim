@@ -1,0 +1,11 @@
+{
+  "kararlar": [
+    {"id": "K-01", "konu": "State management", "karar": "setState (tek ekran)", "kaynak": "kullanici:S4"},
+    {"id": "K-02", "konu": "Veri kaynağı", "karar": "Python script data/birimler.csv'den assets/birimler.json üretir; uygulama yalnızca bu asset'i okur, veritabanı yok", "kaynak": "kullanici:S2"},
+    {"id": "K-03", "konu": "Lint seti", "karar": "flutter_lints", "kaynak": "öneri-onaylandı:S9", "paketler": ["flutter_lints"]},
+    {"id": "K-04", "konu": "Python test ve lint araçları", "karar": "pytest, pytest-cov, ruff (requirements-dev.txt)", "kaynak": "kullanici:S11", "paketler": ["pytest", "pytest-cov", "ruff"]},
+    {"id": "K-05", "konu": "Ters dönüşüm", "karar": "m → km gibi ters yön, çarpanın tersiyle hesaplanır (1/çarpan)", "kaynak": "kullanici:S3"},
+    {"id": "K-06", "konu": "Geçersiz girdi", "karar": "Sayı olmayan girdide sonuç alanında 'Geçerli bir sayı girin' yazar", "kaynak": "kullanici:S5"},
+    {"id": "K-07", "konu": "Uygulama kimliği", "karar": "applicationId com.ornek.birimcevirici, ad 'Birim Çevirici'", "kaynak": "kullanici:S12"}
+  ]
+}

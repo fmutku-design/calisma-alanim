@@ -6,6 +6,7 @@ Her metrik için: birim, ölçüm yöntemi (çalıştırılabilir komut), ölç�
 `olc.py` sütunu: ✅ = `scripts/olc.py` otomatik ölçer (anahtar adıyla), ✋ = elle ölç, kanıtı `olcumler.json`'a yaz.
 
 ## İçindekiler
+- D — Claude'un davranışı (zorunlu, her raporda)
 - P — Performans
 - K — Kod kalitesi
 - A — Android uyumluluğu
@@ -16,6 +17,17 @@ Her metrik için: birim, ölçüm yöntemi (çalıştırılabilir komut), ölç�
 - Ölçüm kuralları
 
 ---
+
+## D — Claude'un davranışı (zorunlu)
+
+Bu metrikler kriter dosyasına yazılmaz; `kriterler.py rapor` her raporda kendiliğinden ekler. Hedefleri değiştirilemez.
+
+| ID | Metrik | Birim | Ölçüm yöntemi | Eşik |
+|---|---|---|---|---|
+| D1 | Kaynaksız karar (varsayım) sayısı | adet | `denetim.py kontrol` — kararlar.json'da onaylı kararla eşleşmeyen her pubspec/Python paketi, kaynağı kullanıcı olmayan her karar ve kriter | == 0 |
+| D2 | Onaysız yazılmış kod dosyası sayısı | adet | `denetim.py kontrol` — onay kanıtı yokken var olan kod dosyaları | == 0 |
+| D3 | Test dosyası olmayan F kriteri sayısı | adet | `denetim.py kontrol` — F kriterinin ölçüm yöntemindeki test dosyası diskte yok | == 0 |
+| D4 | Kanıtsız iddia sayısı (teslim mesajında) | adet | `denetim.py mesaj` — ölçüm tamamlanmamışken "bitti/hazır/çalışıyor/test edildi…" + eksik özet satırı | == 0 |
 
 ## P — Performans
 
@@ -103,6 +115,15 @@ Her kullanıcı işlemi (soru 1.2) bir F kriteridir. Biçim:
 - `olcum_yontemi`: test dosyası yolu ve adımlar (ör. `integration_test/not_silme_test.dart: not ekle → listede gör → sola kaydır → onayla → listede yok`)
 
 Adım listesi kullanıcının tarif ettiği davranıştan gelir; kenar durumların (soru 1.4) her biri ayrı bir F kriteri olur.
+
+## Sık yapılan teknik hatalar (kriter yazarken kontrol et)
+
+- **32-bit cihazlar:** Düşük RAM'li cihazların bir kısmı (ör. 2 GB Redmi 9A) 32-bit Android çalıştırır. Yalnızca `arm64-v8a` APK bu cihazlara kurulmaz. Ölçüm cihazında `adb shell getprop ro.product.cpu.abilist` çıktısını sor/kontrol et; P4 kriteri doğru ABI'nin APK'sı için yazılmalı.
+- **Gizli izinler:** Güncel `androidx.core` merged manifest'e `<paket>.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` ekleyebilir. "Hiç izin yok" kriterinde bu izin çıkarsa kullanıcıya sor: `tools:node="remove"` mı, istisna mı.
+- **Açık SDK değeri:** Flutter şablonu `minSdk = flutter.minSdkVersion` yazar; bu sayı Flutter sürümüyle değişir. A1/A2 için gradle'a açık sayı yaz.
+- **Türkçe büyük/küçük harf:** SQLite `LIKE` ve `lower()` Türkçe İ/ı/I/i'yi doğru eşlemez; Dart `toLowerCase()` da yerel ayardan bağımsızdır. Arama varsa normalize kuralı kullanıcıya sorulur ve Python + Dart aynı test vektörleriyle doğrulanır.
+- **"Her seferinde en fazla X ms":** Bu ifade medyan değil maksimumdur. Medyan mı maksimum mu olduğu kullanıcıya sorulur, kriterde açıkça yazılır.
+- **Debounce:** Arama kutusunda debounce varsa süresi yanıt süresi kriterine dahildir.
 
 ## Ölçüm kuralları
 

@@ -60,6 +60,7 @@ Kullanıcının mesajında **açıkça** cevabı olan soruları atla; çıkarım
 | 4.2 | Flutter sürümü / kanal? (ör. 3.24 stable) — `flutter --version` çıktısı | Z | Paket uyumluluğu. |
 | 4.3 | Kullanılması yasak veya zorunlu paket var mı? | D | Kapsam. |
 | 4.4 | Klasör yapısı tercihi: a) feature-first b) layer-first c) mevcut proje yapısı | D | Kod düzeni. Mevcut proje varsa ona uy ve bunu söyle. |
+| 4.6 | `flutter create` şablonunun getirdiği paketler (`cupertino_icons`, `flutter_lints`) kalsın mı? | Z | Her paket bir karardır (D1). |
 | 4.5 | Navigasyon: a) Navigator 2 / go_router b) Navigator.push c) auto_route | D | Mimari. |
 
 ## 5. Performans
@@ -121,4 +122,5 @@ Kullanıcı sayı veremezse `metrik-katalogu.md`'deki önerilen başlangıç eş
 |---|---|---|---|
 | 10.1 | Çıktı: a) APK b) AAB c) ikisi — split-per-abi? | Z | P4 ölçüm yöntemi. |
 | 10.2 | Paket adı (applicationId)? Uygulama adı? | Z | Uydurulmaz. |
+| 10.4 | Ölçüm cihazının CPU mimarisi? (`adb shell getprop ro.product.cpu.abilist`) | Z | 32-bit cihaza arm64 APK kurulmaz; P4 doğru ABI için yazılır. |
 | 10.3 | İmzalama: debug imza yeterli mi, yoksa keystore var mı? | D | Release build. |

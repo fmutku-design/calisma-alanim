@@ -5,7 +5,8 @@
   "onay": {
     "durum": "bekliyor",
     "tarih": null,
-    "not": "Kullanıcı 'onaylıyorum' yazınca durum 'onaylandi' ve tarih doldurulur."
+    "kanit": "",
+    "not": "Kullanıcı onay verince: durum 'onaylandi', tarih (YYYY-AA-GG) ve kanit = kullanıcının onay cümlesi aynen. Kanıtsız onay geçersizdir."
   },
   "izinli_android_izinleri": [
     "android.permission.CAMERA"

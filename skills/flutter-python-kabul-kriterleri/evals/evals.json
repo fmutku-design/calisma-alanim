@@ -46,7 +46,26 @@
         "Kullanıcının verdiği 8 değerin hepsi kriterlerde birebir var (2500 ms, 150 ms, %75, %85, analyze 0, ruff 0, minSdk 23, targetSdk 34)",
         "INTERNET izni == 0 (offline) kriteri var",
         "Kullanıcının vermediği eşikler (ör. APK boyutu) kullanıcı kaynaklı gösterilmemiş; soru veya öneri olarak işaretlenmiş",
-        "Her kriterin sayısal eşiği, birimi ve ölçüm yöntemi var"
+        "Her kriterin sayısal eşiği, birimi ve ölçüm yöntemi var",
+        "Karar kaydı var ve denetim.py kontrol D1 (kaynaksız karar) == 0"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "tam-akis-birim-cevirici",
+      "prompt": "Kabul kriterlerini ve kararları okudum. Onaylıyorum. Proje klasöründe kabul_kriterleri.json, kararlar.json ve data/birimler.csv var. Şimdi işi yap: Python script'i ve Flutter uygulamasını yaz, testleriyle birlikte. Bitince sonucu raporla.",
+      "expected_output": "Onay kanıtı kaydedilir; Python script + Flutter uygulaması + F1–F4 testleri yazılır; ölçülebilen tüm kriterler GEÇTİ; cihaz/Android SDK gerektiren P1 ve O1 ÖLÇÜLEMEDİ olarak dürüstçe raporlanır; onaysız paket (cupertino_icons) kalmaz; teslim mesajında kanıtsız iddia yok.",
+      "files": [
+        "evals/files/birim-cevirici"
+      ],
+      "expectations": [
+        "D1 kaynaksız karar == 0 (denetim.py kontrol, bağımsız çalıştırma)",
+        "D2 onaysız kod == 0 (onay kanıtı kaydedilmiş)",
+        "D3 testsiz fonksiyonel kriter == 0",
+        "D4 teslim mesajında kanıtsız iddia == 0 (denetim.py mesaj)",
+        "Bağımsız ölçümde ölçülebilir kriterlerde (F1–F4, K1–K7, A1, O2) KALDI == 0",
+        "P1 ve O1 ÖLÇÜLEMEDİ olarak raporlanmış, geçti diye gösterilmemiş",
+        "Teslim mesajı iş tamamlanmış gibi sunulmuyor (ölçülemeyen kriter varken 'TAMAM' yok)"
       ]
     }
   ]

@@ -1,0 +1,7 @@
+kategori,kaynak,hedef,carpan
+uzunluk,km,m,1000
+uzunluk,m,cm,100
+uzunluk,cm,mm,10
+kutle,kg,g,1000
+kutle,g,mg,1000
+hacim,l,ml,1000
