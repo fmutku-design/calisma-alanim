@@ -1,0 +1,53 @@
+{
+  "skill_name": "flutter-python-kabul-kriterleri",
+  "evals": [
+    {
+      "id": 1,
+      "name": "belirsiz-harcama-uygulamasi",
+      "prompt": "flutter ile internetsiz çalışan bir harcama takip uygulaması yapmak istiyorum. harcamaları kategoriye göre girip aylık toplamı göreyim. hemen başlayabilir misin",
+      "expected_output": "Kod yazmadan, numaralı ve seçenekli sorularla eksik bilgileri (minSdk, state management, veritabanı, ekranlar, performans eşikleri vb.) soran bir yanıt.",
+      "files": [],
+      "expectations": [
+        "Kod dosyası oluşturulmadı (outputs altında .dart, .py, .gradle, .kts veya pubspec.yaml yok)",
+        "Yanıt, uygulamaya geçmeden önce kullanıcıdan açık cevap/onay bekliyor",
+        "En az 8 numaralı soru soruluyor",
+        "State management seçimi kullanıcıya soruluyor (kendi başına seçilmemiş)",
+        "Yerel veritabanı/depolama seçimi kullanıcıya soruluyor (kendi başına seçilmemiş)",
+        "minSdk soruluyor",
+        "En az bir performans metriği için sayısal eşik (ms veya MB) soruluyor"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "kismi-tflite-bitki-tanima",
+      "prompt": "Python'da eğittiğim bir TFLite modeli var (assets/bitki.tflite, 9 MB, 224x224 RGB girdi, 30 sınıf). Flutter'da kameradan foto çekip offline sınıflandıran bir Android uygulaması istiyorum. minSdk 24, state management Riverpod, sadece Türkçe arayüz. Ekranlar: kamera, sonuç, geçmiş. Geçmiş sqflite'ta tutulsun. Başlayalım.",
+      "expected_output": "Kullanıcının verdiği bilgileri (minSdk 24, Riverpod, sqflite, 3 ekran, Türkçe) tekrar sormayan; kalan eksikleri (doğruluk hedefi, test seti, çıkarım süresi, APK boyutu, cihaz, izinler, kapsam vb.) soran, kod yazmayan yanıt.",
+      "files": [],
+      "expectations": [
+        "Kod dosyası oluşturulmadı (outputs altında .dart, .py, .gradle, .kts veya pubspec.yaml yok)",
+        "Yanıt, uygulamaya geçmeden önce kullanıcıdan açık cevap/onay bekliyor",
+        "Kullanıcının verdiği minSdk 24, Riverpod ve sqflite tekrar sorulmuyor",
+        "Model doğruluk hedefi veya test seti soruluyor",
+        "Cihazda çıkarım süresi için sayısal eşik soruluyor",
+        "APK boyutu sınırı soruluyor",
+        "Kamera izni / Android izin listesi ele alınıyor"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "detayli-sozluk-kriter-cikar",
+      "prompt": "Offline İngilizce-Türkçe sözlük uygulaması yapacağız. Python scripti (tools/sozluk_olustur.py) bir CSV'den (data/sozluk.csv, yaklaşık 50.000 satır, sütunlar: ingilizce,turkce,tur) SQLite veritabanı üretecek, bu db asset olarak uygulamaya girecek. Script geliştirici makinesinde çalışır, Python 3.11. Flutter tarafı: arama ekranı (yazdıkça öneri), kelime detay ekranı, favoriler ekranı. State: Bloc. DB: sqflite. minSdk 23, targetSdk 34. Sadece dikey. Arayüz dilleri: tr ve en. Ölçüm cihazı: Redmi 9A (2 GB RAM, Android 10) ve emülatör API 34. Soğuk açılış en fazla 2500 ms, arama sonucu her tuş vuruşunda en fazla 150 ms, Dart test kapsamı en az %75, Python kapsamı en az %85, flutter analyze 0 bulgu, ruff 0 bulgu. Hiç izin yok, internet yok. Bu bilgilerle kabul kriterlerini çıkar, kodu sonra yazacağız.",
+      "expected_output": "Verilen tüm değerleri birebir kullanan, geçerli bir kabul_kriterleri.json; verilmeyen değerleri (APK boyutu, jank, erişilebilirlik, script süresi vb.) sessizce uydurmayıp soru/öneri olarak işaretleyen ve onay isteyen yanıt.",
+      "files": [],
+      "expectations": [
+        "Kod dosyası oluşturulmadı (outputs altında .dart, .py, .gradle, .kts veya pubspec.yaml yok)",
+        "Yanıt, uygulamaya geçmeden önce kullanıcıdan açık cevap/onay bekliyor",
+        "kabul_kriterleri.json oluşturulmuş ve kriterler.py dogrula'dan geçiyor",
+        "Kullanıcının verdiği 8 değerin hepsi kriterlerde birebir var (2500 ms, 150 ms, %75, %85, analyze 0, ruff 0, minSdk 23, targetSdk 34)",
+        "INTERNET izni == 0 (offline) kriteri var",
+        "Kullanıcının vermediği eşikler (ör. APK boyutu) kullanıcı kaynaklı gösterilmemiş; soru veya öneri olarak işaretlenmiş",
+        "Her kriterin sayısal eşiği, birimi ve ölçüm yöntemi var"
+      ]
+    }
+  ]
+}

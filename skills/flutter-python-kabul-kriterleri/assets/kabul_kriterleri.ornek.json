@@ -1,0 +1,165 @@
+{
+  "proje": "Offline Bitki Tanıma",
+  "paket_adi": "com.ornek.bitkitanima",
+  "surum": 1,
+  "onay": {
+    "durum": "bekliyor",
+    "tarih": null,
+    "not": "Kullanıcı 'onaylıyorum' yazınca durum 'onaylandi' ve tarih doldurulur."
+  },
+  "izinli_android_izinleri": [
+    "android.permission.CAMERA"
+  ],
+  "kriterler": [
+    {
+      "id": "F1",
+      "kategori": "fonksiyonel",
+      "metrik": "Kameradan fotoğraf çek → sınıflandır → sonuç ekranında bitki adı ve güven yüzdesi görünür senaryosu integration testi başarılı mı",
+      "operator": "==",
+      "esik": 1,
+      "birim": "evet_hayir",
+      "olcum_yontemi": "integration_test/siniflandirma_test.dart: test görseli ile kamera mock → 'Sınıflandır' butonu → sonuç ekranında Text(bitki adı) ve Text('%xx') bulunur",
+      "olcum_ortami": "Pixel 4a emülatör, API 30",
+      "kaynak": "kullanici:S2"
+    },
+    {
+      "id": "P1",
+      "kategori": "performans",
+      "metrik": "Soğuk açılış süresi (5 ölçümün medyanı)",
+      "operator": "<=",
+      "esik": 2000,
+      "birim": "ms",
+      "olcum_yontemi": "adb shell am force-stop com.ornek.bitkitanima && adb shell am start -W -n com.ornek.bitkitanima/.MainActivity → TotalTime; 5 kez, medyan",
+      "olcum_ortami": "Samsung Galaxy A12 (3 GB RAM, Android 11), --release",
+      "kaynak": "öneri-onaylandı:S7"
+    },
+    {
+      "id": "P4",
+      "kategori": "performans",
+      "metrik": "APK boyutu (arm64-v8a, release)",
+      "operator": "<=",
+      "esik": 35,
+      "birim": "MB",
+      "olcum_yontemi": "flutter build apk --release --split-per-abi → app-arm64-v8a-release.apk boyutu / 1048576",
+      "olcum_ortami": "Geliştirici makinesi, release build",
+      "kaynak": "kullanici:S9",
+      "olc_anahtari": "apk_boyutu_mb"
+    },
+    {
+      "id": "P6",
+      "kategori": "performans",
+      "metrik": "Tek görsel model çıkarım süresi (20 tekrarın medyanı)",
+      "operator": "<=",
+      "esik": 300,
+      "birim": "ms",
+      "olcum_yontemi": "integration_test/cikarim_suresi_test.dart: Stopwatch ile 20 çıkarım, medyan print('P6=...')",
+      "olcum_ortami": "Samsung Galaxy A12, --profile",
+      "kaynak": "kullanici:S14"
+    },
+    {
+      "id": "K1",
+      "kategori": "kod_kalitesi",
+      "metrik": "flutter analyze bulgu sayısı (info dahil)",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "flutter analyze",
+      "olcum_ortami": "Geliştirici makinesi",
+      "kaynak": "kullanici:S10",
+      "olc_anahtari": "flutter_analyze_bulgu"
+    },
+    {
+      "id": "K3",
+      "kategori": "kod_kalitesi",
+      "metrik": "Dart satır kapsamı (üretilmiş dosyalar hariç)",
+      "operator": ">=",
+      "esik": 70,
+      "birim": "%",
+      "olcum_yontemi": "flutter test --coverage → coverage/lcov.info LH/LF",
+      "olcum_ortami": "Geliştirici makinesi",
+      "kaynak": "kullanici:S11",
+      "olc_anahtari": "dart_kapsam_yuzde"
+    },
+    {
+      "id": "A1",
+      "kategori": "android",
+      "metrik": "minSdk değeri",
+      "operator": "==",
+      "esik": 24,
+      "birim": "api_seviyesi",
+      "olcum_yontemi": "android/app/build.gradle.kts → minSdk",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S3",
+      "olc_anahtari": "min_sdk"
+    },
+    {
+      "id": "A4",
+      "kategori": "android",
+      "metrik": "izinli_android_izinleri dışında kalan izin sayısı (release manifest)",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "Release build sonrası birleştirilmiş AndroidManifest.xml uses-permission listesi − izinli liste",
+      "olcum_ortami": "Release build",
+      "kaynak": "kullanici:S6",
+      "olc_anahtari": "fazla_izin_sayisi"
+    },
+    {
+      "id": "O1",
+      "kategori": "offline",
+      "metrik": "Release manifestte android.permission.INTERNET sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "Release build sonrası birleştirilmiş AndroidManifest.xml",
+      "olcum_ortami": "Release build",
+      "kaynak": "kullanici:S5",
+      "olc_anahtari": "internet_izni_sayisi"
+    },
+    {
+      "id": "O3",
+      "kategori": "offline",
+      "metrik": "Uçak modunda başarısız integration test sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "adb shell cmd connectivity airplane-mode enable → flutter test integration_test → airplane-mode disable",
+      "olcum_ortami": "Pixel 4a emülatör, API 30",
+      "kaynak": "kullanici:S5"
+    },
+    {
+      "id": "U1",
+      "kategori": "ui_erisilebilirlik",
+      "metrik": "androidTapTargetGuideline (48x48 dp) testini geçemeyen ekran sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "test/erisilebilirlik_test.dart: her ekran için meetsGuideline(androidTapTargetGuideline)",
+      "olcum_ortami": "flutter test",
+      "kaynak": "kullanici:S16"
+    },
+    {
+      "id": "M1",
+      "kategori": "ml_veri",
+      "metrik": "Ayrılmış test setinde (1.200 görsel, 30 sınıf) top-1 doğruluk",
+      "operator": ">=",
+      "esik": 85,
+      "birim": "%",
+      "olcum_yontemi": "python ml/degerlendir.py --model model.tflite --veri data/test → 'M1=<değer>'",
+      "olcum_ortami": "Geliştirici makinesi, Python 3.11",
+      "kaynak": "kullanici:S13"
+    },
+    {
+      "id": "M2",
+      "kategori": "ml_veri",
+      "metrik": "model.tflite dosya boyutu",
+      "operator": "<=",
+      "esik": 15,
+      "birim": "MB",
+      "olcum_yontemi": "os.path.getsize('assets/model.tflite') / 1048576",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S12",
+      "olc_anahtari": "model_boyutu_mb"
+    }
+  ]
+}
