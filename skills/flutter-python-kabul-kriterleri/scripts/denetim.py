@@ -27,6 +27,7 @@ import tomllib
 from pathlib import Path
 
 GECERLI_KAYNAK = re.compile(r"^(kullanici|öneri-onaylandı):\S+")
+BEKLEYEN_DAHIL = re.compile(r"^(kullanici|öneri-onaylandı|öneri-bekliyor):\S+")
 # Flutter SDK'nın parçası olan, ayrı bir seçim olmayan bağımlılıklar.
 SDK_PAKETLERI = {"flutter", "flutter_test", "flutter_localizations", "integration_test", "flutter_driver", "flutter_web_plugins"}
 TEST_YOLU_RE = re.compile(r"((?:integration_test|test)/[\w/.-]+_test\.dart|[\w/.-]*test_[\w.-]+\.py|[\w/.-]+_test\.py)")
@@ -110,12 +111,16 @@ def kod_dosyalari(proje: Path) -> list[Path]:
 
 def d1_kaynaksiz_karar(proje: Path, kriterler: dict, kararlar: dict) -> dict:
     bulgular: list[str] = []
+    # Onaydan önce 'öneri-bekliyor' açıkça sorulmuş bir sorudur, varsayım değildir.
+    # Onaydan sonra hâlâ 'öneri-bekliyor' kalmışsa kullanıcı onu onaylamamıştır → varsayım.
+    onaylandi = (kriterler or {}).get("onay", {}).get("durum") == "onaylandi"
+    gecerli = GECERLI_KAYNAK if onaylandi else BEKLEYEN_DAHIL
 
     karar_listesi = kararlar.get("kararlar", []) if kararlar else []
     onayli_paketler: set[str] = set()
     for k in karar_listesi:
         kaynak = str(k.get("kaynak", ""))
-        if not GECERLI_KAYNAK.match(kaynak):
+        if not gecerli.match(kaynak):
             bulgular.append(f"karar {k.get('id', '?')} ({k.get('konu', '?')}): kaynak '{kaynak}' kullanıcıdan değil")
             continue
         for paket in k.get("paketler", []):
@@ -130,13 +135,20 @@ def d1_kaynaksiz_karar(proje: Path, kriterler: dict, kararlar: dict) -> dict:
 
     if kriterler:
         for k in kriterler.get("kriterler", []):
-            if not GECERLI_KAYNAK.match(str(k.get("kaynak", ""))):
+            if not gecerli.match(str(k.get("kaynak", ""))):
                 bulgular.append(f"kriter {k.get('id')}: kaynak '{k.get('kaynak')}' kullanıcı onaylı değil")
 
     if not kararlar and kod_dosyalari(proje):
         bulgular.append("kararlar.json yok ama kod var — verilen hiçbir kararın kaynağı kayıtlı değil")
 
-    return olcum(len(bulgular), "; ".join(bulgular) if bulgular else "Tüm paketler, kararlar ve kriterler kullanıcı kaynaklı.")
+    bekleyen = sum(
+        1 for x in [*karar_listesi, *(kriterler or {}).get("kriterler", [])]
+        if str(x.get("kaynak", "")).startswith("öneri-bekliyor")
+    )
+    temiz = "Tüm paketler, kararlar ve kriterler kullanıcı kaynaklı."
+    if bekleyen:
+        temiz += f" {bekleyen} öneri kullanıcı cevabı bekliyor (onaydan önce kapanmalı)."
+    return olcum(len(bulgular), "; ".join(bulgular) if bulgular else temiz)
 
 
 def d2_onaysiz_kod(proje: Path, kriterler: dict) -> dict:
@@ -150,6 +162,8 @@ def d2_onaysiz_kod(proje: Path, kriterler: dict) -> dict:
 
 
 def d3_testsiz_ozellik(proje: Path, kriterler: dict) -> dict:
+    if not kod_dosyalari(proje):
+        return olcum(0, "Henüz kod yok; testler kodla birlikte yazılır.")
     bulgular = []
     for k in (kriterler or {}).get("kriterler", []):
         if k.get("kategori") != "fonksiyonel":
