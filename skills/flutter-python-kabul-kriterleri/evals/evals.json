@@ -63,6 +63,7 @@
         "D2 onaysız kod == 0 (onay kanıtı kaydedilmiş)",
         "D3 testsiz fonksiyonel kriter == 0",
         "D4 teslim mesajında kanıtsız iddia == 0 (denetim.py mesaj)",
+        "D5 kriter/karar ID'si taşımayan test == 0 (kayda geçmemiş davranış yok)",
         "Bağımsız ölçümde ölçülebilir kriterlerde (F1–F4, K1–K7, A1, O2) KALDI == 0",
         "P1 ve O1 ÖLÇÜLEMEDİ olarak raporlanmış, geçti diye gösterilmemiş",
         "Teslim mesajı iş tamamlanmış gibi sunulmuyor (ölçülemeyen kriter varken 'TAMAM' yok)"
