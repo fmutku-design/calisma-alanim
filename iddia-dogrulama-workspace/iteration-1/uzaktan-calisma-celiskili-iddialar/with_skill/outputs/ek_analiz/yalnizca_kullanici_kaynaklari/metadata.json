@@ -1,14 +1,12 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-02T17:10:58",
+  "generated_at": "2026-10-02T17:10:31",
   "project": {
-    "title": "Uzaktan çalışma ve verimlilik — üç tarafın çelişkili iddiaları",
+    "title": "Uzaktan çalışma ve verimlilik — üç tarafın çelişkili iddiaları — DUYARLILIK: yalnızca şirket verisi + İK'nın 2 kaynağı",
     "question": "Bu şirkette haftalık uzaktan çalışma gün sayısı ile verimlilik puanı arasındaki ilişki nedir; Genel Müdür (düşürür), Çalışanlar (artırır) ve İK (ilişki yok) iddialarından hangisi kanıtlarla en uyumlu?",
     "analyst": "Claude (iddia-dogrulama skill)",
-    "scope_notes": "Veri: calisan_verimlilik.csv (180 çalışan; departman, kidem_yil, haftalik_uzaktan_gun 0–5, verimlilik_puani). Kaynaklar: İK'nın gönderdiği 2 kaynak + karşı/ek kanıt araması. İddialar şirket popülasyonuna göre kapsamlandı; farklı popülasyonlardaki literatür bulguları bu yüzden 'moderate/weak' güçte, istatistik yerine bulgu yönüyle kodlandı. Öncelikler kanıta bakmadan, birbirini dışlayan üç ilişkisel durum (negatif/pozitif/yok) toplamı 1 olacak şekilde belirlendi. Kanıt eşleştirme kuralı (sonuçlar görülmeden belirlendi): ilişkisel iddialar (C3–C5) ham Pearson korelasyonuyla; nedensel iddialar (C1, C2) ve 'diğer koşullar sabitken' iddiası (C6) kıdem+departman kontrollü regresyon ve dış literatürle değerlendirildi. Dış literatür, şirket içi ham korelasyon hakkında bilgi vermediği için C3–C5'e uygulanmadı. Mang & Anwar (2026, ILR Review) meta-analizi (82 çalışma, 3.574 tahmin; 'küçük pozitif, bağlama bağlı etki') bulundu ama puanlamaya katılmadı: büyük olasılıkla S1/S3–S7'yi içeriyor (çift sayım riski) ve özeti/etki büyüklüğü erişim engeli nedeniyle okunamadı; raporda bağlam olarak anılıyor. Web sayfası okuma (WebFetch) ağ proxy'si tarafından engellendi; kaynak doğrulaması arama özetleriyle yapıldı, bu yüzden claim_matches_source=null (×0.7) uygulandı.",
-    "revisions": [
-      "İlk puanlamadan sonra ana girdide (önsel, Q, kodlama) değişiklik yapılmadı. Ek olarak, sonucun analistin eklediği literatüre bağımlılığını görmek için ayrı bir duyarlılık çalışması (ek_analiz/yalnizca_kullanici_kaynaklari/) ve C1–C2–C6 için göreli pay hesabı (ek_analiz/tutarlilik_normalizasyonu.json) üretildi."
-    ]
+    "scope_notes": "Ana analizden türetilmiş duyarlılık çalışması: analistin karşı/ek aramada bulduğu S3–S7 çıkarıldı; yalnızca D1, D2, S1 (Bloom 2015), S2 (haber). Amaç: sonucun eklenen literatüre ne kadar bağlı olduğunu görmek.",
+    "revisions": []
   },
   "settings": {
     "rho_within_cluster": 0.5,
@@ -27,12 +25,12 @@
   },
   "totals": {
     "n_claims": 6,
-    "n_evidence": 9,
+    "n_evidence": 4,
     "decisions": {
       "accept": 1,
       "conditional": 0,
-      "uncertain": 0,
-      "likely_false": 2,
+      "uncertain": 1,
+      "likely_false": 1,
       "reject": 3
     }
   },
@@ -52,31 +50,31 @@
       "prior": 0.3,
       "prior_rationale": "Literatür bağlama göre karışık (bazı deneylerde artış, bazılarında düşüş); nedensel iddia ilişkisel versiyondan (0.35) daha güçlü olduğu için biraz daha düşük önsel.",
       "scores": {
-        "spectrum_S": -0.186,
-        "spectrum_label": "Zayıf çelişki",
-        "posterior_P": 0.139,
-        "posterior_odds": 0.162,
-        "log10_bayes_factor_total": -0.424,
-        "bayes_factor_total": 0.377,
-        "decision_code": "likely_false",
-        "decision": "Büyük olasılıkla yanlış",
-        "consensus_C": 0.429,
-        "mean_quality_Q": 0.455,
+        "spectrum_S": -0.576,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.093,
+        "posterior_odds": 0.102,
+        "log10_bayes_factor_total": -0.623,
+        "bayes_factor_total": 0.238,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.843,
+        "mean_quality_Q": 0.36,
         "evidence_quality_grade": "Düşük",
-        "total_weight_W": 3.64,
-        "n_evidence": 8,
-        "n_active_evidence": 8,
-        "n_independent_clusters": 7,
-        "n_supporting": 4,
-        "n_contradicting": 4,
+        "total_weight_W": 1.081,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 3,
+        "n_supporting": 1,
+        "n_contradicting": 2,
         "n_neutral": 0,
-        "spectrum_vs_probability_gap": 0.536
+        "spectrum_vs_probability_gap": 0.238
       },
       "sensitivity": {
         "scenarios": 27,
-        "P_min": 0.049,
-        "P_max": 0.616,
-        "decision_robustness": 0.444,
+        "P_min": 0.056,
+        "P_max": 0.488,
+        "decision_robustness": 0.556,
         "grid": {
           "priors": [
             0.25,
@@ -96,10 +94,10 @@
         }
       },
       "value_of_information": {
-        "lr_needed_to_move_up": 2.652,
-        "next_band_up_at_P": 0.3,
-        "lr_needed_to_move_down": 0.688,
-        "next_band_down_at_P": 0.1
+        "lr_needed_to_move_up": 1.088,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
       },
       "dominant_evidence": null,
       "clusters": {
@@ -109,41 +107,17 @@
           "log10_lr": -0.292
         },
         "bloom_liang_ekibi": {
-          "k": 2,
-          "k_effective": 1.333,
-          "log10_lr": -0.506
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.341
         },
         "yonetici_anketi_haberi": {
           "k": 1,
           "k_effective": 1.0,
           "log10_lr": 0.01
-        },
-        "atkin_schoar_shinde": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": 0.273
-        },
-        "emanuel_harrington": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": 0.284
-        },
-        "gibbs_mengel_siemroth": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": 0.186
-        },
-        "angelici_profeta": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.379
         }
       },
       "flags": [
-        {
-          "code": "conflicting_evidence",
-          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
-        },
         {
           "code": "fragile_decision",
           "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
@@ -173,7 +147,7 @@
           "log10_lr_effective": -0.292,
           "lr_effective": 0.511,
           "direction_d": -0.607,
-          "share_of_total_effect": 0.133
+          "share_of_total_effect": 0.453
         },
         {
           "id": "S1",
@@ -195,7 +169,7 @@
           "log10_lr_effective": -0.341,
           "lr_effective": 0.456,
           "direction_d": -0.602,
-          "share_of_total_effect": 0.156
+          "share_of_total_effect": 0.531
         },
         {
           "id": "S2",
@@ -219,119 +193,7 @@
           "log10_lr_effective": 0.01,
           "lr_effective": 1.024,
           "direction_d": 0.301,
-          "share_of_total_effect": 0.005
-        },
-        {
-          "id": "S3",
-          "kind": "source",
-          "cluster": "bloom_liang_ekibi",
-          "label": "Bloom, N., Han, R., Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.695,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=1612)",
-            "×1.05 (ön kayıtlı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.418,
-          "lr_effective": 0.382,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.191
-        },
-        {
-          "id": "S4",
-          "kind": "source",
-          "cluster": "atkin_schoar_shinde",
-          "label": "Atkin, D., Schoar, A., Shinde, S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
-          "applied_via": "claim_id",
-          "stance_used": "supports",
-          "quality_Q": 0.454,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)",
-            "×0.8 (hakemsiz)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=supports, güç=moderate",
-          "log10_lr_raw": 0.602,
-          "lr_raw": 4.0,
-          "log10_lr_effective": 0.273,
-          "lr_effective": 1.875,
-          "direction_d": 0.602,
-          "share_of_total_effect": 0.125
-        },
-        {
-          "id": "S5",
-          "kind": "source",
-          "cluster": "emanuel_harrington",
-          "label": "Emanuel, N., Harrington, E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
-          "applied_via": "claim_id",
-          "stance_used": "supports",
-          "quality_Q": 0.472,
-          "quality_trace": [
-            "tasarım=quasi_experimental → 0.75",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=supports, güç=moderate",
-          "log10_lr_raw": 0.602,
-          "lr_raw": 4.0,
-          "log10_lr_effective": 0.284,
-          "lr_effective": 1.925,
-          "direction_d": 0.602,
-          "share_of_total_effect": 0.13
-        },
-        {
-          "id": "S6",
-          "kind": "source",
-          "cluster": "gibbs_mengel_siemroth",
-          "label": "Gibbs, M., Mengel, F., Siemroth, C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
-          "applied_via": "claim_id",
-          "stance_used": "supports",
-          "quality_Q": 0.309,
-          "quality_trace": [
-            "tasarım=longitudinal → 0.7",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=10000)",
-            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=supports, güç=moderate",
-          "log10_lr_raw": 0.602,
-          "lr_raw": 4.0,
-          "log10_lr_effective": 0.186,
-          "lr_effective": 1.534,
-          "direction_d": 0.602,
-          "share_of_total_effect": 0.085
-        },
-        {
-          "id": "S7",
-          "kind": "source",
-          "cluster": "angelici_profeta",
-          "label": "Angelici, M., Profeta, P. (2024). Smart Working: Work Flexibility Without Constraints. Management Science 70(3):1680–1705.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.63,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.379,
-          "lr_effective": 0.418,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.174
+          "share_of_total_effect": 0.016
         }
       ]
     },
@@ -350,30 +212,30 @@
       "prior": 0.3,
       "prior_rationale": "C1 ile simetrik: tartışmalı alan, nedensel iddia → 0.30.",
       "scores": {
-        "spectrum_S": -0.256,
+        "spectrum_S": -0.138,
         "spectrum_label": "Zayıf çelişki",
-        "posterior_P": 0.032,
-        "posterior_odds": 0.033,
-        "log10_bayes_factor_total": -1.109,
-        "bayes_factor_total": 0.078,
-        "decision_code": "reject",
-        "decision": "Ret",
-        "consensus_C": 0.385,
-        "mean_quality_Q": 0.455,
+        "posterior_P": 0.16,
+        "posterior_odds": 0.19,
+        "log10_bayes_factor_total": -0.353,
+        "bayes_factor_total": 0.444,
+        "decision_code": "likely_false",
+        "decision": "Büyük olasılıkla yanlış",
+        "consensus_C": 0.214,
+        "mean_quality_Q": 0.36,
         "evidence_quality_grade": "Düşük",
-        "total_weight_W": 3.64,
-        "n_evidence": 8,
-        "n_active_evidence": 8,
-        "n_independent_clusters": 7,
-        "n_supporting": 2,
-        "n_contradicting": 6,
+        "total_weight_W": 1.081,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 3,
+        "n_supporting": 1,
+        "n_contradicting": 2,
         "n_neutral": 0,
-        "spectrum_vs_probability_gap": 0.68
+        "spectrum_vs_probability_gap": 0.543
       },
       "sensitivity": {
         "scenarios": 27,
-        "P_min": 0.014,
-        "P_max": 0.283,
+        "P_min": 0.112,
+        "P_max": 0.61,
         "decision_robustness": 0.667,
         "grid": {
           "priors": [
@@ -394,12 +256,12 @@
         }
       },
       "value_of_information": {
-        "lr_needed_to_move_up": 3.335,
-        "next_band_up_at_P": 0.1,
-        "lr_needed_to_move_down": null,
-        "next_band_down_at_P": null
+        "lr_needed_to_move_up": 2.253,
+        "next_band_up_at_P": 0.3,
+        "lr_needed_to_move_down": 0.584,
+        "next_band_down_at_P": 0.1
       },
-      "dominant_evidence": null,
+      "dominant_evidence": "D2",
       "clusters": {
         "sirket_verisi": {
           "k": 1,
@@ -407,34 +269,14 @@
           "log10_lr": -0.684
         },
         "bloom_liang_ekibi": {
-          "k": 2,
-          "k_effective": 1.333,
-          "log10_lr": -0.051
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.341
         },
         "yonetici_anketi_haberi": {
           "k": 1,
           "k_effective": 1.0,
           "log10_lr": -0.01
-        },
-        "atkin_schoar_shinde": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.273
-        },
-        "emanuel_harrington": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.284
-        },
-        "gibbs_mengel_siemroth": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.186
-        },
-        "angelici_profeta": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": 0.379
         }
       },
       "flags": [
@@ -445,6 +287,10 @@
         {
           "code": "fragile_decision",
           "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "single_source_dominance",
+          "message": "Tek bir kanıt toplam etkinin çoğunu taşıyor; sonuç ona bağımlı."
         },
         {
           "code": "unverified_sources",
@@ -471,7 +317,7 @@
           "log10_lr_effective": -0.684,
           "lr_effective": 0.207,
           "direction_d": -1.0,
-          "share_of_total_effect": 0.265
+          "share_of_total_effect": 0.661
         },
         {
           "id": "S1",
@@ -493,7 +339,7 @@
           "log10_lr_effective": 0.341,
           "lr_effective": 2.195,
           "direction_d": 0.602,
-          "share_of_total_effect": 0.133
+          "share_of_total_effect": 0.33
         },
         {
           "id": "S2",
@@ -517,119 +363,7 @@
           "log10_lr_effective": -0.01,
           "lr_effective": 0.977,
           "direction_d": -0.301,
-          "share_of_total_effect": 0.004
-        },
-        {
-          "id": "S3",
-          "kind": "source",
-          "cluster": "bloom_liang_ekibi",
-          "label": "Bloom, N., Han, R., Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.695,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=1612)",
-            "×1.05 (ön kayıtlı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.418,
-          "lr_effective": 0.382,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.162
-        },
-        {
-          "id": "S4",
-          "kind": "source",
-          "cluster": "atkin_schoar_shinde",
-          "label": "Atkin, D., Schoar, A., Shinde, S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.454,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)",
-            "×0.8 (hakemsiz)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.273,
-          "lr_effective": 0.533,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.106
-        },
-        {
-          "id": "S5",
-          "kind": "source",
-          "cluster": "emanuel_harrington",
-          "label": "Emanuel, N., Harrington, E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.472,
-          "quality_trace": [
-            "tasarım=quasi_experimental → 0.75",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.284,
-          "lr_effective": 0.519,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.11
-        },
-        {
-          "id": "S6",
-          "kind": "source",
-          "cluster": "gibbs_mengel_siemroth",
-          "label": "Gibbs, M., Mengel, F., Siemroth, C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.309,
-          "quality_trace": [
-            "tasarım=longitudinal → 0.7",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=10000)",
-            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.186,
-          "lr_effective": 0.652,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.072
-        },
-        {
-          "id": "S7",
-          "kind": "source",
-          "cluster": "angelici_profeta",
-          "label": "Angelici, M., Profeta, P. (2024). Smart Working: Work Flexibility Without Constraints. Management Science 70(3):1680–1705.",
-          "applied_via": "claim_id",
-          "stance_used": "supports",
-          "quality_Q": 0.63,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=supports, güç=moderate",
-          "log10_lr_raw": 0.602,
-          "lr_raw": 4.0,
-          "log10_lr_effective": 0.379,
-          "lr_effective": 2.395,
-          "direction_d": 0.602,
-          "share_of_total_effect": 0.147
+          "share_of_total_effect": 0.01
         }
       ]
     },
@@ -951,31 +685,31 @@
       "prior": 0.3,
       "prior_rationale": "C3 ile aynı gerekçe (nokta-sıfır iddiası, üç durumdan biri).",
       "scores": {
-        "spectrum_S": -0.122,
-        "spectrum_label": "Zayıf çelişki",
-        "posterior_P": 0.111,
-        "posterior_odds": 0.125,
-        "log10_bayes_factor_total": -0.535,
-        "bayes_factor_total": 0.292,
-        "decision_code": "likely_false",
-        "decision": "Büyük olasılıkla yanlış",
-        "consensus_C": 0.358,
-        "mean_quality_Q": 0.524,
-        "evidence_quality_grade": "Orta",
-        "total_weight_W": 4.188,
-        "n_evidence": 8,
-        "n_active_evidence": 8,
-        "n_independent_clusters": 7,
-        "n_supporting": 2,
-        "n_contradicting": 6,
+        "spectrum_S": 0.224,
+        "spectrum_label": "Zayıf destek",
+        "posterior_P": 0.472,
+        "posterior_odds": 0.894,
+        "log10_bayes_factor_total": 0.319,
+        "bayes_factor_total": 2.086,
+        "decision_code": "uncertain",
+        "decision": "Belirsiz — ek kanıt gerekli",
+        "consensus_C": 0.292,
+        "mean_quality_Q": 0.474,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 1.423,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 3,
+        "n_supporting": 1,
+        "n_contradicting": 2,
         "n_neutral": 0,
-        "spectrum_vs_probability_gap": 0.656
+        "spectrum_vs_probability_gap": 0.28
       },
       "sensitivity": {
         "scenarios": 27,
-        "P_min": 0.069,
-        "P_max": 0.54,
-        "decision_robustness": 0.333,
+        "P_min": 0.375,
+        "P_max": 0.879,
+        "decision_robustness": 0.667,
         "grid": {
           "priors": [
             0.25,
@@ -995,12 +729,12 @@
         }
       },
       "value_of_information": {
-        "lr_needed_to_move_up": 3.426,
-        "next_band_up_at_P": 0.3,
-        "lr_needed_to_move_down": 0.888,
-        "next_band_down_at_P": 0.1
+        "lr_needed_to_move_up": 2.61,
+        "next_band_up_at_P": 0.7,
+        "lr_needed_to_move_down": 0.479,
+        "next_band_down_at_P": 0.3
       },
-      "dominant_evidence": null,
+      "dominant_evidence": "D2",
       "clusters": {
         "sirket_verisi": {
           "k": 1,
@@ -1008,34 +742,14 @@
           "log10_lr": 0.677
         },
         "bloom_liang_ekibi": {
-          "k": 2,
-          "k_effective": 1.333,
-          "log10_lr": 0.051
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.341
         },
         "yonetici_anketi_haberi": {
           "k": 1,
           "k_effective": 1.0,
           "log10_lr": -0.017
-        },
-        "atkin_schoar_shinde": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.273
-        },
-        "emanuel_harrington": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.284
-        },
-        "gibbs_mengel_siemroth": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.31
-        },
-        "angelici_profeta": {
-          "k": 1,
-          "k_effective": 1.0,
-          "log10_lr": -0.379
         }
       },
       "flags": [
@@ -1046,6 +760,10 @@
         {
           "code": "fragile_decision",
           "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "single_source_dominance",
+          "message": "Tek bir kanıt toplam etkinin çoğunu taşıyor; sonuç ona bağımlı."
         },
         {
           "code": "unverified_sources",
@@ -1071,7 +789,7 @@
           "log10_lr_effective": 0.677,
           "lr_effective": 4.758,
           "direction_d": 0.847,
-          "share_of_total_effect": 0.251
+          "share_of_total_effect": 0.654
         },
         {
           "id": "S1",
@@ -1093,7 +811,7 @@
           "log10_lr_effective": -0.341,
           "lr_effective": 0.456,
           "direction_d": -0.602,
-          "share_of_total_effect": 0.126
+          "share_of_total_effect": 0.33
         },
         {
           "id": "S2",
@@ -1116,118 +834,7 @@
           "log10_lr_effective": -0.017,
           "lr_effective": 0.962,
           "direction_d": -0.301,
-          "share_of_total_effect": 0.006
-        },
-        {
-          "id": "S3",
-          "kind": "source",
-          "cluster": "bloom_liang_ekibi",
-          "label": "Bloom, N., Han, R., Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
-          "applied_via": "claim_id",
-          "stance_used": "supports",
-          "quality_Q": 0.695,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=1612)",
-            "×1.05 (ön kayıtlı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=supports, güç=moderate",
-          "log10_lr_raw": 0.602,
-          "lr_raw": 4.0,
-          "log10_lr_effective": 0.418,
-          "lr_effective": 2.619,
-          "direction_d": 0.602,
-          "share_of_total_effect": 0.155
-        },
-        {
-          "id": "S4",
-          "kind": "source",
-          "cluster": "atkin_schoar_shinde",
-          "label": "Atkin, D., Schoar, A., Shinde, S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.454,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)",
-            "×0.8 (hakemsiz)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.273,
-          "lr_effective": 0.533,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.101
-        },
-        {
-          "id": "S5",
-          "kind": "source",
-          "cluster": "emanuel_harrington",
-          "label": "Emanuel, N., Harrington, E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.472,
-          "quality_trace": [
-            "tasarım=quasi_experimental → 0.75",
-            "×0.7 (içerik doğrulanmadı)",
-            "×0.9 (n bilinmiyor)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.284,
-          "lr_effective": 0.519,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.105
-        },
-        {
-          "id": "S6",
-          "kind": "source",
-          "cluster": "gibbs_mengel_siemroth",
-          "label": "Gibbs, M., Mengel, F., Siemroth, C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.514,
-          "quality_trace": [
-            "tasarım=longitudinal → 0.7",
-            "×0.7 (içerik doğrulanmadı)",
-            "×1.05 (n=10000)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.31,
-          "lr_effective": 0.49,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.115
-        },
-        {
-          "id": "S7",
-          "kind": "source",
-          "cluster": "angelici_profeta",
-          "label": "Angelici, M., Profeta, P. (2024). Smart Working: Work Flexibility Without Constraints. Management Science 70(3):1680–1705.",
-          "applied_via": "claim_id",
-          "stance_used": "contradicts",
-          "quality_Q": 0.63,
-          "quality_trace": [
-            "tasarım=rct → 0.9",
-            "×0.7 (içerik doğrulanmadı)"
-          ],
-          "status": "unverified",
-          "lr_basis": "tutum=contradicts, güç=moderate",
-          "log10_lr_raw": -0.602,
-          "lr_raw": 0.25,
-          "log10_lr_effective": -0.379,
-          "lr_effective": 0.418,
-          "direction_d": -0.602,
-          "share_of_total_effect": 0.14
+          "share_of_total_effect": 0.016
         }
       ]
     }
@@ -1244,8 +851,8 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.139,
-        0.032
+        0.093,
+        0.16
       ],
       "incoherence": 0.0
     },
@@ -1260,7 +867,7 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.139,
+        0.093,
         0.011
       ],
       "incoherence": 0.0
@@ -1276,7 +883,7 @@
       ],
       "logical_compatibility": 1,
       "P": [
-        0.139,
+        0.093,
         0.016
       ]
     },
@@ -1291,10 +898,10 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.139,
+        0.093,
         0.955
       ],
-      "incoherence": 0.094
+      "incoherence": 0.048
     },
     {
       "claims": [
@@ -1307,8 +914,8 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.139,
-        0.111
+        0.093,
+        0.472
       ],
       "incoherence": 0.0
     },
@@ -1323,7 +930,7 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.032,
+        0.16,
         0.011
       ],
       "incoherence": 0.0
@@ -1339,7 +946,7 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.032,
+        0.16,
         0.016
       ],
       "incoherence": 0.0
@@ -1355,7 +962,7 @@
       ],
       "logical_compatibility": 1,
       "P": [
-        0.032,
+        0.16,
         0.955
       ]
     },
@@ -1370,8 +977,8 @@
       ],
       "logical_compatibility": -1,
       "P": [
-        0.032,
-        0.111
+        0.16,
+        0.472
       ],
       "incoherence": 0.0
     },
@@ -1419,7 +1026,7 @@
       "logical_compatibility": 1,
       "P": [
         0.011,
-        0.111
+        0.472
       ]
     },
     {
@@ -1450,7 +1057,7 @@
       "logical_compatibility": -1,
       "P": [
         0.016,
-        0.111
+        0.472
       ],
       "incoherence": 0.0
     },
@@ -1466,9 +1073,9 @@
       "logical_compatibility": -1,
       "P": [
         0.955,
-        0.111
+        0.472
       ],
-      "incoherence": 0.066
+      "incoherence": 0.427
     }
   ],
   "variables": {
@@ -1481,8 +1088,8 @@
         "C5",
         "C6"
       ],
-      "mean_S": -0.261,
-      "mean_P": 0.211
+      "mean_S": -0.248,
+      "mean_P": 0.284
     },
     "verimlilik_puani": {
       "claims": [
@@ -1493,8 +1100,8 @@
         "C5",
         "C6"
       ],
-      "mean_S": -0.261,
-      "mean_P": 0.211
+      "mean_S": -0.248,
+      "mean_P": 0.284
     }
   }
 }

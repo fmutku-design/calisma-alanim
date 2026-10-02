@@ -1,0 +1,60 @@
+{
+  "r_uzaktan_verim": 0.44,
+  "r_kidem_uzaktan": 0.703,
+  "r_kidem_verim": 0.688,
+  "uzaktan_gune_gore": [
+    {
+      "gun": 0,
+      "n": 40,
+      "ort_verim": 58.5,
+      "ort_kidem": 2.4
+    },
+    {
+      "gun": 1,
+      "n": 35,
+      "ort_verim": 66.9,
+      "ort_kidem": 4.8
+    },
+    {
+      "gun": 2,
+      "n": 35,
+      "ort_verim": 68.8,
+      "ort_kidem": 4.9
+    },
+    {
+      "gun": 3,
+      "n": 39,
+      "ort_verim": 70.3,
+      "ort_kidem": 6.9
+    },
+    {
+      "gun": 4,
+      "n": 19,
+      "ort_verim": 74.0,
+      "ort_kidem": 8.5
+    },
+    {
+      "gun": 5,
+      "n": 12,
+      "ort_verim": 75.5,
+      "ort_kidem": 11.4
+    }
+  ],
+  "kidem_dilimleri": [
+    {
+      "kidem": "0–3.8",
+      "n": 60,
+      "r_uzaktan_verim": 0.198
+    },
+    {
+      "kidem": "3.9–6.7",
+      "n": 60,
+      "r_uzaktan_verim": -0.212
+    },
+    {
+      "kidem": "6.7–16.1",
+      "n": 60,
+      "r_uzaktan_verim": 0.197
+    }
+  ]
+}

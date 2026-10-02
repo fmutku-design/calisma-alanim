@@ -1,12 +1,10 @@
 {
   "project": {
-    "title": "Uzaktan çalışma ve verimlilik — üç tarafın çelişkili iddiaları",
+    "title": "Uzaktan çalışma ve verimlilik — üç tarafın çelişkili iddiaları — DUYARLILIK: yalnızca şirket verisi + İK'nın 2 kaynağı",
     "question": "Bu şirkette haftalık uzaktan çalışma gün sayısı ile verimlilik puanı arasındaki ilişki nedir; Genel Müdür (düşürür), Çalışanlar (artırır) ve İK (ilişki yok) iddialarından hangisi kanıtlarla en uyumlu?",
     "analyst": "Claude (iddia-dogrulama skill)",
-    "scope_notes": "Veri: calisan_verimlilik.csv (180 çalışan; departman, kidem_yil, haftalik_uzaktan_gun 0–5, verimlilik_puani). Kaynaklar: İK'nın gönderdiği 2 kaynak + karşı/ek kanıt araması. İddialar şirket popülasyonuna göre kapsamlandı; farklı popülasyonlardaki literatür bulguları bu yüzden 'moderate/weak' güçte, istatistik yerine bulgu yönüyle kodlandı. Öncelikler kanıta bakmadan, birbirini dışlayan üç ilişkisel durum (negatif/pozitif/yok) toplamı 1 olacak şekilde belirlendi. Kanıt eşleştirme kuralı (sonuçlar görülmeden belirlendi): ilişkisel iddialar (C3–C5) ham Pearson korelasyonuyla; nedensel iddialar (C1, C2) ve 'diğer koşullar sabitken' iddiası (C6) kıdem+departman kontrollü regresyon ve dış literatürle değerlendirildi. Dış literatür, şirket içi ham korelasyon hakkında bilgi vermediği için C3–C5'e uygulanmadı. Mang & Anwar (2026, ILR Review) meta-analizi (82 çalışma, 3.574 tahmin; 'küçük pozitif, bağlama bağlı etki') bulundu ama puanlamaya katılmadı: büyük olasılıkla S1/S3–S7'yi içeriyor (çift sayım riski) ve özeti/etki büyüklüğü erişim engeli nedeniyle okunamadı; raporda bağlam olarak anılıyor. Web sayfası okuma (WebFetch) ağ proxy'si tarafından engellendi; kaynak doğrulaması arama özetleriyle yapıldı, bu yüzden claim_matches_source=null (×0.7) uygulandı.",
-    "revisions": [
-      "İlk puanlamadan sonra ana girdide (önsel, Q, kodlama) değişiklik yapılmadı. Ek olarak, sonucun analistin eklediği literatüre bağımlılığını görmek için ayrı bir duyarlılık çalışması (ek_analiz/yalnizca_kullanici_kaynaklari/) ve C1–C2–C6 için göreli pay hesabı (ek_analiz/tutarlilik_normalizasyonu.json) üretildi."
-    ]
+    "scope_notes": "Ana analizden türetilmiş duyarlılık çalışması: analistin karşı/ek aramada bulduğu S3–S7 çıkarıldı; yalnızca D1, D2, S1 (Bloom 2015), S2 (haber). Amaç: sonucun eklenen literatüre ne kadar bağlı olduğunu görmek.",
+    "revisions": []
   },
   "settings": {},
   "claims": [
@@ -274,147 +272,6 @@
       },
       "cluster": "yonetici_anketi_haberi",
       "notes": "İK'nın gönderdiği kaynak (b). Ölçtüğü şey verimlilik değil, yöneticilerin verimlilik ALGISI. Bu yüzden strength=weak. Aynı anket türünde çalışanların çoğunluğu tersini algılıyor; iki algı da öz-bildirim."
-    },
-    {
-      "kind": "source",
-      "claim_ids": [
-        "C1",
-        "C2",
-        "C6"
-      ],
-      "x": "haftalik_uzaktan_gun",
-      "y": "verimlilik_puani",
-      "id": "S3",
-      "citation": "Bloom, N., Han, R., Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
-      "doi": "10.1038/s41586-024-07500-2",
-      "url": "https://www.nature.com/articles/s41586-024-07500-2",
-      "design": "rct",
-      "n": 1612,
-      "year": 2024,
-      "peer_reviewed": true,
-      "preregistered": true,
-      "finding": "none",
-      "strength": "moderate",
-      "quote": "(arama özetlerinden aktarım) 'Null equivalence tests showed that hybrid working did not affect performance grades over the next two years of reviews.'",
-      "verification": {
-        "exists": true,
-        "claim_matches_source": null,
-        "method": "Web araması: birden çok indeks/özet kaynağında (ör. NBER, EconPapers, RePEc) başlık-yazar-yıl-bulgu tutarlı; tam metin/özet sayfaları ağ proxy'si tarafından engellendi (WebFetch EGRESS_BLOCKED), bu yüzden metin birebir okunamadı. AEA RCT Registry kaydı (trials/8075) arama sonucunda görüldü; kayıt deney başladıktan sonra ama veri alınmadan önce yapılmış."
-      },
-      "cluster": "bloom_liang_ekibi",
-      "notes": "Karşı/ek kanıt araması ile bulundu. Haftada 2 gün hibrit; bu şirketin 0–5 gün hibrit düzenine popülasyon olarak en yakın deney (beyaz yakalı, teknoloji firması). Aynı yazar ekibi (Bloom, Liang) → S1 ile aynı küme."
-    },
-    {
-      "kind": "source",
-      "claim_ids": [
-        "C1",
-        "C2",
-        "C6"
-      ],
-      "x": "haftalik_uzaktan_gun",
-      "y": "verimlilik_puani",
-      "id": "S4",
-      "citation": "Atkin, D., Schoar, A., Shinde, S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
-      "doi": "10.3386/w31515",
-      "url": "https://www.nber.org/papers/w31515",
-      "design": "rct",
-      "n": null,
-      "year": 2023,
-      "peer_reviewed": false,
-      "finding": "negative",
-      "strength": "moderate",
-      "quote": "(arama özetlerinden aktarım) 'The productivity of workers randomly assigned to working from home was 18% lower than those in the office.'",
-      "verification": {
-        "exists": true,
-        "claim_matches_source": null,
-        "method": "Web araması: birden çok indeks/özet kaynağında (ör. NBER, EconPapers, RePEc) başlık-yazar-yıl-bulgu tutarlı; tam metin/özet sayfaları ağ proxy'si tarafından engellendi (WebFetch EGRESS_BLOCKED), bu yüzden metin birebir okunamadı."
-      },
-      "cluster": "atkin_schoar_shinde",
-      "notes": "Karşı kanıt araması ile bulundu. Hindistan'da (Chennai) veri girişi işi, tam zamanlı evden çalışma; hakemsiz çalışma makalesi."
-    },
-    {
-      "kind": "source",
-      "claim_ids": [
-        "C1",
-        "C2",
-        "C6"
-      ],
-      "x": "haftalik_uzaktan_gun",
-      "y": "verimlilik_puani",
-      "id": "S5",
-      "citation": "Emanuel, N., Harrington, E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
-      "doi": "10.1257/app.20230376",
-      "url": "https://www.aeaweb.org/articles?id=10.1257/app.20230376",
-      "design": "quasi_experimental",
-      "n": null,
-      "year": 2024,
-      "peer_reviewed": true,
-      "finding": "negative",
-      "strength": "moderate",
-      "quote": "(arama özetlerinden aktarım) 'When the call centers closed due to COVID-19, the productivity of formerly on-site workers declined by 4 percent relative to already-remote workers, yet an 8 percent productivity gap persisted, indicating that the majority of the productivity gap was due to negative worker selection into remote work.'",
-      "verification": {
-        "exists": true,
-        "claim_matches_source": null,
-        "method": "Web araması: birden çok indeks/özet kaynağında (ör. NBER, EconPapers, RePEc) başlık-yazar-yıl-bulgu tutarlı; tam metin/özet sayfaları ağ proxy'si tarafından engellendi (WebFetch EGRESS_BLOCKED), bu yüzden metin birebir okunamadı."
-      },
-      "cluster": "emanuel_harrington",
-      "notes": "Karşı kanıt araması ile bulundu. ABD Fortune 500 çağrı merkezleri. Nedensel etki −%4; ham farkın çoğu (−%8) seçilimden kaynaklanıyor. Bu seçilim mekanizması, şirket verisindeki karıştırıcılık sorununun tam bir örneği."
-    },
-    {
-      "kind": "source",
-      "claim_ids": [
-        "C1",
-        "C2",
-        "C6"
-      ],
-      "x": "haftalik_uzaktan_gun",
-      "y": "verimlilik_puani",
-      "id": "S6",
-      "citation": "Gibbs, M., Mengel, F., Siemroth, C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
-      "doi": "10.1086/721803",
-      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3841457",
-      "design": "longitudinal",
-      "n": 10000,
-      "year": 2023,
-      "peer_reviewed": true,
-      "finding": "negative",
-      "strength": "moderate",
-      "quote": "(arama özetlerinden aktarım) 'Hours worked increased, including a rise of 18% outside normal business hours, and average output declined slightly with employee productivity falling 8-19%.'",
-      "verification": {
-        "exists": true,
-        "claim_matches_source": null,
-        "method": "Web araması: birden çok indeks/özet kaynağında (ör. NBER, EconPapers, RePEc) başlık-yazar-yıl-bulgu tutarlı; tam metin/özet sayfaları ağ proxy'si tarafından engellendi (WebFetch EGRESS_BLOCKED), bu yüzden metin birebir okunamadı."
-      },
-      "cluster": "gibbs_mengel_siemroth",
-      "notes": "Karşı kanıt araması ile bulundu. Asya'da büyük bir BT hizmetleri firması, 10.000+ çalışan; pandemi döneminde zorunlu tam uzaktan çalışmaya geçiş öncesi/sonrası. Pandemi kendisi karıştırıcı; nedensel tasarım değil."
-    },
-    {
-      "kind": "source",
-      "claim_ids": [
-        "C1",
-        "C2",
-        "C6"
-      ],
-      "x": "haftalik_uzaktan_gun",
-      "y": "verimlilik_puani",
-      "id": "S7",
-      "citation": "Angelici, M., Profeta, P. (2024). Smart Working: Work Flexibility Without Constraints. Management Science 70(3):1680–1705.",
-      "doi": "10.1287/mnsc.2023.4767",
-      "url": "https://pubsonline.informs.org/doi/10.1287/mnsc.2023.4767",
-      "design": "rct",
-      "n": 310,
-      "year": 2024,
-      "peer_reviewed": true,
-      "finding": "positive",
-      "strength": "moderate",
-      "quote": "(arama özetlerinden aktarım) 'We find causal evidence that the flexibility of smart working increases the productivity of workers.'",
-      "verification": {
-        "exists": true,
-        "claim_matches_source": null,
-        "method": "Web araması: birden çok indeks/özet kaynağında (ör. NBER, EconPapers, RePEc) başlık-yazar-yıl-bulgu tutarlı; tam metin/özet sayfaları ağ proxy'si tarafından engellendi (WebFetch EGRESS_BLOCKED), bu yüzden metin birebir okunamadı."
-      },
-      "cluster": "angelici_profeta",
-      "notes": "Pozitif yönde ek kanıt araması ile bulundu (aramanın dengeli olması için). İtalya'da büyük bir şirket, haftada 1 gün esnek yer/zaman; beyaz ve mavi yaka."
     }
   ]
 }
