@@ -175,4 +175,5 @@ C6  −1 ──────────┼─●──────── +1  S=+
 
 ## 6. Yorum ve Uygulama
 
-<!-- YORUM_UYGULAMA: Bu bölüm SKILL.md Adım 7'ye göre doldurulur. -->
+Bu bir duyarlılık çalışmasıdır. Yorum ve öneriler ana raporda (`../../rapor.md`, bölüm 6 → 'İddialar arası tutarlılık') yer alır. Bu çalışmada, analistin eklediği S3–S7 çıkarıldığında nedensel sorudaki dengenin C6'ya (kıdem sabitken etki yok) kaydığı görülür.
+
