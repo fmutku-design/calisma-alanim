@@ -11,6 +11,8 @@ Metrikler (hepsinin hedefi 0):
     D1 kaynaksiz_karar        Kullanıcıdan gelmeyen karar sayısı = varsayım sayısı.
     D2 onaysiz_kod            Kriterler onaylanmadan var olan kod dosyası sayısı.
     D3 testsiz_ozellik        Test dosyası olmayan fonksiyonel (F) kriter sayısı.
+    D5 idsiz_test             Adı bir kriter/karar ID'si ile başlamayan test sayısı. Kayda geçmemiş bir davranışı
+                              test eden kod buradan görünür olur (kaydedilmemiş karar = varsayım).
     D4 kanitsiz_iddia         Ölçüm tamamlanmamışken mesajdaki "bitti/çalışıyor/hazır…" iddiası sayısı
                               + mesajda ölçüm raporu özeti yoksa 1.
 
@@ -177,6 +179,49 @@ def d3_testsiz_ozellik(proje: Path, kriterler: dict) -> dict:
     return olcum(len(bulgular), "; ".join(bulgular) if bulgular else "Her F kriterinin test dosyası mevcut.")
 
 
+def _norm(x: str) -> str:
+    return re.sub(r"[^0-9a-z]", "", x.lower())
+
+
+DART_TEST_RE = re.compile(r"""\b(?:test|testWidgets)\(\s*(['"])(.*?)\1""")
+PY_TEST_RE = re.compile(r"^\s*def (test_\w+)\(", re.MULTILINE)
+
+
+def d5_idsiz_test(proje: Path, kriterler: dict, kararlar: dict) -> dict:
+    idler = {str(k.get("id", "")) for k in (kriterler or {}).get("kriterler", [])}
+    idler |= {str(k.get("id", "")) for k in (kararlar or {}).get("kararlar", [])}
+    # ID test adının herhangi bir yerinde, ayrı bir kelime olarak geçmeli: "F1: ...", "... (K-08)", test_k08_...
+    # Tire isteğe bağlı (K-08 = K08); ID'den sonra rakam gelmemeli (K1 ≠ K10).
+    desenler = [
+        re.compile(r"(?<![0-9a-z])" + re.escape(_norm(i)[:1]) + r"-?" + re.escape(_norm(i)[1:]) + r"(?![0-9])")
+        for i in idler if _norm(i)
+    ]
+    yok = {".git", "build", ".dart_tool", ".venv", "venv"}
+    toplam, bulgular = 0, []
+
+    def kontrol(ad: str, yer: str) -> None:
+        nonlocal toplam
+        toplam += 1
+        aday = ad.lower().replace("_", " ")
+        if not any(d.search(aday) for d in desenler):
+            bulgular.append(f"{yer}: '{ad[:60]}'")
+
+    for d in proje.rglob("*_test.dart"):
+        if yok & set(d.relative_to(proje).parts):
+            continue
+        for m in DART_TEST_RE.finditer(d.read_text(encoding="utf-8", errors="replace")):
+            kontrol(m.group(2), str(d.relative_to(proje)))
+    for d in [*proje.rglob("test_*.py"), *proje.rglob("*_test.py")]:
+        if yok & set(d.relative_to(proje).parts):
+            continue
+        for m in PY_TEST_RE.finditer(d.read_text(encoding="utf-8", errors="replace")):
+            kontrol(m.group(1)[len("test_"):], str(d.relative_to(proje)))
+    if toplam == 0:
+        return olcum(0, "Henüz test yok.")
+    ozet = f"{toplam} testin {len(bulgular)} tanesinde kriter/karar ID'si yok"
+    return olcum(len(bulgular), ozet + (": " + "; ".join(bulgular[:15]) if bulgular else "."))
+
+
 # ---------------------------------------------------------------- D4
 
 def tum_kriterler_gecti(kriterler: dict, olcumler: dict) -> tuple[bool, str]:
@@ -231,6 +276,7 @@ def main() -> int:
             "D1": d1_kaynaksiz_karar(proje, kriterler, kararlar),
             "D2": d2_onaysiz_kod(proje, kriterler),
             "D3": d3_testsiz_ozellik(proje, kriterler),
+            "D5": d5_idsiz_test(proje, kriterler, kararlar),
         }
         yol = Path(a.olcumler) if a.olcumler else proje / "olcumler.json"
         mevcut = json_yukle(yol, {}) or {}

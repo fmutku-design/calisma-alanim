@@ -14,9 +14,10 @@ Kullanıcının sorunu: Claude belirsiz bir istek alınca boşlukları kendi tah
 | D1 | Kaynaksız karar (varsayım) sayısı | == 0 | `denetim.py kontrol`: `pubspec.yaml` ve Python bağımlılıklarındaki her paket, `kararlar.json`'daki her karar ve her kriter `kullanici:` veya `öneri-onaylandı:` kaynağına bağlı olmalı. Bağlı olmayan her biri = 1 varsayım. |
 | D2 | Onaysız yazılmış kod dosyası sayısı | == 0 | `denetim.py kontrol`: `kabul_kriterleri.json` onaylanmamışken (veya onay kanıtı yokken) var olan her `.dart`/`.py`/`.kt` dosyası. |
 | D3 | Test dosyası olmayan fonksiyonel kriter | == 0 | `denetim.py kontrol`: her F kriterinin ölçüm yöntemindeki test dosyası diskte var mı. |
+| D5 | Kriter/karar ID'si taşımayan test sayısı | == 0 | `denetim.py kontrol`: her test adında (`test('F1: ...')`, `testWidgets('... (K-08)')`, `def test_f4_...`) bir kriter veya karar ID'si geçmeli. ID'siz test = kayda geçmemiş bir davranış = gizli karar. |
 | D4 | Kanıtsız iddia sayısı | == 0 | `denetim.py mesaj`: tüm kriterler GEÇMEDEN kullanıcıya giden mesajdaki "bitti, hazır, çalışıyor, test edildi, başarıyla…" sayısı + mesajda güncel ölçüm özeti yoksa 1. |
 
-D1–D3 her ölçüm raporunda otomatik yer alır ve çıkarılamaz. D4 mesaj gönderilmeden önceki son kapıdır. Bunlar kullanıcının "kafana göre yapma, yalan söyleme" isteğinin ölçülebilir hâlidir.
+D1, D2, D3 ve D5 her ölçüm raporunda otomatik yer alır ve çıkarılamaz. D4 mesaj gönderilmeden önceki son kapıdır. Bunlar kullanıcının "kafana göre yapma, yalan söyleme" isteğinin ölçülebilir hâlidir.
 
 ## Akış
 
@@ -70,6 +71,8 @@ Onay gelince `onay.durum = "onaylandi"`, `onay.tarih`, `onay.kanit = <kullanıc�
 Onaydan sonra kriterlerdeki **her şeyi** yap: kod, testler (her F kriteri için test dosyası — D3), Python script'leri, gerekli konfigürasyon. Yarım bırakıp "gerisini sen yaparsın" deme; yapamadığın bir parça varsa nedenini Aşama 5'te açıkça yaz.
 
 - Kriterlerde ve `kararlar.json`'da olmayan bir paket, dosya türü veya davranış gerekirse **dur ve sor**. Cevabı `kararlar.json`'a ekle, sonra devam et. Sessizce eklenen paket D1'de yakalanır.
+- Kullanıcı ulaşılamıyorsa ve iş durmamalıysa: en dar seçeneği uygula, `kararlar.json`'a `öneri-bekliyor:Sx` kaynağıyla yaz ve teslimde soru olarak sor. Bu D1'i bilerek KALDI yapar — doğrusu budur; kaydetmeden uygulamak ise gizli varsayımdır.
+- Her testin adına hangi kriter veya kararı doğruladığını yaz (`test('F2: 250 cm → 2.5', ...)`, `test('K-10 virgüllü girdi', ...)`, `def test_f4_satir_sayisi`). Yardımcı fonksiyon testleri de hizmet ettikleri kriterin ID'sini taşır. ID bulamadığın bir davranışı test ediyorsan o davranış kayıtlı değildir: önce kaydet (D5).
 - Kapsam dışı "iyileştirme" ekleme; önce öner.
 - Offline: release manifestinde `INTERNET` olmamalı; Flutter bunu debug/profile manifestlerine kendisi ekler. Ağ kullanan paket (`google_fonts` çalışma anında indirir, analitik, crash raporlama) kullanma; fontlar asset olarak paketlenir.
 - Python cihazda mı (Chaquopy, serious_python — APK'ya onlarca MB ekler) yoksa geliştirici makinesinde mi çalışıyor, Aşama 1'de sorulmuş olmalı.

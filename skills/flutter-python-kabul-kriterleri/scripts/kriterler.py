@@ -36,6 +36,7 @@ DAVRANIS_KRITERLERI = [
     {"id": "D1", "metrik": "Kaynaksız karar (varsayım) sayısı", "operator": "==", "esik": 0, "birim": "adet"},
     {"id": "D2", "metrik": "Onaysız yazılmış kod dosyası sayısı", "operator": "==", "esik": 0, "birim": "adet"},
     {"id": "D3", "metrik": "Test dosyası olmayan fonksiyonel kriter sayısı", "operator": "==", "esik": 0, "birim": "adet"},
+    {"id": "D5", "metrik": "Kriter/karar ID'si taşımayan test sayısı (kayda geçmemiş davranış)", "operator": "==", "esik": 0, "birim": "adet"},
 ]
 ZORUNLU_ALANLAR = ("id", "kategori", "metrik", "operator", "esik", "birim", "olcum_yontemi", "olcum_ortami", "kaynak")
 
