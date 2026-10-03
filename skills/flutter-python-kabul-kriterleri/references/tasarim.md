@@ -33,6 +33,7 @@ Kullanıcıya bu listeyi ver; eksik kalan her madde bir sorudur.
 | 10 | Her ekranda her bileşenin üst/sol konumu ve genişlik/yüksekliği (Figma "Inspect" değerleri) | `ekranlar[].bilesenler` |
 | 11 | Yerleşim toleransı (± kaç dp kabul) | `tolerans_dp` |
 | 12 | Tasarım görseliyle ekran görüntüsü arasında kabul edilen en büyük piksel farkı (%) | T5 eşiği |
+| 13 | Kullanılan her Material bileşeninin (girdi kenarlığı, açılır liste metni, buton, liste satırı, ayırıcı) renk ve yazı stili. Tasarımda yoksa: Material varsayılanının kullanılacağını kullanıcı açıkça onaylamalı → `kararlar.json` | `renk`/`yazi` veya karar |
 
 ## 2. Tasarımı dosyalara dökme
 
@@ -46,6 +47,7 @@ Değerleri yalnızca kullanıcının verdiği yerden oku (Figma Inspect, kullan�
 
 - Kontrol listesindeki bir değer yoksa: sor. Soruya hangi ekran/bileşen için gerektiğini ve hangi kriteri etkilediğini yaz (ör. "S7: Sonuç kartı ile birim seçiciler arası boşluk kaç dp? → T4 sonucKarti.ust").
 - Uygulama sırasında yerleşim testi (T4) bir farkı gösterir ve fark mevcut bir tasarım sabitiyle kapanmıyorsa (ör. 32 dp gerekiyor, `bosluk`'ta 32 yok): sabit ekleme, `SizedBox(height: 32)` yazma — **sor**. Cevap gelince `tasarim.json`'a kullanıcı kaynağıyla ekle, `uret` çalıştır.
+- Bir Material bileşeni tasarımda tanımlı olmayan bir renk/yazı stili kullanıyorsa (kenarlık rengi, açılır liste metni…), varsayılanı sessizce bırakmak da bir tasarım kararıdır: sor; kullanıcı "varsayılan kalsın" derse `kararlar.json`'a kaydet. T1/T2 tema varsayılanlarını göremez, bu yüzden bu kontrol sende.
 - Kullanıcı "sen karar ver" derse: bu skill'de tasarım değeri önerilmez. Kullanıcıya hangi değerin eksik olduğunu ve tasarım aracında nereye bakacağını söyle.
 
 ## 4. Onay

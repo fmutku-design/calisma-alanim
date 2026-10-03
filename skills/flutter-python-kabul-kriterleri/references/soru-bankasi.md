@@ -144,6 +144,7 @@ Ayrıntı ve kontrol listesi: `references/tasarim.md` §1. Bu sorularda Claude *
 | 11.9 | Her ekranda her bileşenin üst/sol konumu ve genişlik/yüksekliği (Figma Inspect) | Z | T4 |
 | 11.10 | Yerleşim toleransı: ± kaç dp? | Z | T4 |
 | 11.11 | Tasarım görseli ile ekran görüntüsü arasında kabul edilen en büyük piksel farkı (%)? | Z | T5 |
+| 11.12 | Tasarımda renk/yazı stili verilmemiş Material bileşenleri (girdi kenarlığı, açılır liste metni, ayırıcı…) için değer ne? Yoksa varsayılan mı kalsın? (açık onay) | Z | T5, karar |
 
 ## 12. Yazılım mimarisi
 
