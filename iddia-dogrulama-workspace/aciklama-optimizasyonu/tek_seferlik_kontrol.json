@@ -1,0 +1,171 @@
+{
+  "skill_name": "iddia-dogrulama",
+  "description": "Ara\u015ft\u0131rma ve veri analizinde iddialar\u0131 ad\u0131m ad\u0131m, \u00f6l\u00e7\u00fclebilir bi\u00e7imde do\u011frular; iddiay\u0131 X\u2192Y yap\u0131s\u0131na ay\u0131r\u0131r, kaynak ve veri kan\u0131tlar\u0131n\u0131 kalite puan\u0131yla (Q) de\u011ferlendirir, uyu\u015fma/\u00e7eli\u015fmeyi \u22121\u2026+1 spektrumunda (S) puanlar, Bayes\u00e7i sonsal olas\u0131l\u0131k (P) ve duyarl\u0131l\u0131k analizi hesaplar, JSON meta veri + Markdown rapor \u00fcretir. Kullan\u0131c\u0131 bir iddian\u0131n, hipotezin, bulgunun veya haberin do\u011frulu\u011funu sordu\u011funda; \"kaynaklar ne diyor\", \"verim bunu destekliyor mu\", \"X ile Y aras\u0131nda ili\u015fki var m\u0131\", fact-check, kan\u0131t sentezi, \u00e7eli\u015fkili bulgular, hipotez testi dendi\u011finde; bir CSV/veri setiyle de\u011fi\u015fken iddialar\u0131 test edilmek istendi\u011finde veya ara\u015ft\u0131rma sonu\u00e7lar\u0131n\u0131n g\u00fcvenilirli\u011fi say\u0131sal \u00f6l\u00e7\u00fclmek istendi\u011finde kullan \u2014 \"do\u011frulama\" kelimesi ge\u00e7mese bile. Use for claim verification, evidence grading and Bayesian evidence synthesis.",
+  "results": [
+    {
+      "query": "Twitter'da dola\u015fan bir iddia var: 'kahve i\u00e7mek Alzheimer riskini yar\u0131 yar\u0131ya azalt\u0131yor'. Bunun do\u011frulu\u011funu bilimsel \u00e7al\u0131\u015fmalarla kontrol eder misin, kaynaklar ne kadar g\u00fcvenilir, bir olas\u0131l\u0131k ver",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "elimde anket verisi var (anket_2025.csv), m\u00fcd\u00fcr\u00fcm 'gen\u00e7 \u00e7al\u0131\u015fanlar daha az ba\u011fl\u0131l\u0131k g\u00f6steriyor' diyor, yas ve baglilik_puani s\u00fctunlar\u0131 var. bu iddia veriyle tutuyor mu, ne kadar emin olabiliriz y\u00fczde olarak s\u00f6yle",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "3 farkl\u0131 rapor var: biri asgari \u00fccret art\u0131\u015f\u0131 istihdam\u0131 d\u00fc\u015f\u00fcr\u00fcr diyor, biri etkisi yok diyor, biri art\u0131r\u0131r diyor. hangisi daha olas\u0131, kan\u0131tlar\u0131 tart\u0131p say\u0131sal bir sonu\u00e7 \u00e7\u0131kar\u0131r m\u0131s\u0131n",
+      "should_trigger": true,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": false
+    },
+    {
+      "query": "Can you fact-check this line from a vendor whitepaper: 'companies using our CRM see 40% higher sales growth'? I want an evidence-graded verdict with a probability, not just an opinion.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "\u015fu iki iddia i\u00e7in her birinin uyum skorunu ve do\u011fru olma olas\u0131l\u0131\u011f\u0131n\u0131 meta veri olarak tutan bir do\u011frulama yap: '\u015feker \u00e7ocuklarda hiperaktiviteye neden olur', 'ekran s\u00fcresi \u00e7ocuklarda dikkat s\u00fcresini k\u0131salt\u0131r'",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "tezimde hipotezim '\u00f6\u011fretmen deneyimi \u00f6\u011frenci ba\u015far\u0131s\u0131n\u0131 art\u0131r\u0131r'. ogretmen_ogrenci.csv dosyam var (deneyim_yil, ogrenci_basari, okul_tipi). hem veriyle hem literat\u00fcrle hipotezi do\u011frulamam laz\u0131m, sonu\u00e7lar raporlanabilir ve tekrarlanabilir olsun",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "Our team believes remote onboarding hurts new-hire retention. I have hr_data.csv with onboarding_type, tenure_months, department. Verify this claim and quantify how confident we should be in it.",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "hocam bir derste '\u00f6dev miktar\u0131 ba\u015far\u0131y\u0131 art\u0131r\u0131r', ba\u015fka bir derste '\u00f6dev ile ba\u015far\u0131 aras\u0131nda ili\u015fki yok' dedi. veri setimde (odevler.csv: odev_saat, sinav_notu, ders) hangisi tutuyor, bu iki iddia birbiriyle uyu\u015fuyor mu g\u00f6ster",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "rakip firman\u0131n sunumunda 'm\u00fc\u015fteri memnuniyeti artt\u0131k\u00e7a tekrar sat\u0131n alma artar' yaz\u0131yor. bizim veride (musteri.csv: memnuniyet, tekrar_alim, bolge) bu tutuyor mu? b\u00f6lge kontrol edilince de ge\u00e7erli mi",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "bir makalede okudum: 'ye\u015fil alana yak\u0131n oturanlar daha az depresyon ya\u015f\u0131yor'. bu nedensel mi sadece ili\u015fki mi, kan\u0131tlar ne diyor, buna ne kadar g\u00fcvenebilirim",
+      "should_trigger": true,
+      "trigger_rate": 1.0,
+      "triggers": 1,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "satis.csv'deki reklam_harcamasi ile ciro aras\u0131ndaki korelasyonu hesaplay\u0131p bir scatter plot \u00e7izer misin, eksenleri t\u00fcrk\u00e7e olsun",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "bu python fonksiyonu t-testinde iki y\u00f6nl\u00fc p-de\u011ferini yanl\u0131\u015f hesapl\u0131yor galiba, scipy kullanmadan d\u00fczeltir misin",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "A/B testi sonu\u00e7lar\u0131m: A 1200 ziyaret 60 d\u00f6n\u00fc\u015f\u00fcm, B 1180 ziyaret 78 d\u00f6n\u00fc\u015f\u00fcm. bir sonraki test i\u00e7in \u00f6rneklem b\u00fcy\u00fckl\u00fc\u011f\u00fc ve g\u00fc\u00e7 analizi hesaplar m\u0131s\u0131n",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "survey.csv dosyas\u0131ndaki eksik de\u011ferleri temizle, kategorik s\u00fctunlar\u0131 one-hot encode et ve sonucu excel olarak kaydet",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "aral\u0131kl\u0131 oru\u00e7 hakk\u0131nda kapsaml\u0131 bir literat\u00fcr taramas\u0131 raporu yaz: tarih\u00e7esi, biyolojik mekanizmalar\u0131, farkl\u0131 protokoller ve g\u00fcncel ara\u015ft\u0131rma e\u011filimleri",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "SSCI dergisine g\u00f6nderece\u011fim finansal geli\u015fme ve ekonomik b\u00fcy\u00fcme makalem i\u00e7in literat\u00fcr taramas\u0131 ve kuramsal \u00e7er\u00e7eve b\u00f6l\u00fcm\u00fcn\u00fc yaz",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "\u015fu haber metnini \u00f6zetle ve i\u00e7indeki ana iddialar\u0131 madde madde listele, yorum katma: [metin: Belediye yeni metro hatt\u0131n\u0131n 2027'de a\u00e7\u0131laca\u011f\u0131n\u0131 ve g\u00fcnde 300 bin yolcu ta\u015f\u0131yaca\u011f\u0131n\u0131 a\u00e7\u0131klad\u0131...]",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "Bayes teoremini g\u00fcnl\u00fck hayattan bir \u00f6rnekle anlat\u0131r m\u0131s\u0131n, \u00f6nsel ve sonsal olas\u0131l\u0131k aras\u0131ndaki fark nedir",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "Write a persuasive op-ed arguing that remote work boosts productivity, citing a few well-known studies, about 800 words.",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    },
+    {
+      "query": "makaleme y\u00f6ntem b\u00f6l\u00fcm\u00fc yazar m\u0131s\u0131n, 2010-2022 il d\u00fczeyi panel veri, sabit etkiler modeli ve Hausman testi kulland\u0131m",
+      "should_trigger": false,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": true
+    }
+  ],
+  "summary": {
+    "total": 20,
+    "passed": 19,
+    "failed": 1
+  }
+}
