@@ -1,0 +1,65 @@
+{
+  "expectations": [
+    {
+      "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+      "passed": true,
+      "evidence": "Ham r=0.44, kontrollü −0.66 [−1.93, 0.61]"
+    },
+    {
+      "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+      "passed": true,
+      "evidence": "Kıdem karıştırıcı; dilimlerde aynı tablo"
+    },
+    {
+      "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+      "passed": false,
+      "evidence": "GM 'desteklenmiyor' ama sayısal olasılık yok"
+    },
+    {
+      "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+      "passed": false,
+      "evidence": "Uyum sözel ('down, up, zero'), sayısal ölçü yok"
+    },
+    {
+      "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+      "passed": true,
+      "evidence": "Ham / düzeltilmiş / algı ayrımı; ters nedensellik"
+    },
+    {
+      "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+      "passed": true,
+      "evidence": "Bloom: gönüllüler, 4 gün, çağrı merkezi; terfi düştü"
+    },
+    {
+      "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+      "passed": true,
+      "evidence": "Anket: algı ölçüyor"
+    },
+    {
+      "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+      "passed": false,
+      "evidence": "Hiçbir iddiada sayısal olasılık yok"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+      "passed": true,
+      "evidence": "rapor.md + sonuclar.json + grafikler"
+    },
+    {
+      "text": "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+      "passed": false,
+      "evidence": "İK 'kısmen haklı' denmiş ama olasılık/en olası hipotez sayısal belirlenmemiş"
+    },
+    {
+      "text": "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış",
+      "passed": false,
+      "evidence": "Rakip hipotezler için olasılık dağılımı yok"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 5,
+    "total": 11,
+    "pass_rate": 0.545
+  }
+}

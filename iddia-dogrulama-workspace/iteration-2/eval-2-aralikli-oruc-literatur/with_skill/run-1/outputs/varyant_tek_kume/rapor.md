@@ -345,4 +345,4 @@ Aynı kapsamda birbirini dışlayan iddialar. Kapsayıcı setlerde ΣP ≈ 1 olm
 
 ## 6. Yorum ve Uygulama
 
-<!-- YORUM_UYGULAMA: Bu bölüm SKILL.md Adım 7'ye göre doldurulur. -->
+Bu bir **duyarlılık varyantıdır**: örtüşen tüm meta-analiz ve RCT kanıtları tek kümede (ρ=0.5) toplandı, böylece en tutucu bağımlılık varsayımı uygulandı. Yorum ve öneriler için ana rapora (`../rapor.md`, §6) bakın.

@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+      "passed": true,
+      "evidence": ">%99.99, ≈%98.5, ≈%22/%11, ≈%99.4 (ilişki var)"
+    },
+    {
+      "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+      "passed": true,
+      "evidence": "'Holds, very strongly'"
+    },
+    {
+      "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+      "passed": true,
+      "evidence": "Kızlar daha yüksek ≈%11; 'fark yok' 3.5:1"
+    },
+    {
+      "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+      "passed": true,
+      "evidence": "İlişki var olasılığı ≈%99.4 → 'alakası yok' ≈%0.6"
+    },
+    {
+      "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+      "passed": true,
+      "evidence": "'İlişki tutuyor, düşürüyor kanıtlanamaz'"
+    },
+    {
+      "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+      "passed": false,
+      "evidence": "−1…+1 spektrum skoru yok"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+      "passed": true,
+      "evidence": "analiz_sonuclari.json"
+    },
+    {
+      "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+      "passed": true,
+      "evidence": "Eksik değerler analiz bazında; 226 öğrenci"
+    },
+    {
+      "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+      "passed": true,
+      "evidence": "Holm, tavan dışlama, aykırı değer, eşdeğerlik testi"
+    },
+    {
+      "text": "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş",
+      "passed": true,
+      "evidence": "Sınırda: tabloda 'düşürüyor' satırında ≈%98.5 var ama açıkça 'ilişki olasılığı' ve 'düşürüyor kanıtlanamaz' etiketli; nedensel iddiaya olasılık atanmamış"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 1,
+    "total": 10,
+    "pass_rate": 0.9
+  }
+}

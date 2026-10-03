@@ -334,4 +334,37 @@ Aynı kapsamda birbirini dışlayan iddialar. Kapsayıcı setlerde ΣP ≈ 1 olm
 
 ## 6. Yorum ve Uygulama
 
-<!-- YORUM_UYGULAMA: Bu bölüm SKILL.md Adım 7'ye göre doldurulur. -->
+### Ana bulgular
+- **"Aynı kaloride daha fazla kilo verdirir" (C1) büyük olasılıkla yanlış:** S=−0.12, P=0.124 (duyarlılık aralığı 0.06–0.51, sağlamlık %33, kırılgan). Rakip set içinde en olası hipotez C3 "anlamlı fark yok" (P=0.851, normalize 0.873; koşullu kabul). Kalori gerçekten eşitlendiğinde (Maruthur 2024: TRE −2.3 kg / olağan düzen −2.6 kg; TREATY/Liu 2022: 12 ayda net fark −1.8 kg, P=.11) TRE'nin üstünlüğü görülmüyor. TRE lehine çıkan meta-analizler (Črešnovar 2023: −2.11 kg; EJCN 2023: −1.40 kg) ve Jamshed 2022 (+2.3 kg, yazarların tahminine göre ~214 kcal/gün daha düşük alımla açıklanıyor) farkın küçük olduğunu gösteriyor ve büyük olasılıkla kalori eşitliğinin tam sağlanamamasından kaynaklanıyor.
+- **"ÇOK daha fazla kilo verdirir" (C4) reddedildi:** S=−0.63, P=0.003, sağlamlık %93. TRE lehine en olumlu tahminler bile ~1.4–2.3 kg. Bu fark "çok daha fazla" ifadesini karşılamıyor.
+- **"İnsülin direncini tamamen düzeltir" (C11) reddedildi:** S=−0.50, P=0.008 (aralık 0.002–0.35, sağlamlık %70). 16:8'e özgü en geniş meta-analiz (23 RCT, n=1280) HOMA-IR'de yalnızca "hafif" bir düşüş buluyor (SMD −0.16; %95 GA −0.29 ile −0.02). Hiçbir RCT normalleşme veya ortadan kalkma bildirmiyor. İddiayı destekleyen tek kaynak (Thieme, özel bir IF protokolü) doğrulanamadı ve Q=0.05 aldı.
+- **Doğru olan kısmı (C8):** 16:8, serbest beslenmeye göre insülin direncini *biraz* azaltıyor olabilir: P=0.749, S=+0.25. Sıkılaştırılmış eşiklerde bu sonuç "belirsiz" bandında kalıyor. Bu etki büyük olasılıkla kalori azalması ve kilo kaybı üzerinden işliyor. Kalori sabitken insülin direncinde TRE'ye özgü ek fayda görülmüyor: C5 P=0.019 (ret), C6 "fark yok" P=0.965 (sağlamlık %59, kırılgan). Kalori sabit tutulan ChronoFast 2025 çalışmasında insülin duyarlılığı değişmedi.
+
+### İddialar arası tutarlılık
+- Kilo seti (C1/C2/C3): ΣP=0.975, normalize P = 0.127 / 0.000 / 0.873 → en olası hipotez "fark yok" (C3). Set tutarlı (açık 0.025).
+- İzokalorik insülin seti (C5/C6/C7): ΣP=0.986, normalize P = 0.019 / 0.979 / 0.002 → en olası hipotez "fark yok" (C6).
+- 16:8 ve kontrol insülin seti (C8/C9/C10): ΣP=1.024, normalize P = 0.731 / 0.267 / 0.002 → en olası hipotez "azaltır" (C8), ama net bir ayrım yok.
+- Kapsamlar arası: C8 (kontrole göre azaltır, P=0.75) ile C6 (aynı kaloride fark yok, P=0.97) çelişmiyor, ikisi aynı anda doğru olabilir. TRE insanların daha az yemesini sağladığı için insülin direncini düşürebiliyor, ama aynı kalori alınırsa ek bir avantajı görünmüyor. Sitedeki iddia bu iki durumu birbirine karıştırıyor.
+
+### Sınırlılıklar
+- `unverified_sources` (tüm iddialarda): Ortamda WebFetch ve doğrudan HTTP erişimi engelliydi. Kaynakların varlığı arama sonuçlarıyla doğrulandı, ama bulgular tam metinden değil, arama özetlerinden alındı. Bu nedenle tüm kaynaklarda `claim_matches_source=null` (×0.7) ve ortalama Q yalnızca 0.43–0.59. Tam metin okunduğunda Q değerleri yükselir ve sonuçlar uçlara doğru kayar. Jamshed 2022 GA'sı ve Maruthur 2024 HOMA-IR ayrıntısı gibi bazı rakamlar doğrulanamadı.
+- `fragile_decision` (C1, C3, C6, C8, C9): Bu iddialarda karar önsele, ρ'ya ve Q ölçeğine duyarlı. Ayrıca meta-analizler ile içerdikleri RCT'ler kısmen örtüşüyor (çift sayım riski). Tüm örtüşen kanıtın tek kümede toplandığı en tutucu varyantta (`varyant_tek_kume/`) sonuçlar şöyle: C1 P=0.297 (yine "büyük olasılıkla yanlış"), C3 P=0.578 (belirsiz), C6 P=0.675 (belirsiz), C5 P=0.206. C4 P=0.040 ve C11 P=0.031 bu varyantta da **ret** bandında kalıyor. Yani iddianın abartılı iki parçasının ("çok daha fazla" ve "tamamen düzeltir") reddi sağlam. "Fark yok" sonucunun kesinlik derecesi ise bağımlılık varsayımına bağlı.
+- `conflicting_evidence` (C1, C3; C=0.37 / 0.36): Kilo karşılaştırmasında kaynaklar bölünmüş durumda (4 destek / 6 çelişki). Akla yatkın moderatörler: kalori eşitliğinin ne kadar sıkı sağlandığı (kontrollü beslenme mi, reçete mi), pencerenin erken mi geç mi olduğu ve süre.
+- `single_source_dominance` (C10): Sonuç büyük ölçüde 16/8 meta-analizine (S13c, %75 pay) dayanıyor. Ancak bu iddia zaten rakip bir hipotez ve ana sonucu etkilemiyor.
+- Varsayımlar: "klasik diyet" sürekli kalori kısıtlaması, "çok daha fazla" ≥%3 vücut ağırlığı veya ≥3 kg ek kayıp, "tamamen düzeltir" insülin direncinin normalleşmesi olarak yorumlandı. Popülasyon aşırı kilolu veya obez yetişkinler. Birçok RCT farklı pencereler kullanıyor (6, 8 ve 10 saat; erken veya geç); bu fark `applicability` ile cezalandırıldı.
+- Sağlık iddiası olduğu için karar eşikleri sıkılaştırıldı: kabul ≥0.95, koşullu ≥0.80, belirsiz ≥0.30, b.o. yanlış ≥0.10. Bu analiz tıbbi tavsiye değildir ve hekim veya diyetisyen görüşünün yerini tutmaz.
+
+### Uygulama önerileri
+| İddia | Karar | Önerilen eylem | Koşul / izlenecek gösterge |
+|---|---|---|---|
+| C1 aynı kaloride daha fazla kilo | B.o. yanlış (P=0.12) | Sitedeki ifade "aynı kaloride benzer kilo kaybı" olarak düzeltilmeli | Sıkı kalori eşitlemeli yeni RCT'ler |
+| C4 "çok daha fazla" kilo | Ret (P=0.003) | Bu ifade kaldırılmalı; yanıltıcı | — |
+| C3 / C6 aynı kaloride fark yok | Koşullu kabul / kabul (kırılgan) | 16:8, kalori açığı oluşturmayı kolaylaştıran bir *araç* olarak sunulabilir; sihirli bir avantaj olarak değil | Kişinin uyumu, gerçek kalori alımı |
+| C8 insülin direncini azaltabilir | Belirsiz (P=0.75) | "Kilo kaybıyla birlikte insülin direnci biraz iyileşebilir" denebilir | HOMA-IR ve açlık insülini; kilo değişimi |
+| C11 tamamen düzeltir | Ret (P=0.008) | Bu ifade kaldırılmalı. İnsülin direnci veya diyabeti olanlar ilaç ya da tedaviyi hekim onayı olmadan bırakmamalı; öğün atlama hipoglisemi riski taşıyabilir | Hekim takibi, HbA1c |
+
+### Sonraki en değerli kanıt
+- **C9 / C8 (LR ≈ 1.14 / 1.34):** Bu iki iddia bir çalışma uzaklıkta. Klasik 16:8 (12:00–20:00) ile serbest beslenmeyi karşılaştıran, n≥150, ≥6 ay süren, HOMA-IR'i veya tercihen clamp ile ölçülen insülin duyarlılığını birincil sonuç alan, ön kayıtlı bir RCT bu iki iddiayı belirgin biçimde ayırır.
+- **C1 / C3 (LR ≈ 3.0 / 3.3):** Kalori alımını kontrollü beslenmeyle *gerçekten* eşitleyen, klasik 16:8 penceresi kullanan, n≥100 ve ≥6 aylık bir RCT. Böyle bir çalışmada fark yine bulunmazsa C3 kabul bandına geçer.
+- **Mevcut kanıtın doğrulanması:** Liu 2022, Maruthur 2024, ChronoFast 2025 ve 16/8 meta-analizinin tam metinlerinin okunması (`claim_matches_source=true`) Q değerlerini ~%40 artırır. Bu, yeni bir çalışmaya gerek kalmadan sonuçları netleştirmenin en ucuz yoludur.
+

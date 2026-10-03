@@ -1,0 +1,471 @@
+{
+  "metadata": {
+    "skill_name": "iddia-dogrulama",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-10-03T05:50:10Z",
+    "evals_run": [
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 10,
+        "failed": 0,
+        "total": 10,
+        "time_seconds": 224.6,
+        "tokens": 113993,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+          "passed": true,
+          "evidence": "C1 0.987, sosyal medya ilişki 0.979 / nedensel 0.527, C3 0.069, uyku 'yok' 0.011"
+        },
+        {
+          "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+          "passed": true,
+          "evidence": "Çalışma → not P=0.987, kabul"
+        },
+        {
+          "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+          "passed": true,
+          "evidence": "Kızlar daha başarılı P=0.069, ret; 'fark yok' normalize 0.874"
+        },
+        {
+          "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+          "passed": true,
+          "evidence": "'Uykunun alakası yok' P=0.011, ret"
+        },
+        {
+          "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+          "passed": true,
+          "evidence": "İlişkisel (0.979) ve nedensel (0.527, tavan uygulandı) ayrı iddialar"
+        },
+        {
+          "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+          "passed": true,
+          "evidence": "Her iddiada spectrum_S"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+          "passed": true,
+          "evidence": "metadata.json + ek_analizler.json"
+        },
+        {
+          "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+          "passed": true,
+          "evidence": "Eksik: sosyal medya 6, uyku 9; n her kanıtta"
+        },
+        {
+          "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+          "passed": true,
+          "evidence": "27 senaryolu duyarlılık + Spearman, tavan dışlama, karesel terim"
+        },
+        {
+          "text": "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş",
+          "passed": true,
+          "evidence": "Nedensel 'düşürür' P=0.527 (belirsiz) — 1. turda 0.848 idi"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 413.5,
+        "tokens": 159270,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Bileşik iddia en az 2 ayrı alt iddiaya bölünmüş (eşit kaloride kilo üstünlüğü; insülin direnci)",
+          "passed": true,
+          "evidence": "11 iddia: eşit kaloride kilo, 'çok' daha fazla, insülin, 'tamamen', rakipler"
+        },
+        {
+          "text": "Eşit kalori koşulunda 'daha fazla kilo verdirir' alt iddiası için olasılık < 0.5",
+          "passed": true,
+          "evidence": "C1 P=0.124, C4 P=0.003"
+        },
+        {
+          "text": "'İnsülin direncini tamamen düzeltir' alt iddiası için olasılık < 0.3",
+          "passed": true,
+          "evidence": "C11 'tamamen düzeltir' P=0.008"
+        },
+        {
+          "text": "Kullanılan her kaynak için sayısal kalite puanı veya kalite derecesi verilmiş",
+          "passed": true,
+          "evidence": "34 kanıtın hepsinde Q ve quality_trace"
+        },
+        {
+          "text": "Karşı kanıt araması yapıldığı belgelenmiş",
+          "passed": true,
+          "evidence": "11/11 iddiada counter_search_log"
+        },
+        {
+          "text": "Her kaynağın doğrulama durumu (bulundu mu / içerik eşleşiyor mu) belirtilmiş",
+          "passed": true,
+          "evidence": "34/34 kanıtta verification"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+          "passed": true,
+          "evidence": "metadata.json + tutucu varyant"
+        },
+        {
+          "text": "Her alt iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+          "passed": true,
+          "evidence": "Her iddiada spectrum_S (C1 −0.12, C4 −0.63, C11 −0.50)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 11,
+        "failed": 0,
+        "total": 11,
+        "time_seconds": 361.5,
+        "tokens": 147550,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+          "passed": true,
+          "evidence": "Ham r=+0.44 (C1 P=0.958) ve kontrollü −0.66/gün (p=0.26) ayrı"
+        },
+        {
+          "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+          "passed": true,
+          "evidence": "Kıdem r=0.70/0.69; kıdem bantları içinde r≈0"
+        },
+        {
+          "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+          "passed": true,
+          "evidence": "GM nedensel C5 P=0.109; ham C2 P=0.006"
+        },
+        {
+          "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+          "passed": true,
+          "evidence": "claim_relations + 2 rakip hipotez seti"
+        },
+        {
+          "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+          "passed": true,
+          "evidence": "İlişkisel (C1–C3) ve nedensel (C4–C6) setler ayrı"
+        },
+        {
+          "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+          "passed": true,
+          "evidence": "Bloom: applicability=indirect, Q=0.28"
+        },
+        {
+          "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+          "passed": true,
+          "evidence": "Anket haberi: algı ölçüyor, pay ≈%0"
+        },
+        {
+          "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+          "passed": true,
+          "evidence": "6 iddianın hepsinde P"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+          "passed": true,
+          "evidence": "metadata.json + rapor.md"
+        },
+        {
+          "text": "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+          "passed": true,
+          "evidence": "C6 'etki yok' normalize 0.645, nedensel sette en olası (1. turda P=0.111 ile en olasısızdı)"
+        },
+        {
+          "text": "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış",
+          "passed": true,
+          "evidence": "Nedensel set ΣP=0.552 → normalize 0.158 / 0.197 / 0.645"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.9,
+        "passed": 9,
+        "failed": 1,
+        "total": 10,
+        "time_seconds": 218.3,
+        "tokens": 79113,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+          "passed": true,
+          "evidence": ">%99.99, ≈%98.5, ≈%22/%11, ≈%99.4 (ilişki var)"
+        },
+        {
+          "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+          "passed": true,
+          "evidence": "'Holds, very strongly'"
+        },
+        {
+          "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+          "passed": true,
+          "evidence": "Kızlar daha yüksek ≈%11; 'fark yok' 3.5:1"
+        },
+        {
+          "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+          "passed": true,
+          "evidence": "İlişki var olasılığı ≈%99.4 → 'alakası yok' ≈%0.6"
+        },
+        {
+          "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+          "passed": true,
+          "evidence": "'İlişki tutuyor, düşürüyor kanıtlanamaz'"
+        },
+        {
+          "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+          "passed": false,
+          "evidence": "−1…+1 spektrum skoru yok"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+          "passed": true,
+          "evidence": "analiz_sonuclari.json"
+        },
+        {
+          "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+          "passed": true,
+          "evidence": "Eksik değerler analiz bazında; 226 öğrenci"
+        },
+        {
+          "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+          "passed": true,
+          "evidence": "Holm, tavan dışlama, aykırı değer, eşdeğerlik testi"
+        },
+        {
+          "text": "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş",
+          "passed": true,
+          "evidence": "Sınırda: tabloda 'düşürüyor' satırında ≈%98.5 var ama açıkça 'ilişki olasılığı' ve 'düşürüyor kanıtlanamaz' etiketli; nedensel iddiaya olasılık atanmamış"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 6,
+        "failed": 2,
+        "total": 8,
+        "time_seconds": 255.8,
+        "tokens": 92602,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Bileşik iddia en az 2 ayrı alt iddiaya bölünmüş (eşit kaloride kilo üstünlüğü; insülin direnci)",
+          "passed": true,
+          "evidence": "6 alt iddia (kilo: var/çok; insülin: iyileştirir/üstün/tamamen)"
+        },
+        {
+          "text": "Eşit kalori koşulunda 'daha fazla kilo verdirir' alt iddiası için olasılık < 0.5",
+          "passed": true,
+          "evidence": "Biraz daha fazla ~%15–20, çok daha fazla ~%3–5"
+        },
+        {
+          "text": "'İnsülin direncini tamamen düzeltir' alt iddiası için olasılık < 0.3",
+          "passed": true,
+          "evidence": "Tamamen düzeltir ~%2"
+        },
+        {
+          "text": "Kullanılan her kaynak için sayısal kalite puanı veya kalite derecesi verilmiş",
+          "passed": true,
+          "evidence": "0–10 ölçekli kaynak puanları (11 kaynak)"
+        },
+        {
+          "text": "Karşı kanıt araması yapıldığı belgelenmiş",
+          "passed": false,
+          "evidence": "Karşı kanıt araması (sorgular) ayrıca belgelenmemiş"
+        },
+        {
+          "text": "Her kaynağın doğrulama durumu (bulundu mu / içerik eşleşiyor mu) belirtilmiş",
+          "passed": true,
+          "evidence": "(†) işaretleri ve dogrulama.json'da doğrulama sınırı"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+          "passed": true,
+          "evidence": "dogrulama.json"
+        },
+        {
+          "text": "Her alt iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+          "passed": false,
+          "evidence": "−1…+1 spektrum skoru yok; olasılıklar tahmini aralık"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.545,
+        "passed": 6,
+        "failed": 5,
+        "total": 11,
+        "time_seconds": 360.0,
+        "tokens": 102758,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+          "passed": true,
+          "evidence": "Ham r=0.44, kontrollü −0.66 [−1.93, 0.61]"
+        },
+        {
+          "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+          "passed": true,
+          "evidence": "Kıdem karıştırıcı; dilimlerde aynı tablo"
+        },
+        {
+          "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+          "passed": false,
+          "evidence": "GM 'desteklenmiyor' ama sayısal olasılık yok"
+        },
+        {
+          "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+          "passed": false,
+          "evidence": "Uyum sözel ('down, up, zero'), sayısal ölçü yok"
+        },
+        {
+          "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+          "passed": true,
+          "evidence": "Ham / düzeltilmiş / algı ayrımı; ters nedensellik"
+        },
+        {
+          "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+          "passed": true,
+          "evidence": "Bloom: gönüllüler, 4 gün, çağrı merkezi; terfi düştü"
+        },
+        {
+          "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+          "passed": true,
+          "evidence": "Anket: algı ölçüyor"
+        },
+        {
+          "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+          "passed": false,
+          "evidence": "Hiçbir iddiada sayısal olasılık yok"
+        },
+        {
+          "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+          "passed": true,
+          "evidence": "rapor.md + sonuclar.json + grafikler"
+        },
+        {
+          "text": "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+          "passed": false,
+          "evidence": "İK 'kısmen haklı' denmiş ama olasılık/en olası hipotez sayısal belirlenmemiş"
+        },
+        {
+          "text": "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış",
+          "passed": false,
+          "evidence": "Rakip hipotezler için olasılık dağılımı yok"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 333.2,
+        "stddev": 97.578,
+        "min": 224.6,
+        "max": 413.5
+      },
+      "tokens": {
+        "mean": 140271.0,
+        "stddev": 23499.7779,
+        "min": 113993,
+        "max": 159270
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.7317,
+        "stddev": 0.1782,
+        "min": 0.545,
+        "max": 0.9
+      },
+      "time_seconds": {
+        "mean": 278.0333,
+        "stddev": 73.4198,
+        "min": 218.3,
+        "max": 360.0
+      },
+      "tokens": {
+        "mean": 91491.0,
+        "stddev": 11861.587,
+        "min": 79113,
+        "max": 102758
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.27",
+      "time_seconds": "+55.2",
+      "tokens": "+48780"
+    }
+  },
+  "notes": [
+    "1. turdaki 3 hata düzeldi: (a) kontrollü 'etki yok' hipotezi nedensel sette normalize P=0.645 ile en olası (1. turda P=0.111, en olasısız); (b) gözlemsel veriyle nedensel 'sosyal medya düşürür' P=0.848 → 0.527; (c) rakip hipotez setleri otomatik raporlanıyor (ΣP ve normalize P).",
+    "Yeni 3 assertion skill'de geçti, baseline'da 3'ten 2'si kaldı (eval 3). Baseline nedensel/ilişkisel ayrımını sözel olarak doğru yapıyor ama sayısallaştırmıyor.",
+    "Baseline pass rate 77% → 73%: yeni ayırt edici assertion'lar eklendiği için; baseline davranışı iki turda benzer.",
+    "Ayırt edici olmayan assertion'lar: doğru yön sonuçları, kıdem karıştırıcısı, Bloom/anket değerlendirmesi — her iki yapılandırmada geçiyor.",
+    "Süre farkı azaldı: +118 sn → +55 sn; token farkı benzer (+49k).",
+    "Testlerden sonra düzeltilen iki küçük hata: rakip iddialarda yanlış relation_mismatch uyarısı; yalnızca kullanıcı verisiyle doğrulamada gereksiz no_counter_search uyarısı (artık counter_evidence_searched='not_applicable').",
+    "Ortam: WebFetch iki turda da engelliydi; kaynak içerikleri yalnızca arama özetleriyle doğrulandı (skill bunu ×0.7 ceza ile yansıtıyor)."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+      "passed": true,
+      "evidence": "C1 0.987, sosyal medya ilişki 0.979 / nedensel 0.527, C3 0.069, uyku 'yok' 0.011"
+    },
+    {
+      "text": "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+      "passed": true,
+      "evidence": "Çalışma → not P=0.987, kabul"
+    },
+    {
+      "text": "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+      "passed": true,
+      "evidence": "Kızlar daha başarılı P=0.069, ret; 'fark yok' normalize 0.874"
+    },
+    {
+      "text": "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+      "passed": true,
+      "evidence": "'Uykunun alakası yok' P=0.011, ret"
+    },
+    {
+      "text": "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+      "passed": true,
+      "evidence": "İlişkisel (0.979) ve nedensel (0.527, tavan uygulandı) ayrı iddialar"
+    },
+    {
+      "text": "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+      "passed": true,
+      "evidence": "Her iddiada spectrum_S"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+      "passed": true,
+      "evidence": "metadata.json + ek_analizler.json"
+    },
+    {
+      "text": "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+      "passed": true,
+      "evidence": "Eksik: sosyal medya 6, uyku 9; n her kanıtta"
+    },
+    {
+      "text": "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+      "passed": true,
+      "evidence": "27 senaryolu duyarlılık + Spearman, tavan dışlama, karesel terim"
+    },
+    {
+      "text": "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş",
+      "passed": true,
+      "evidence": "Nedensel 'düşürür' P=0.527 (belirsiz) — 1. turda 0.848 idi"
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "pass_rate": 1.0
+  }
+}

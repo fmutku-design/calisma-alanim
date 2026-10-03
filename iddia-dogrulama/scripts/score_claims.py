@@ -340,7 +340,9 @@ def score_evidence(ev, claim, cfg, year_now, flags):
     if kind == "data":
         q, trace, status = quality_data(ev, claim)
         st = ev.get("stats", {})
-        if ev.get("relation_tested") and ev["relation_tested"] != claim["relation"]:
+        # yalnızca doğrudan bağlı kanıtta anlamlı; çift kapsamlı kanıt rakip iddialara da uygulanır
+        if (ev.get("_applied_via") == "claim_id" and ev.get("relation_tested")
+                and ev["relation_tested"] != claim["relation"]):
             flags.add("relation_mismatch")
         lbf = st.get("log10_bf10", 0.0) * LN10
         log_lr_raw = S.directional_log_lr(lbf, st.get("effect_sign", 0), claim["relation"], st.get("p_two_sided"))
@@ -464,7 +466,8 @@ def score_claim(claim, evs, cfg, lang, year_now, scoped_out=()):
         gap = [e for e in active if any("nedensel" in t for t in e["quality_trace"])]
         if active and len(gap) == len(active):
             flags.add("causal_gap")
-    if not claim.get("counter_evidence_searched", False):
+    ces = claim.get("counter_evidence_searched", False)
+    if ces is not True and ces != "not_applicable":
         flags.add("no_counter_search")
     if claim.get("prior_set_before_evidence") is False:
         flags.add("prior_after_evidence")

@@ -108,7 +108,10 @@ ikisini birden girme; aynı bilgiyi iki kez saymış olursun.
 **3b. Kaynak kanıtı.** Arama yapabiliyorsan her iddia için hem destekleyen hem **karşı** kanıt ara
 (ör. "X Y no effect", "X Y null result", "X Y replication failed"). Karşı arama yapılmazsa
 doğrulama yanlılığı oluşur; yaptığın sorguları `counter_search_log`'a yaz ve
-`counter_evidence_searched: true` işaretle.
+`counter_evidence_searched: true` işaretle. Kullanıcı yalnızca kendi verisiyle doğrulama istediyse
+literatür araması kapsam dışıdır: `counter_evidence_searched: "not_applicable"` yaz ve gerekçeyi
+`project.scope_notes`'a ekle. Bu durumda karşı kanıt rolünü rakip iddialar üstlenir; onları
+mutlaka ekle.
 
 Her kaynak için doğrulama kontrol listesi:
 1. **Var mı?** DOI/URL açılıyor, başlık-yazar-yıl tutuyor mu → `verification.exists`

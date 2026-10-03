@@ -1,0 +1,65 @@
+{
+  "expectations": [
+    {
+      "text": "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+      "passed": true,
+      "evidence": "Ham r=+0.44 (C1 P=0.958) ve kontrollü −0.66/gün (p=0.26) ayrı"
+    },
+    {
+      "text": "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+      "passed": true,
+      "evidence": "Kıdem r=0.70/0.69; kıdem bantları içinde r≈0"
+    },
+    {
+      "text": "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+      "passed": true,
+      "evidence": "GM nedensel C5 P=0.109; ham C2 P=0.006"
+    },
+    {
+      "text": "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+      "passed": true,
+      "evidence": "claim_relations + 2 rakip hipotez seti"
+    },
+    {
+      "text": "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+      "passed": true,
+      "evidence": "İlişkisel (C1–C3) ve nedensel (C4–C6) setler ayrı"
+    },
+    {
+      "text": "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+      "passed": true,
+      "evidence": "Bloom: applicability=indirect, Q=0.28"
+    },
+    {
+      "text": "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+      "passed": true,
+      "evidence": "Anket haberi: algı ölçüyor, pay ≈%0"
+    },
+    {
+      "text": "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+      "passed": true,
+      "evidence": "6 iddianın hepsinde P"
+    },
+    {
+      "text": "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+      "passed": true,
+      "evidence": "metadata.json + rapor.md"
+    },
+    {
+      "text": "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+      "passed": true,
+      "evidence": "C6 'etki yok' normalize 0.645, nedensel sette en olası (1. turda P=0.111 ile en olasısızdı)"
+    },
+    {
+      "text": "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış",
+      "passed": true,
+      "evidence": "Nedensel set ΣP=0.552 → normalize 0.158 / 0.197 / 0.645"
+    }
+  ],
+  "summary": {
+    "passed": 11,
+    "failed": 0,
+    "total": 11,
+    "pass_rate": 1.0
+  }
+}

@@ -40,7 +40,7 @@ Tam bir örnek için `assets/ornek_girdi.json` dosyasına bakın.
 | `prior` | | float (0,1) | Önsel olasılık; varsayılan 0.5 |
 | `prior_rationale` | | str | Önselin gerekçesi |
 | `prior_set_before_evidence` | | bool | Önsel kanıtlardan önce mi belirlendi |
-| `counter_evidence_searched` | | bool | Karşı kanıt araması yapıldı mı |
+| `counter_evidence_searched` | | bool \| `"not_applicable"` | Karşı kanıt araması yapıldı mı; yalnızca kullanıcı verisiyle sınırlı doğrulamada `"not_applicable"` |
 | `counter_search_log` | | list[str] | Yapılan karşı kanıt aramaları (sorgu metinleri) |
 | `source_of_claim` | | str | İddia nereden geldi (kullanıcı, makale, haber) |
 
