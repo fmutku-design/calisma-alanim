@@ -1,0 +1,82 @@
+[
+  {
+    "query": "elimde anket verisi var (anket_2025.csv), müdürüm 'genç çalışanlar daha az bağlılık gösteriyor' diyor, yas ve baglilik_puani sütunları var. bu iddia veriyle tutuyor mu, ne kadar emin olabiliriz yüzde olarak söyle",
+    "should_trigger": true
+  },
+  {
+    "query": "Twitter'da dolaşan bir iddia var: 'kahve içmek Alzheimer riskini yarı yarıya azaltıyor'. Bunun doğruluğunu bilimsel çalışmalarla kontrol eder misin, kaynaklar ne kadar güvenilir, bir olasılık ver",
+    "should_trigger": true
+  },
+  {
+    "query": "3 farklı rapor var: biri asgari ücret artışı istihdamı düşürür diyor, biri etkisi yok diyor, biri artırır diyor. hangisi daha olası, kanıtları tartıp sayısal bir sonuç çıkarır mısın",
+    "should_trigger": true
+  },
+  {
+    "query": "tezimde hipotezim 'öğretmen deneyimi öğrenci başarısını artırır'. ogretmen_ogrenci.csv dosyam var (deneyim_yil, ogrenci_basari, okul_tipi). hem veriyle hem literatürle hipotezi doğrulamam lazım, sonuçlar raporlanabilir ve tekrarlanabilir olsun",
+    "should_trigger": true
+  },
+  {
+    "query": "Can you fact-check this line from a vendor whitepaper: 'companies using our CRM see 40% higher sales growth'? I want an evidence-graded verdict with a probability, not just an opinion.",
+    "should_trigger": true
+  },
+  {
+    "query": "rakip firmanın sunumunda 'müşteri memnuniyeti arttıkça tekrar satın alma artar' yazıyor. bizim veride (musteri.csv: memnuniyet, tekrar_alim, bolge) bu tutuyor mu? bölge kontrol edilince de geçerli mi",
+    "should_trigger": true
+  },
+  {
+    "query": "şu iki iddia için her birinin uyum skorunu ve doğru olma olasılığını meta veri olarak tutan bir doğrulama yap: 'şeker çocuklarda hiperaktiviteye neden olur', 'ekran süresi çocuklarda dikkat süresini kısaltır'",
+    "should_trigger": true
+  },
+  {
+    "query": "bir makalede okudum: 'yeşil alana yakın oturanlar daha az depresyon yaşıyor'. bu nedensel mi sadece ilişki mi, kanıtlar ne diyor, buna ne kadar güvenebilirim",
+    "should_trigger": true
+  },
+  {
+    "query": "hocam bir derste 'ödev miktarı başarıyı artırır', başka bir derste 'ödev ile başarı arasında ilişki yok' dedi. veri setimde (odevler.csv: odev_saat, sinav_notu, ders) hangisi tutuyor, bu iki iddia birbiriyle uyuşuyor mu göster",
+    "should_trigger": true
+  },
+  {
+    "query": "Our team believes remote onboarding hurts new-hire retention. I have hr_data.csv with onboarding_type, tenure_months, department. Verify this claim and quantify how confident we should be in it.",
+    "should_trigger": true
+  },
+  {
+    "query": "satis.csv'deki reklam_harcamasi ile ciro arasındaki korelasyonu hesaplayıp bir scatter plot çizer misin, eksenleri türkçe olsun",
+    "should_trigger": false
+  },
+  {
+    "query": "aralıklı oruç hakkında kapsamlı bir literatür taraması raporu yaz: tarihçesi, biyolojik mekanizmaları, farklı protokoller ve güncel araştırma eğilimleri",
+    "should_trigger": false
+  },
+  {
+    "query": "makaleme yöntem bölümü yazar mısın, 2010-2022 il düzeyi panel veri, sabit etkiler modeli ve Hausman testi kullandım",
+    "should_trigger": false
+  },
+  {
+    "query": "bu python fonksiyonu t-testinde iki yönlü p-değerini yanlış hesaplıyor galiba, scipy kullanmadan düzeltir misin",
+    "should_trigger": false
+  },
+  {
+    "query": "Bayes teoremini günlük hayattan bir örnekle anlatır mısın, önsel ve sonsal olasılık arasındaki fark nedir",
+    "should_trigger": false
+  },
+  {
+    "query": "survey.csv dosyasındaki eksik değerleri temizle, kategorik sütunları one-hot encode et ve sonucu excel olarak kaydet",
+    "should_trigger": false
+  },
+  {
+    "query": "şu haber metnini özetle ve içindeki ana iddiaları madde madde listele, yorum katma: [metin: Belediye yeni metro hattının 2027'de açılacağını ve günde 300 bin yolcu taşıyacağını açıkladı...]",
+    "should_trigger": false
+  },
+  {
+    "query": "A/B testi sonuçlarım: A 1200 ziyaret 60 dönüşüm, B 1180 ziyaret 78 dönüşüm. bir sonraki test için örneklem büyüklüğü ve güç analizi hesaplar mısın",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a persuasive op-ed arguing that remote work boosts productivity, citing a few well-known studies, about 800 words.",
+    "should_trigger": false
+  },
+  {
+    "query": "SSCI dergisine göndereceğim finansal gelişme ve ekonomik büyüme makalem için literatür taraması ve kuramsal çerçeve bölümünü yaz",
+    "should_trigger": false
+  }
+]
