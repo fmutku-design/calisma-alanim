@@ -4,7 +4,9 @@
     "question": "Haftalık uzaktan çalışma gün sayısı çalışan verimliliğini artırıyor mu, düşürüyor mu, yoksa ilişki yok mu? Genel müdür, çalışanlar ve İK iddialarından hangisi kanıtla daha uyumlu?",
     "analyst": "Claude (iddia-dogrulama skill)",
     "scope_notes": "Veri: calisan_verimlilik.csv (180 çalışan; departman, kidem_yil, haftalik_uzaktan_gun, verimlilik_puani). Veri kesitsel/gözlemsel, rastgele atama yok. Kaynaklar: İK'nın gönderdiği (a) Bloom ve ark. 2015 QJE ve (b) 2023 iş dergisi haberi (yönetici anketi); ayrıca web'de karşı kanıt araması. Her taraf için üç kapsam ayrıldı: ham ilişki (causal:false) ve nedensel etki (causal:true; veride en kontrollü analiz = kıdem + departman sabit). Varsayımlar: 'verimlilik' = verimlilik_puani; 'uzaktan çalışma' = haftalik_uzaktan_gun; puanın nasıl ölçüldüğü (yönetici değerlendirmesi mi, nesnel çıktı mı) bilinmiyor. Yönetim kurulu sunumu için karar eşikleri varsayılan bırakıldı (insan sağlığı/büyük yatırım değil; geri alınabilir politika kararı).",
-    "revisions": []
+    "revisions": [
+      "İlk puanlamadan sonra iddia, önsel, Q veya kanıt kodlamasında değişiklik yapılmadı. Yalnızca rapora betimleyici bir kıdem-tabakalı tablo eklendi (puanlamaya girmez); amaç C1 ile C4–C6 arasındaki farkın kıdem karıştırıcısından geldiğini göstermek."
+    ]
   },
   "settings": {},
   "claims": [

@@ -1,0 +1,3281 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-03T05:47:41",
+  "project": {
+    "title": "Aralıklı oruç (16:8) — izokalorik kilo kaybı ve insülin direnci iddiası",
+    "question": "Sağlık sitesindeki iddia: 'Aralıklı oruç (16:8), aynı kaloriyi alan klasik diyete göre çok daha fazla kilo verdirir ve insülin direncini tamamen düzeltir.' Bilimsel literatür bu iddianın parçalarını destekliyor mu?",
+    "analyst": "Claude (iddia-dogrulama skill)",
+    "scope_notes": "Veri seti yok; yalnızca literatür kanıtı. Kaynaklar WebSearch ile bulundu; WebFetch ve doğrudan HTTP erişimi egress proxy tarafından engellendiği için hiçbir kaynağın tam metni/özeti doğrudan okunamadı — bulgular arama motoru özetlerinden alındı, bu yüzden tüm kaynaklarda claim_matches_source=null (×0.7). Varsayımlar: (1) 'klasik diyet' = sürekli günlük kalori kısıtlaması (CER/CR); (2) 'çok daha fazla' = klinik olarak büyük ek kayıp (≥%3 vücut ağırlığı / ≥3 kg); (3) 'tamamen düzeltir' = insülin direncinin normalleşmesi/ortadan kalkması; (4) popülasyon = aşırı kilolu/obez yetişkinler. Bağımlılık: meta-analizler (S1–S4) birbirleriyle ve bazı bireysel RCT'lerle (Liu, Jamshed, Lin, Lowe, Pavlou) örtüşüyor. Meta-analizler tek kümede (MA_havuzu) toplandı; bireysel RCT'ler ayrı kümelerde. Bu bir miktar çift sayım içerir; etkisi 'varyant_tek_kume' alt klasöründeki duyarlılık çalıştırmasıyla (tüm kilo/insülin karşılaştırma kanıtı tek kümede) gösterildi. Sağlık iddiası olduğu için karar eşikleri sıkılaştırıldı: [0.95, 0.80, 0.30, 0.10].",
+    "revisions": []
+  },
+  "settings": {
+    "rho_within_cluster": 0.5,
+    "log10_lr_cap": 2.0,
+    "prior_default": 0.5,
+    "stale_years": 15,
+    "dominance_threshold": 0.6,
+    "min_independent_clusters": 2,
+    "min_total_weight": 1.0,
+    "decision_thresholds": [
+      0.95,
+      0.8,
+      0.3,
+      0.1
+    ],
+    "causal_gap_log10_cap": 0.47712125471966244,
+    "hypothesis_gap_threshold": 0.25
+  },
+  "totals": {
+    "n_claims": 11,
+    "n_evidence": 34,
+    "decisions": {
+      "accept": 1,
+      "conditional": 1,
+      "uncertain": 1,
+      "likely_false": 2,
+      "reject": 6
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "text": "16:8 TRE, aynı kaloriyi alan klasik (sürekli kalori kısıtlamalı) diyete göre DAHA FAZLA kilo kaybı sağlar",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "kilo_kaybi",
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "İzokalorik koşulda enerji dengesi kilo farkını sınırlar; sirkadiyen/metabolik avantaj hipotezi makul ama tartışmalı → nötrün biraz altı",
+      "scores": {
+        "spectrum_S": -0.122,
+        "spectrum_label": "Zayıf çelişki",
+        "posterior_P": 0.124,
+        "posterior_odds": 0.141,
+        "log10_bayes_factor_total": -0.582,
+        "bayes_factor_total": 0.262,
+        "decision_code": "likely_false",
+        "decision": "Büyük olasılıkla yanlış",
+        "consensus_C": 0.37,
+        "mean_quality_Q": 0.476,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 4.763,
+        "n_evidence": 10,
+        "n_active_evidence": 10,
+        "n_independent_clusters": 7,
+        "n_supporting": 4,
+        "n_contradicting": 6,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.631
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.063,
+        "P_max": 0.507,
+        "decision_robustness": 0.333,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 3.037,
+        "next_band_up_at_P": 0.3,
+        "lr_needed_to_move_down": 0.787,
+        "next_band_down_at_P": 0.1
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 4,
+          "k_effective": 1.6,
+          "log10_lr": 0.0
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.149
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.428
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.428
+        },
+        "Lin2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "MA_16_8": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.303
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.129
+        }
+      },
+      "flags": [
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Semnani-Azad Z, Khan TA, et al. (2025). Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis of randomised clinical trials. BMJ.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 99 RCT; TRE tüm pencereler (yalnız 16:8 değil); sürekli enerji kısıtlaması her zaman birebir izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.101
+        },
+        {
+          "id": "S2w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF vs CR; 20 RCT; IF türleri karışık (yalnız 16:8 değil))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.101
+        },
+        {
+          "id": "S3w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs yalnız CR (kalori hedefleri benzer); 7 RCT, n=458; TRE pencereleri karışık)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.101
+        },
+        {
+          "id": "S4w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs CR; erken TRE alt grubunda etki)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.101
+        },
+        {
+          "id": "S5w",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'t': 1.6, 'df': 137, 'n': 139}",
+          "log10_lr_raw": -0.237,
+          "lr_raw": 0.58,
+          "log10_lr_effective": -0.149,
+          "lr_effective": 0.709,
+          "direction_d": -0.237,
+          "share_of_total_effect": 0.052
+        },
+        {
+          "id": "S6w",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — Erken TRE (07–15) + enerji kısıtlaması vs ≥12 saat pencere + aynı enerji kısıtlaması; 14 hafta. Pencere erken (klasik 16:8'den farklı zamanlama))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.428,
+          "lr_effective": 2.682,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.15
+        },
+        {
+          "id": "S7w",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — Kontrollü beslenme ile gerçekten izokalorik; ama 10 saatlik pencere (16:8 değil) ve karşılaştırma 'olağan yeme düzeni' (klasik diyet değil); %93 kadın)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.428,
+          "lr_effective": 0.373,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.15
+        },
+        {
+          "id": "S8w",
+          "kind": "source",
+          "cluster": "Lin2023",
+          "label": "Lin S, Cienfuegos S, Ezpeleta M, et al. (2023). Time-Restricted Eating Without Calorie Counting for Weight Loss in a Racially Diverse Population: A Randomized Controlled Trial. Ann Intern Med 176(7).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — 12:00–20:00 TRE (16:8) kalori saymadan vs %25 CR; gerçekleşen alım azalması benzer (−425 vs −405 kcal) → fiilen yaklaşık izokalorik; 12 ay)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.091
+        },
+        {
+          "id": "S9w",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.504,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (uygulanabilirlik: partial — 16:8 (12–20) vs 3 öğün; kalori hedefi yok ama gruplar arası enerji alımı farklı değil → fiilen benzer kalori)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.303,
+          "lr_effective": 0.497,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.106
+        },
+        {
+          "id": "S10w",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.8 (uygulanabilirlik: partial — T2D'li obez yetişkinler; TRE (12–20) kalori saymadan vs %25 CR — izokalorik değil; TRE vs CR doğrudan farkının anlamlılığı doğrulanamadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.129,
+          "lr_effective": 1.346,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.045
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C2",
+      "text": "Aynı kaloride klasik diyet, 16:8 TRE'den daha fazla kilo kaybı sağlar (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "kilo_kaybi",
+        "relation": "negative",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.15,
+      "prior_rationale": "Rakip hipotez; TRE'nin kilo kaybını azaltacağına dair güçlü mekanizma yok",
+      "scores": {
+        "spectrum_S": -0.699,
+        "spectrum_label": "Güçlü çelişki",
+        "posterior_P": 0.0,
+        "posterior_odds": 0.0,
+        "log10_bayes_factor_total": -2.931,
+        "bayes_factor_total": 0.001,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.781,
+        "mean_quality_Q": 0.476,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 4.763,
+        "n_evidence": 10,
+        "n_active_evidence": 10,
+        "n_independent_clusters": 7,
+        "n_supporting": 0,
+        "n_contradicting": 10,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.3
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.0,
+        "P_max": 0.017,
+        "decision_robustness": 1.0,
+        "grid": {
+          "priors": [
+            0.15,
+            0.25,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 536.619,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 4,
+          "k_effective": 1.6,
+          "log10_lr": -0.461
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.922
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.428
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.428
+        },
+        "Lin2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "MA_16_8": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.303
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.129
+        }
+      },
+      "flags": [
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Semnani-Azad Z, Khan TA, et al. (2025). Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis of randomised clinical trials. BMJ.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 99 RCT; TRE tüm pencereler (yalnız 16:8 değil); sürekli enerji kısıtlaması her zaman birebir izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.08
+        },
+        {
+          "id": "S2w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF vs CR; 20 RCT; IF türleri karışık (yalnız 16:8 değil))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.08
+        },
+        {
+          "id": "S3w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs yalnız CR (kalori hedefleri benzer); 7 RCT, n=458; TRE pencereleri karışık)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.08
+        },
+        {
+          "id": "S4w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs CR; erken TRE alt grubunda etki)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.08
+        },
+        {
+          "id": "S5w",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'t': 1.6, 'df': 137, 'n': 139}",
+          "log10_lr_raw": -1.464,
+          "lr_raw": 0.034,
+          "log10_lr_effective": -0.922,
+          "lr_effective": 0.12,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.255
+        },
+        {
+          "id": "S6w",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — Erken TRE (07–15) + enerji kısıtlaması vs ≥12 saat pencere + aynı enerji kısıtlaması; 14 hafta. Pencere erken (klasik 16:8'den farklı zamanlama))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.428,
+          "lr_effective": 0.373,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.118
+        },
+        {
+          "id": "S7w",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — Kontrollü beslenme ile gerçekten izokalorik; ama 10 saatlik pencere (16:8 değil) ve karşılaştırma 'olağan yeme düzeni' (klasik diyet değil); %93 kadın)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.428,
+          "lr_effective": 0.373,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.118
+        },
+        {
+          "id": "S8w",
+          "kind": "source",
+          "cluster": "Lin2023",
+          "label": "Lin S, Cienfuegos S, Ezpeleta M, et al. (2023). Time-Restricted Eating Without Calorie Counting for Weight Loss in a Racially Diverse Population: A Randomized Controlled Trial. Ann Intern Med 176(7).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — 12:00–20:00 TRE (16:8) kalori saymadan vs %25 CR; gerçekleşen alım azalması benzer (−425 vs −405 kcal) → fiilen yaklaşık izokalorik; 12 ay)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.071
+        },
+        {
+          "id": "S9w",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.504,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (uygulanabilirlik: partial — 16:8 (12–20) vs 3 öğün; kalori hedefi yok ama gruplar arası enerji alımı farklı değil → fiilen benzer kalori)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.303,
+          "lr_effective": 0.497,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.084
+        },
+        {
+          "id": "S10w",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.8 (uygulanabilirlik: partial — T2D'li obez yetişkinler; TRE (12–20) kalori saymadan vs %25 CR — izokalorik değil; TRE vs CR doğrudan farkının anlamlılığı doğrulanamadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.129,
+          "lr_effective": 0.743,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.036
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C3",
+      "text": "Aynı kaloride 16:8 TRE ile klasik diyet arasında kilo kaybı açısından anlamlı fark yoktur (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "kilo_kaybi",
+        "relation": "none",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.5,
+      "prior_rationale": "Enerji dengesi ilkesine göre izokalorik iki diyetin benzer sonuç vermesi beklenir → C1–C3 setinde en yüksek önsel; set toplamı 1.0",
+      "scores": {
+        "spectrum_S": 0.159,
+        "spectrum_label": "Zayıf destek",
+        "posterior_P": 0.851,
+        "posterior_odds": 5.694,
+        "log10_bayes_factor_total": 0.755,
+        "bayes_factor_total": 5.694,
+        "decision_code": "conditional",
+        "decision": "Koşullu kabul",
+        "consensus_C": 0.356,
+        "mean_quality_Q": 0.476,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 4.763,
+        "n_evidence": 10,
+        "n_active_evidence": 10,
+        "n_independent_clusters": 7,
+        "n_supporting": 6,
+        "n_contradicting": 4,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": -0.543
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.573,
+        "P_max": 0.96,
+        "decision_robustness": 0.556,
+        "grid": {
+          "priors": [
+            0.25,
+            0.5,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 3.337,
+        "next_band_up_at_P": 0.95,
+        "lr_needed_to_move_down": 0.703,
+        "next_band_down_at_P": 0.8
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 4,
+          "k_effective": 1.6,
+          "log10_lr": 0.0
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.323
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.428
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.428
+        },
+        "Lin2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.258
+        },
+        "MA_16_8": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.303
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.129
+        }
+      },
+      "flags": [
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Semnani-Azad Z, Khan TA, et al. (2025). Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis of randomised clinical trials. BMJ.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 99 RCT; TRE tüm pencereler (yalnız 16:8 değil); sürekli enerji kısıtlaması her zaman birebir izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.095
+        },
+        {
+          "id": "S2w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF vs CR; 20 RCT; IF türleri karışık (yalnız 16:8 değil))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.095
+        },
+        {
+          "id": "S3w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs yalnız CR (kalori hedefleri benzer); 7 RCT, n=458; TRE pencereleri karışık)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.095
+        },
+        {
+          "id": "S4w",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — TRE+CR vs CR; erken TRE alt grubunda etki)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.095
+        },
+        {
+          "id": "S5w",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'t': 1.6, 'df': 137, 'n': 139}",
+          "log10_lr_raw": 0.513,
+          "lr_raw": 3.256,
+          "log10_lr_effective": 0.323,
+          "lr_effective": 2.104,
+          "direction_d": 0.513,
+          "share_of_total_effect": 0.107
+        },
+        {
+          "id": "S6w",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — Erken TRE (07–15) + enerji kısıtlaması vs ≥12 saat pencere + aynı enerji kısıtlaması; 14 hafta. Pencere erken (klasik 16:8'den farklı zamanlama))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.428,
+          "lr_effective": 0.373,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.142
+        },
+        {
+          "id": "S7w",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — Kontrollü beslenme ile gerçekten izokalorik; ama 10 saatlik pencere (16:8 değil) ve karşılaştırma 'olağan yeme düzeni' (klasik diyet değil); %93 kadın)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.428,
+          "lr_effective": 2.682,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.142
+        },
+        {
+          "id": "S8w",
+          "kind": "source",
+          "cluster": "Lin2023",
+          "label": "Lin S, Cienfuegos S, Ezpeleta M, et al. (2023). Time-Restricted Eating Without Calorie Counting for Weight Loss in a Racially Diverse Population: A Randomized Controlled Trial. Ann Intern Med 176(7).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — 12:00–20:00 TRE (16:8) kalori saymadan vs %25 CR; gerçekleşen alım azalması benzer (−425 vs −405 kcal) → fiilen yaklaşık izokalorik; 12 ay)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.258,
+          "lr_effective": 1.811,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.085
+        },
+        {
+          "id": "S9w",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.504,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (uygulanabilirlik: partial — 16:8 (12–20) vs 3 öğün; kalori hedefi yok ama gruplar arası enerji alımı farklı değil → fiilen benzer kalori)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.303,
+          "lr_effective": 2.011,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.1
+        },
+        {
+          "id": "S10w",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.8 (uygulanabilirlik: partial — T2D'li obez yetişkinler; TRE (12–20) kalori saymadan vs %25 CR — izokalorik değil; TRE vs CR doğrudan farkının anlamlılığı doğrulanamadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.129,
+          "lr_effective": 0.743,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.043
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C4",
+      "text": "16:8 TRE, aynı kalorili klasik diyete göre ÇOK DAHA FAZLA (klinik olarak büyük, ör. ≥%3 vücut ağırlığı / ≥3 kg ek) kilo kaybı sağlar",
+      "structure": {
+        "x": null,
+        "y": null,
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.12,
+      "prior_rationale": "'Çok daha fazla' büyüklük iddiası; izokalorik koşulda büyük fark termodinamik açıdan beklenmez → olağanüstü iddia bandı (0.10–0.25) alt ucu",
+      "scores": {
+        "spectrum_S": -0.63,
+        "spectrum_label": "Güçlü çelişki",
+        "posterior_P": 0.003,
+        "posterior_odds": 0.003,
+        "log10_bayes_factor_total": -1.603,
+        "bayes_factor_total": 0.025,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.53,
+        "mean_quality_Q": 0.479,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 2.873,
+        "n_evidence": 6,
+        "n_active_evidence": 6,
+        "n_independent_clusters": 5,
+        "n_supporting": 1,
+        "n_contradicting": 5,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.363
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.001,
+        "P_max": 0.151,
+        "decision_robustness": 0.926,
+        "grid": {
+          "priors": [
+            0.12,
+            0.25,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 32.637,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 2,
+          "k_effective": 1.333,
+          "log10_lr": -0.415
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.63
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.129
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.428
+        },
+        "Lin2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        }
+      },
+      "flags": [
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1m",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Semnani-Azad Z, Khan TA, et al. (2025). Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis of randomised clinical trials. BMJ.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.479,
+          "lr_effective": 0.332,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.232
+        },
+        {
+          "id": "S3m",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.144,
+          "lr_effective": 0.718,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.07
+        },
+        {
+          "id": "S5m",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.63,
+          "lr_effective": 0.234,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.305
+        },
+        {
+          "id": "S6m",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "claim_id",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.129,
+          "lr_effective": 1.346,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.062
+        },
+        {
+          "id": "S7m",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.428,
+          "lr_effective": 0.373,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.207
+        },
+        {
+          "id": "S8m",
+          "kind": "source",
+          "cluster": "Lin2023",
+          "label": "Lin S, Cienfuegos S, Ezpeleta M, et al. (2023). Time-Restricted Eating Without Calorie Counting for Weight Loss in a Racially Diverse Population: A Randomized Controlled Trial. Ann Intern Med 176(7).",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.125
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C5",
+      "text": "16:8 TRE, aynı kalorili klasik diyete göre insülin direncini DAHA FAZLA azaltır",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "insulin_direnci",
+        "relation": "negative",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "Sirkadiyen hizalama hipotezi (erken TRE) makul ama izokalorik koşulda tartışmalı",
+      "scores": {
+        "spectrum_S": -0.41,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.019,
+        "posterior_odds": 0.02,
+        "log10_bayes_factor_total": -1.441,
+        "bayes_factor_total": 0.036,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.572,
+        "mean_quality_Q": 0.429,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.865,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 7,
+        "n_supporting": 2,
+        "n_contradicting": 7,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.552
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.004,
+        "P_max": 0.183,
+        "decision_robustness": 0.852,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 5.693,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 3,
+          "k_effective": 1.5,
+          "log10_lr": -0.144
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.379
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "ChronoFast2025": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.454
+        },
+        "Sutton2018": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.133
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.081
+        }
+      },
+      "flags": [
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S2i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF (türler karışık) vs CR; uzun dönemde HOMA-IR P=0.04 IF lehine ama genel sonuç 'üstün değil')"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.144,
+          "lr_effective": 1.394,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S3i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.144,
+          "lr_effective": 0.718,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S4i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.135
+        },
+        {
+          "id": "S5i",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.379,
+          "lr_effective": 0.418,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.177
+        },
+        {
+          "id": "S6i",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S7i",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — 10 saatlik izokalorik TRE vs olağan yeme; glisemik ölçütler (insülin direnci ölçütünün ayrıntısı doğrulanamadı))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S11i",
+          "kind": "source",
+          "cluster": "ChronoFast2025",
+          "label": "Peters B, Schwarz J, et al. (2025). Intended isocaloric time-restricted eating shifts circadian clocks but does not improve cardiometabolic health in women with overweight (ChronoFast). Sci Transl Med 17:eadv6787.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik 8 saatlik erken ve geç TRE (16:8), çapraz RCT, 2'şer hafta, aşırı kilolu kadınlar; birincil sonuç insülin duyarlılığı; karşılaştırma TRE pencereleri ve başlangıç (klasik diyet kolu yok))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.454,
+          "lr_effective": 0.352,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.212
+        },
+        {
+          "id": "S12i",
+          "kind": "source",
+          "cluster": "Sutton2018",
+          "label": "Sutton EF, Beyl R, Early KS, et al. (2018). Early Time-Restricted Feeding Improves Insulin Sensitivity, Blood Pressure, and Oxidative Stress Even without Weight Loss in Men with Prediabetes. Cell Metab 27(6):1212-1221.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.22,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.7 (n=8)",
+            "×0.5 (uygulanabilirlik: indirect — 6 saatlik erken TRF (18:6, akşam yemeği 15:00 öncesi), kilo sabit tutulmuş kontrollü beslenme, prediyabetik 8 erkek, çapraz; 16:8'e uzak)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.133,
+          "lr_effective": 1.358,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.062
+        },
+        {
+          "id": "S10i",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.268,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.5 (uygulanabilirlik: indirect — T2D; ölçüt HbA1c (insülin direnci değil); izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.081,
+          "lr_effective": 0.831,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.038
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C6",
+      "text": "Aynı kaloride 16:8 TRE ile klasik diyetin insülin direncine etkisi farklı değildir (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "insulin_direnci",
+        "relation": "none",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.5,
+      "prior_rationale": "İnsülin duyarlılığındaki iyileşmenin büyük kısmının kilo kaybından gelmesi beklenir → izokalorik koşulda fark yok en olası",
+      "scores": {
+        "spectrum_S": 0.41,
+        "spectrum_label": "Orta destek",
+        "posterior_P": 0.965,
+        "posterior_odds": 27.588,
+        "log10_bayes_factor_total": 1.441,
+        "bayes_factor_total": 27.588,
+        "decision_code": "accept",
+        "decision": "Kabul — uygulanabilir",
+        "consensus_C": 0.572,
+        "mean_quality_Q": 0.429,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.865,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 7,
+        "n_supporting": 7,
+        "n_contradicting": 2,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": -0.52
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.817,
+        "P_max": 0.996,
+        "decision_robustness": 0.593,
+        "grid": {
+          "priors": [
+            0.25,
+            0.5,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": null,
+        "next_band_up_at_P": null,
+        "lr_needed_to_move_down": 0.689,
+        "next_band_down_at_P": 0.95
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 3,
+          "k_effective": 1.5,
+          "log10_lr": 0.144
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.379
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.258
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.258
+        },
+        "ChronoFast2025": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.454
+        },
+        "Sutton2018": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.133
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.081
+        }
+      },
+      "flags": [
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S2i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF (türler karışık) vs CR; uzun dönemde HOMA-IR P=0.04 IF lehine ama genel sonuç 'üstün değil')"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.144,
+          "lr_effective": 0.718,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S3i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.144,
+          "lr_effective": 1.394,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S4i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.135
+        },
+        {
+          "id": "S5i",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.379,
+          "lr_effective": 2.395,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.177
+        },
+        {
+          "id": "S6i",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.258,
+          "lr_effective": 1.811,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S7i",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — 10 saatlik izokalorik TRE vs olağan yeme; glisemik ölçütler (insülin direnci ölçütünün ayrıntısı doğrulanamadı))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.258,
+          "lr_effective": 1.811,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S11i",
+          "kind": "source",
+          "cluster": "ChronoFast2025",
+          "label": "Peters B, Schwarz J, et al. (2025). Intended isocaloric time-restricted eating shifts circadian clocks but does not improve cardiometabolic health in women with overweight (ChronoFast). Sci Transl Med 17:eadv6787.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik 8 saatlik erken ve geç TRE (16:8), çapraz RCT, 2'şer hafta, aşırı kilolu kadınlar; birincil sonuç insülin duyarlılığı; karşılaştırma TRE pencereleri ve başlangıç (klasik diyet kolu yok))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.454,
+          "lr_effective": 2.842,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.212
+        },
+        {
+          "id": "S12i",
+          "kind": "source",
+          "cluster": "Sutton2018",
+          "label": "Sutton EF, Beyl R, Early KS, et al. (2018). Early Time-Restricted Feeding Improves Insulin Sensitivity, Blood Pressure, and Oxidative Stress Even without Weight Loss in Men with Prediabetes. Cell Metab 27(6):1212-1221.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.22,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.7 (n=8)",
+            "×0.5 (uygulanabilirlik: indirect — 6 saatlik erken TRF (18:6, akşam yemeği 15:00 öncesi), kilo sabit tutulmuş kontrollü beslenme, prediyabetik 8 erkek, çapraz; 16:8'e uzak)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.133,
+          "lr_effective": 0.737,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.062
+        },
+        {
+          "id": "S10i",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.268,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.5 (uygulanabilirlik: indirect — T2D; ölçüt HbA1c (insülin direnci değil); izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.081,
+          "lr_effective": 1.204,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.038
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C7",
+      "text": "Aynı kaloride 16:8 TRE, klasik diyete göre insülin direncini daha az azaltır / kötüleştirir (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_izokalorik_KKK",
+        "y": "insulin_direnci",
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.15,
+      "prior_rationale": "Rakip hipotez; geç yeme penceresinin olumsuz etkisi teorik olarak mümkün ama zayıf",
+      "scores": {
+        "spectrum_S": -0.553,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.002,
+        "posterior_odds": 0.002,
+        "log10_bayes_factor_total": -1.85,
+        "bayes_factor_total": 0.014,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.788,
+        "mean_quality_Q": 0.429,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.865,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 7,
+        "n_supporting": 0,
+        "n_contradicting": 9,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.442
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.0,
+        "P_max": 0.101,
+        "decision_robustness": 0.963,
+        "grid": {
+          "priors": [
+            0.15,
+            0.25,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 44.612,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_havuzu": {
+          "k": 3,
+          "k_effective": 1.5,
+          "log10_lr": -0.288
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.379
+        },
+        "Jamshed2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "Maruthur2024": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.258
+        },
+        "ChronoFast2025": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.454
+        },
+        "Sutton2018": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.133
+        },
+        "Pavlou2023": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.081
+        }
+      },
+      "flags": [
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S2i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Hamsho M, et al. (2025). Is isocaloric intermittent fasting superior to calorie restriction? A systematic review and meta-analysis of RCTs. Nutr Metab Cardiovasc Dis.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik IF (türler karışık) vs CR; uzun dönemde HOMA-IR P=0.04 IF lehine ama genel sonuç 'üstün değil')"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.144,
+          "lr_effective": 0.718,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S3i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "Črešnovar T, Habe B, Jenko Pražnikar Z, Petelin A. (2023). Effectiveness of Time-Restricted Eating with Caloric Restriction vs. Caloric Restriction for Weight Loss and Health: Meta-Analysis. Nutrients.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.144,
+          "lr_effective": 0.718,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S4i",
+          "kind": "source",
+          "cluster": "MA_havuzu",
+          "label": "(2023). Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr (yazarlar doğrulanamadı).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.135
+        },
+        {
+          "id": "S5i",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.379,
+          "lr_effective": 0.418,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.177
+        },
+        {
+          "id": "S6i",
+          "kind": "source",
+          "cluster": "Jamshed2022",
+          "label": "Jamshed H, Steger FL, Bryan DR, et al. (2022). Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=90)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S7i",
+          "kind": "source",
+          "cluster": "Maruthur2024",
+          "label": "Maruthur NM, et al. (2024). Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults With Obesity: A Randomized Controlled Trial. Ann Intern Med 177(5):549-558.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.428,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=41)",
+            "×0.8 (uygulanabilirlik: partial — 10 saatlik izokalorik TRE vs olağan yeme; glisemik ölçütler (insülin direnci ölçütünün ayrıntısı doğrulanamadı))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.258,
+          "lr_effective": 0.552,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.121
+        },
+        {
+          "id": "S11i",
+          "kind": "source",
+          "cluster": "ChronoFast2025",
+          "label": "Peters B, Schwarz J, et al. (2025). Intended isocaloric time-restricted eating shifts circadian clocks but does not improve cardiometabolic health in women with overweight (ChronoFast). Sci Transl Med 17:eadv6787.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — İzokalorik 8 saatlik erken ve geç TRE (16:8), çapraz RCT, 2'şer hafta, aşırı kilolu kadınlar; birincil sonuç insülin duyarlılığı; karşılaştırma TRE pencereleri ve başlangıç (klasik diyet kolu yok))"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.454,
+          "lr_effective": 0.352,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.212
+        },
+        {
+          "id": "S12i",
+          "kind": "source",
+          "cluster": "Sutton2018",
+          "label": "Sutton EF, Beyl R, Early KS, et al. (2018). Early Time-Restricted Feeding Improves Insulin Sensitivity, Blood Pressure, and Oxidative Stress Even without Weight Loss in Men with Prediabetes. Cell Metab 27(6):1212-1221.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.22,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.7 (n=8)",
+            "×0.5 (uygulanabilirlik: indirect — 6 saatlik erken TRF (18:6, akşam yemeği 15:00 öncesi), kilo sabit tutulmuş kontrollü beslenme, prediyabetik 8 erkek, çapraz; 16:8'e uzak)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.133,
+          "lr_effective": 0.737,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.062
+        },
+        {
+          "id": "S10i",
+          "kind": "source",
+          "cluster": "Pavlou2023",
+          "label": "Pavlou V, Cienfuegos S, Lin S, et al. (2023). Effect of Time-Restricted Eating on Weight Loss in Adults With Type 2 Diabetes: A Randomized Clinical Trial. JAMA Netw Open 6(10).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.268,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.85 (n=75)",
+            "×0.5 (uygulanabilirlik: indirect — T2D; ölçüt HbA1c (insülin direnci değil); izokalorik değil)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.081,
+          "lr_effective": 0.831,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.038
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C8",
+      "text": "16:8 TRE, normal beslenmeye (kontrol) göre insülin direncini azaltır",
+      "structure": {
+        "x": "TRE_16_8_vs_kontrol",
+        "y": "insulin_direnci",
+        "relation": "negative",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.55,
+      "prior_rationale": "Serbest TRE genelde kalori alımını ve kiloyu azaltır; bu da insülin direncini düşürmeli → makul, hafif olumlu önsel",
+      "scores": {
+        "spectrum_S": 0.25,
+        "spectrum_label": "Zayıf destek",
+        "posterior_P": 0.749,
+        "posterior_odds": 2.99,
+        "log10_bayes_factor_total": 0.389,
+        "bayes_factor_total": 2.447,
+        "decision_code": "uncertain",
+        "decision": "Belirsiz — ek kanıt gerekli",
+        "consensus_C": 0.591,
+        "mean_quality_Q": 0.594,
+        "evidence_quality_grade": "Orta",
+        "total_weight_W": 1.782,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 2,
+        "n_supporting": 2,
+        "n_contradicting": 1,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": -0.248
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.397,
+        "P_max": 0.911,
+        "decision_robustness": 0.63,
+        "grid": {
+          "priors": [
+            0.25,
+            0.55,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 1.338,
+        "next_band_up_at_P": 0.8,
+        "lr_needed_to_move_down": 0.143,
+        "next_band_down_at_P": 0.3
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_16_8": {
+          "k": 2,
+          "k_effective": 1.333,
+          "log10_lr": 0.115
+        },
+        "Cienfuegos2020": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.273
+        }
+      },
+      "flags": [
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S13c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "(2025). Effect of 8-Hour Time-Restricted Eating (16/8 TRE) on Glucose Metabolism and Lipid Profile in Adults: A Systematic Review and Meta-Analysis. Nutrition Reviews (23 RCT, n=1280).",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.698,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1280)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'d': -0.16, 'n1': 640, 'n2': 640}",
+          "log10_lr_raw": 0.52,
+          "lr_raw": 3.309,
+          "log10_lr_effective": 0.363,
+          "lr_effective": 2.306,
+          "direction_d": 0.52,
+          "share_of_total_effect": 0.44
+        },
+        {
+          "id": "S9c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.19,
+          "lr_effective": 0.646,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.23
+        },
+        {
+          "id": "S14c",
+          "kind": "source",
+          "cluster": "Cienfuegos2020",
+          "label": "Cienfuegos S, Gabel K, Kalam F, et al. (2020). Effects of 4- and 6-h Time-Restricted Feeding on Weight and Cardiometabolic Health: A Randomized Controlled Trial in Adults with Obesity. Cell Metab.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 4 ve 6 saatlik TRF (16:8'den daha kısıtlayıcı), 8 hafta, obez yetişkinler; ~550 kcal/gün alım azalması)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.273,
+          "lr_effective": 1.875,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.331
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C9",
+      "text": "16:8 TRE'nin normal beslenmeye göre insülin direncine etkisi yoktur (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_kontrol",
+        "y": "insulin_direnci",
+        "relation": "none",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.4,
+      "prior_rationale": "Kilo kaybı küçük kalırsa etki ölçülemeyebilir",
+      "scores": {
+        "spectrum_S": -0.133,
+        "spectrum_label": "Zayıf çelişki",
+        "posterior_P": 0.273,
+        "posterior_odds": 0.376,
+        "log10_bayes_factor_total": -0.249,
+        "bayes_factor_total": 0.564,
+        "decision_code": "likely_false",
+        "decision": "Büyük olasılıkla yanlış",
+        "consensus_C": 0.646,
+        "mean_quality_Q": 0.594,
+        "evidence_quality_grade": "Orta",
+        "total_weight_W": 1.782,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 2,
+        "n_supporting": 1,
+        "n_contradicting": 2,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.321
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.142,
+        "P_max": 0.66,
+        "decision_robustness": 0.63,
+        "grid": {
+          "priors": [
+            0.25,
+            0.4,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 1.14,
+        "next_band_up_at_P": 0.3,
+        "lr_needed_to_move_down": 0.296,
+        "next_band_down_at_P": 0.1
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_16_8": {
+          "k": 2,
+          "k_effective": 1.333,
+          "log10_lr": 0.024
+        },
+        "Cienfuegos2020": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.273
+        }
+      },
+      "flags": [
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S13c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "(2025). Effect of 8-Hour Time-Restricted Eating (16/8 TRE) on Glucose Metabolism and Lipid Profile in Adults: A Systematic Review and Meta-Analysis. Nutrition Reviews (23 RCT, n=1280).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.698,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1280)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'d': -0.16, 'n1': 640, 'n2': 640}",
+          "log10_lr_raw": -0.22,
+          "lr_raw": 0.603,
+          "log10_lr_effective": -0.153,
+          "lr_effective": 0.703,
+          "direction_d": -0.22,
+          "share_of_total_effect": 0.249
+        },
+        {
+          "id": "S9c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.19,
+          "lr_effective": 1.548,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.308
+        },
+        {
+          "id": "S14c",
+          "kind": "source",
+          "cluster": "Cienfuegos2020",
+          "label": "Cienfuegos S, Gabel K, Kalam F, et al. (2020). Effects of 4- and 6-h Time-Restricted Feeding on Weight and Cardiometabolic Health: A Randomized Controlled Trial in Adults with Obesity. Cell Metab.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 4 ve 6 saatlik TRF (16:8'den daha kısıtlayıcı), 8 hafta, obez yetişkinler; ~550 kcal/gün alım azalması)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.273,
+          "lr_effective": 0.533,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.443
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C10",
+      "text": "16:8 TRE, normal beslenmeye göre insülin direncini artırır (rakip)",
+      "structure": {
+        "x": "TRE_16_8_vs_kontrol",
+        "y": "insulin_direnci",
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.05,
+      "prior_rationale": "Mekanizma yok; dışlayıcı tamamlayıcı hipotez",
+      "scores": {
+        "spectrum_S": -0.652,
+        "spectrum_label": "Güçlü çelişki",
+        "posterior_P": 0.002,
+        "posterior_odds": 0.002,
+        "log10_bayes_factor_total": -1.331,
+        "bayes_factor_total": 0.047,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.697,
+        "mean_quality_Q": 0.594,
+        "evidence_quality_grade": "Orta",
+        "total_weight_W": 1.782,
+        "n_evidence": 3,
+        "n_active_evidence": 3,
+        "n_independent_clusters": 2,
+        "n_supporting": 0,
+        "n_contradicting": 3,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.344
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.0,
+        "P_max": 0.264,
+        "decision_robustness": 0.815,
+        "grid": {
+          "priors": [
+            0.05,
+            0.25,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 45.19,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": "S13c",
+      "clusters": {
+        "MA_16_8": {
+          "k": 2,
+          "k_effective": 1.333,
+          "log10_lr": -1.057
+        },
+        "Cienfuegos2020": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.273
+        }
+      },
+      "flags": [
+        {
+          "code": "single_source_dominance",
+          "message": "Tek bir kanıt toplam etkinin çoğunu taşıyor; sonuç ona bağımlı."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S13c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "(2025). Effect of 8-Hour Time-Restricted Eating (16/8 TRE) on Glucose Metabolism and Lipid Profile in Adults: A Systematic Review and Meta-Analysis. Nutrition Reviews (23 RCT, n=1280).",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.698,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1280)"
+          ],
+          "status": "unverified",
+          "lr_basis": "raporlanan istatistik {'d': -0.16, 'n1': 640, 'n2': 640}",
+          "log10_lr_raw": -2.0,
+          "lr_raw": 0.01,
+          "log10_lr_effective": -1.396,
+          "lr_effective": 0.04,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.751
+        },
+        {
+          "id": "S9c",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.19,
+          "lr_effective": 0.646,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.102
+        },
+        {
+          "id": "S14c",
+          "kind": "source",
+          "cluster": "Cienfuegos2020",
+          "label": "Cienfuegos S, Gabel K, Kalam F, et al. (2020). Effects of 4- and 6-h Time-Restricted Feeding on Weight and Cardiometabolic Health: A Randomized Controlled Trial in Adults with Obesity. Cell Metab.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — 4 ve 6 saatlik TRF (16:8'den daha kısıtlayıcı), 8 hafta, obez yetişkinler; ~550 kcal/gün alım azalması)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.273,
+          "lr_effective": 0.533,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.147
+        }
+      ],
+      "evidence_scoped_out": []
+    },
+    {
+      "id": "C11",
+      "text": "16:8 TRE insülin direncini TAMAMEN düzeltir (normalleştirir / ortadan kaldırır)",
+      "structure": {
+        "x": null,
+        "y": null,
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.08,
+      "prior_rationale": "Mutlak/olağanüstü iddia: insülin direnci çok etkenli (adipozite, genetik, aktivite); tek bir öğün zamanlaması müdahalesinin onu tamamen ortadan kaldırması biyolojik olarak beklenmez → 0.05–0.10",
+      "scores": {
+        "spectrum_S": -0.497,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.008,
+        "posterior_odds": 0.008,
+        "log10_bayes_factor_total": -1.039,
+        "bayes_factor_total": 0.091,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.656,
+        "mean_quality_Q": 0.447,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 2.685,
+        "n_evidence": 6,
+        "n_active_evidence": 6,
+        "n_independent_clusters": 5,
+        "n_supporting": 1,
+        "n_contradicting": 4,
+        "n_neutral": 1,
+        "spectrum_vs_probability_gap": 0.487
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.002,
+        "P_max": 0.347,
+        "decision_robustness": 0.704,
+        "grid": {
+          "priors": [
+            0.08,
+            0.25,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 13.974,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "MA_16_8": {
+          "k": 2,
+          "k_effective": 1.333,
+          "log10_lr": -0.592
+        },
+        "ChronoFast2025": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.273
+        },
+        "Liu2022": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.19
+        },
+        "Sutton2018": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.0
+        },
+        "Thieme_HMIF": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.016
+        }
+      },
+      "flags": [
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S13t",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "(2025). Effect of 8-Hour Time-Restricted Eating (16/8 TRE) on Glucose Metabolism and Lipid Profile in Adults: A Systematic Review and Meta-Analysis. Nutrition Reviews (23 RCT, n=1280).",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.698,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1280)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.698,
+          "lr_effective": 0.2,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.511
+        },
+        {
+          "id": "S9t",
+          "kind": "source",
+          "cluster": "MA_16_8",
+          "label": "Lowe DA, Wu N, Rohdin-Bibby L, et al. (2020). Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial. JAMA Intern Med 180(11):1491-1499.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.19,
+          "lr_effective": 0.646,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.139
+        },
+        {
+          "id": "S11t",
+          "kind": "source",
+          "cluster": "ChronoFast2025",
+          "label": "Peters B, Schwarz J, et al. (2025). Intended isocaloric time-restricted eating shifts circadian clocks but does not improve cardiometabolic health in women with overweight (ChronoFast). Sci Transl Med 17:eadv6787.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.454,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.273,
+          "lr_effective": 0.533,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.2
+        },
+        {
+          "id": "S5t",
+          "kind": "source",
+          "cluster": "Liu2022",
+          "label": "Liu D, Huang Y, Huang C, et al. (2022). Calorie Restriction with or without Time-Restricted Eating in Weight Loss (TREATY). N Engl J Med.",
+          "applied_via": "claim_id",
+          "stance_used": "contradicts",
+          "quality_Q": 0.63,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.19,
+          "lr_effective": 0.646,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.139
+        },
+        {
+          "id": "S12t",
+          "kind": "source",
+          "cluster": "Sutton2018",
+          "label": "Sutton EF, Beyl R, Early KS, et al. (2018). Early Time-Restricted Feeding Improves Insulin Sensitivity, Blood Pressure, and Oxidative Stress Even without Weight Loss in Men with Prediabetes. Cell Metab 27(6):1212-1221.",
+          "applied_via": "claim_id",
+          "stance_used": "mixed",
+          "quality_Q": 0.22,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.7 (n=8)",
+            "×0.5 (uygulanabilirlik: indirect — farklı popülasyon/bağlam)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=mixed (yönsüz)",
+          "log10_lr_raw": 0.0,
+          "lr_raw": 1.0,
+          "log10_lr_effective": 0.0,
+          "lr_effective": 1.0,
+          "direction_d": 0.0,
+          "share_of_total_effect": 0.0
+        },
+        {
+          "id": "S15t",
+          "kind": "source",
+          "cluster": "Thieme_HMIF",
+          "label": "(t.y.) Hepatic-Metabolite-Based Intermittent Fasting Enables a ... (Thieme Connect, doi 10.1055/a-1510-8896) — insülin direnci normalleşmesi/remisyonu >%76 bildiriliyor (arama özetinden).",
+          "applied_via": "claim_id",
+          "stance_used": "supports",
+          "quality_Q": 0.052,
+          "quality_trace": [
+            "tasarım=unknown → 0.25",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.5 (uygulanabilirlik: indirect — 16:8 değil, 'karaciğer metaboliti temelli' özel bir IF protokolü; tasarım bilinmiyor)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.016,
+          "lr_effective": 1.037,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.012
+        }
+      ],
+      "evidence_scoped_out": []
+    }
+  ],
+  "claim_relations": [
+    {
+      "claims": [
+        "C1",
+        "C2"
+      ],
+      "relations": [
+        "positive",
+        "negative"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.124,
+        0.0
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C1",
+        "C3"
+      ],
+      "relations": [
+        "positive",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.124,
+        0.851
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C2",
+        "C3"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.0,
+        0.851
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C5",
+        "C6"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.019,
+        0.965
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C5",
+        "C7"
+      ],
+      "relations": [
+        "negative",
+        "positive"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.019,
+        0.002
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C6",
+        "C7"
+      ],
+      "relations": [
+        "none",
+        "positive"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.965,
+        0.002
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C8",
+        "C9"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.749,
+        0.273
+      ],
+      "incoherence": 0.022
+    },
+    {
+      "claims": [
+        "C8",
+        "C10"
+      ],
+      "relations": [
+        "negative",
+        "positive"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.749,
+        0.002
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C9",
+        "C10"
+      ],
+      "relations": [
+        "none",
+        "positive"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.273,
+        0.002
+      ],
+      "incoherence": 0.0
+    }
+  ],
+  "hypothesis_sets": [
+    {
+      "variables": [
+        "TRE_16_8_vs_izokalorik_KKK",
+        "kilo_kaybi"
+      ],
+      "scope": "nedensel · Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+      "claims": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "relations": [
+        "positive",
+        "negative",
+        "none"
+      ],
+      "P": [
+        0.124,
+        0.0,
+        0.851
+      ],
+      "sum_P": 0.975,
+      "exhaustive": true,
+      "normalized_P": [
+        0.127,
+        0.0,
+        0.873
+      ],
+      "most_probable": "C3",
+      "coherence_gap": 0.025,
+      "incoherent": false
+    },
+    {
+      "variables": [
+        "TRE_16_8_vs_izokalorik_KKK",
+        "insulin_direnci"
+      ],
+      "scope": "nedensel · Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+      "claims": [
+        "C7",
+        "C5",
+        "C6"
+      ],
+      "relations": [
+        "positive",
+        "negative",
+        "none"
+      ],
+      "P": [
+        0.002,
+        0.019,
+        0.965
+      ],
+      "sum_P": 0.986,
+      "exhaustive": true,
+      "normalized_P": [
+        0.002,
+        0.019,
+        0.979
+      ],
+      "most_probable": "C6",
+      "coherence_gap": 0.014,
+      "incoherent": false
+    },
+    {
+      "variables": [
+        "TRE_16_8_vs_kontrol",
+        "insulin_direnci"
+      ],
+      "scope": "nedensel · Aşırı kilolu/obez yetişkinler (prediyabet/T2D dahil)",
+      "claims": [
+        "C10",
+        "C8",
+        "C9"
+      ],
+      "relations": [
+        "positive",
+        "negative",
+        "none"
+      ],
+      "P": [
+        0.002,
+        0.749,
+        0.273
+      ],
+      "sum_P": 1.024,
+      "exhaustive": true,
+      "normalized_P": [
+        0.002,
+        0.731,
+        0.267
+      ],
+      "most_probable": "C8",
+      "coherence_gap": 0.024,
+      "incoherent": false
+    }
+  ],
+  "variables": {
+    "TRE_16_8_vs_izokalorik_KKK": {
+      "claims": [
+        "C1",
+        "C2",
+        "C3",
+        "C5",
+        "C6",
+        "C7"
+      ],
+      "mean_S": -0.202,
+      "mean_P": 0.327
+    },
+    "kilo_kaybi": {
+      "claims": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "mean_S": -0.221,
+      "mean_P": 0.325
+    },
+    "insulin_direnci": {
+      "claims": [
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "C9",
+        "C10"
+      ],
+      "mean_S": -0.181,
+      "mean_P": 0.335
+    },
+    "TRE_16_8_vs_kontrol": {
+      "claims": [
+        "C8",
+        "C9",
+        "C10"
+      ],
+      "mean_S": -0.178,
+      "mean_P": 0.341
+    }
+  }
+}
