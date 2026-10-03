@@ -35,6 +35,8 @@ DEFAULTS = {
     "min_independent_clusters": 2,
     "min_total_weight": 1.0,
     "decision_thresholds": [0.90, 0.70, 0.30, 0.10],  # kabul, koşullu, belirsiz, b.o. yanlış alt sınırları
+    "causal_gap_log10_cap": math.log10(3),  # gözlemsel kanıtın nedensel iddiaya verebileceği en fazla destek
+    "hypothesis_gap_threshold": 0.25,       # rakip hipotez setinde |ΣP − 1| bu değeri aşarsa bayrak
 }
 
 DESIGN_BASE = {
@@ -48,6 +50,8 @@ DESIGN_BASE = {
 EMPIRICAL = {"meta_analysis", "systematic_review", "rct", "quasi_experimental", "cohort",
              "longitudinal", "case_control", "cross_sectional", "official_statistics"}
 CAUSAL_CAPABLE = {"rct", "quasi_experimental"}
+# Dış geçerlilik: kaynağın popülasyonu/bağlamı iddianınkine ne kadar uyuyor
+APPLICABILITY = {"direct": 1.0, "partial": 0.8, "indirect": 0.5}
 STRENGTH_LOG10_LR = {"strong": 1.0, "moderate": math.log10(4), "weak": math.log10(2)}
 
 SPECTRUM_BANDS = [  # (alt sınır, tr, en)
@@ -94,6 +98,10 @@ FLAG_TEXT = {
                           "No disconfirming search recorded (confirmation-bias risk)."),
     "prior_after_evidence": ("Önsel olasılık kanıtlar görüldükten sonra belirlenmiş.",
                              "Prior was set after seeing the evidence."),
+    "causal_cap_applied": ("Gözlemsel kanıtın nedensel iddiaya desteği tavanla sınırlandı (korelasyon ≠ nedensellik).",
+                           "Support from observational evidence for a causal claim was capped."),
+    "hypothesis_set_incoherent": ("Bu iddianın ait olduğu rakip hipotez setinde olasılıklar toplamı 1'den belirgin sapıyor.",
+                                  "Probabilities in this claim's rival-hypothesis set deviate clearly from summing to 1."),
 }
 
 
@@ -112,16 +120,82 @@ def same_pair(a, b):
     return bool(a.get("x") and a.get("y") and b.get("x") and b.get("y")) and {a["x"], a["y"]} == {b["x"], b["y"]}
 
 
+def evidence_controls(e):
+    """Kanıtın kontrol (düzeltme) kümesi. None = belirtilmemiş (literatür kaynaklarında olağan)."""
+    if "controls" in e:
+        return sorted(e["controls"] or [])
+    if e.get("kind") == "data":
+        return sorted((e.get("stats") or {}).get("controls") or [])
+    return None
+
+
+def claim_controls(c):
+    return None if c.get("controls") is None else sorted(c["controls"])
+
+
+def scope_key(c):
+    """Aynı soruyu soran iddiaları gruplayan anahtar: değişken çifti, nedensellik, kontroller, popülasyon."""
+    cc = claim_controls(c)
+    return (tuple(sorted({c["x"], c["y"]})), bool(c.get("causal")),
+            None if cc is None else tuple(cc), c.get("population") or "")
+
+
+def scope_label(key):
+    _, causal, ctrl, pop = key
+    parts = ["nedensel" if causal else "ilişkisel"]
+    if ctrl is not None:
+        parts.append("ham" if not ctrl else "kontroller: " + ", ".join(ctrl))
+    if pop:
+        parts.append(pop)
+    return " · ".join(parts)
+
+
 def evidence_for(claim, evidence):
-    """Bir iddiaya uygulanan kanıtlar: doğrudan bağlı olanlar + aynı X–Y çiftine ait kapsamlı kanıtlar."""
-    out = []
+    """Bir iddiaya uygulanan kanıtlar ve kapsam dışı bırakılanlar.
+
+    Doğrudan bağlı kanıtlar (claim_id) her zaman uygulanır. Değişken çifti kapsamlı kanıtlarda
+    kontrol kümesi iddianın kapsamına uymalıdır:
+      - iddia `controls` belirtiyorsa → yalnızca aynı kontrol kümesiyle yapılmış analizler;
+      - ilişkisel iddia (controls yok) → her bağımlılık kümesinde EN AZ kontrollü analiz (ham ilişki);
+      - nedensel iddia (controls yok) → her kümede EN ÇOK kontrollü analiz (karıştırıcıya en az açık).
+    Kontrol kümesi belirtilmemiş kaynaklar her iddiaya uygulanır.
+    """
+    direct, pair = [], []
     for e in evidence:
         ids = e.get("claim_ids") or ([e["claim_id"]] if e.get("claim_id") else [])
         if claim["id"] in ids:
-            out.append((e, "claim_id"))
+            direct.append((e, "claim_id"))
         elif not ids and same_pair(e, claim):
-            out.append((e, "variable_pair"))
-    return out
+            pair.append(e)
+    kept, dropped = [], []
+    want = claim_controls(claim)
+    if want is not None:
+        for e in pair:
+            ec = evidence_controls(e)
+            if ec is None or ec == want:
+                kept.append(e)
+            else:
+                dropped.append((e, f"kontroller {ec or 'yok (ham)'} ≠ iddianın {want or 'yok (ham)'}"))
+    else:
+        by_cluster = {}
+        for e in pair:
+            ec = evidence_controls(e)
+            if ec is None:
+                kept.append(e)
+            else:
+                by_cluster.setdefault(e.get("cluster") or e["id"], []).append((len(ec), e))
+        for items in by_cluster.values():
+            pick = max if claim.get("causal") else min
+            target = pick(n for n, _ in items)
+            for n, e in items:
+                if n == target:
+                    kept.append(e)
+                else:
+                    why = ("nedensel iddia: aynı veri kümesinde daha kontrollü analiz var" if claim.get("causal")
+                           else "ilişkisel iddia: aynı veri kümesinde ham analiz var")
+                    dropped.append((e, why))
+    applied = direct + [(e, "variable_pair") for e in kept]
+    return applied, [{"id": e["id"], "reason": why} for e, why in dropped]
 
 
 def band(value, bands, lang, idx_tr=1):
@@ -205,6 +279,10 @@ def quality_source(ev, claim, cfg, year_now):
     yr = ev.get("year")
     if isinstance(yr, int) and year_now - yr > cfg["stale_years"]:
         mul(0.9, f"{year_now - yr} yıllık")
+
+    app = ev.get("applicability")
+    if app in APPLICABILITY and APPLICABILITY[app] != 1.0:
+        mul(APPLICABILITY[app], f"uygulanabilirlik: {app} — {ev.get('applicability_note', 'farklı popülasyon/bağlam')}")
 
     causal_design = ev.get("causal_design", design in CAUSAL_CAPABLE)
     if claim.get("causal") and not causal_design:
@@ -297,6 +375,15 @@ def score_evidence(ev, claim, cfg, year_now, flags):
         flags.add("unverified_sources")
 
     l10_raw = max(min(log_lr_raw / LN10, cap), -cap)
+    if kind == "data":
+        noncausal = not ev.get("experimental")
+    else:
+        noncausal = not ev.get("causal_design", ev.get("design", "unknown") in CAUSAL_CAPABLE)
+    ccap = cfg["causal_gap_log10_cap"]
+    if claim.get("causal") and noncausal and l10_raw > ccap and q > 0:
+        trace = trace + [f"LR_ham {10 ** l10_raw:.3g} → {10 ** ccap:.3g} tavanı (gözlemsel kanıt nedenselliği tek başına kanıtlayamaz)"]
+        l10_raw = ccap
+        flags.add("causal_cap_applied")
     l10_eff = l10_raw * q                      # LR_eff = LR_raw ^ Q
     d = max(min(l10_raw, 1.0), -1.0)           # yön + güç, [-1, +1]
     return {
@@ -335,7 +422,7 @@ def combine(scored, prior, rho, q_scale=1.0):
     return S.sigmoid(post), total_l10, contrib
 
 
-def score_claim(claim, evs, cfg, lang, year_now):
+def score_claim(claim, evs, cfg, lang, year_now, scoped_out=()):
     flags = set()
     prior = claim.get("prior", cfg["prior_default"])
     rho = cfg["rho_within_cluster"]
@@ -416,7 +503,7 @@ def score_claim(claim, evs, cfg, lang, year_now):
         "id": claim["id"],
         "text": claim.get("text", ""),
         "structure": {k: claim.get(k) for k in
-                      ("x", "y", "relation", "causal", "population", "timeframe", "conditions")},
+                      ("x", "y", "relation", "causal", "controls", "population", "timeframe", "conditions")},
         "prior": prior,
         "prior_rationale": claim.get("prior_rationale", ""),
         "scores": {
@@ -450,6 +537,7 @@ def score_claim(claim, evs, cfg, lang, year_now):
                      for c, v in contrib.items()},
         "flags": [{"code": f, "message": FLAG_TEXT[f][0 if lang == "tr" else 1]} for f in sorted(flags)],
         "evidence": out_ev,
+        "evidence_scoped_out": list(scoped_out),
     }
 
 
@@ -473,15 +561,63 @@ def claim_relations(claims, scored):
             if not same_pair(a, b):
                 continue
             ra, rb = a["relation"], b["relation"]
-            comp = COMPAT.get((ra, rb), COMPAT.get((rb, ra), 0))
             pa, pb = scored[a["id"]]["scores"]["posterior_P"], scored[b["id"]]["scores"]["posterior_P"]
-            rec = {"claims": [a["id"], b["id"]], "relations": [ra, rb],
+            ka, kb = scope_key(a), scope_key(b)
+            same_scope = ka == kb
+            comp = COMPAT.get((ra, rb), COMPAT.get((rb, ra), 0)) if same_scope else 0
+            rec = {"claims": [a["id"], b["id"]], "relations": [ra, rb], "same_scope": same_scope,
                    "logical_compatibility": comp, "P": [pa, pb]}
-            if a.get("population") and b.get("population") and a["population"] != b["population"]:
-                rec["note"] = "Popülasyonlar farklı; çelişki bağlama bağlı olabilir."
+            if not same_scope:
+                rec["note"] = (f"Farklı kapsam ({scope_label(ka)} / {scope_label(kb)}): "
+                               "ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz.")
             if comp == -1:
                 rec["incoherence"] = r3(max(0.0, pa + pb - 1))  # >0 ise olasılıklar tutarsız
             out.append(rec)
+    return out
+
+
+def hypothesis_sets(claims, scored, cfg):
+    """Aynı kapsamda birbirini dışlayan iddiaları (artırır / azaltır / yok) bir arada değerlendirir.
+
+    positive, negative ve none aynı kapsamda hem birbirini dışlar hem de tüm olasılıkları kapsar;
+    bu yüzden P'lerinin toplamı ≈ 1 olmalıdır (nonzero + none için de aynısı). Her iddia ayrı
+    önselle puanlandığı için toplam 1'den sapabilir; sapma, kanıtların hipotezleri ne kadar
+    ayırt edebildiğini gösterir. Normalize P tutarlı bir dağılım verir.
+    """
+    groups = {}
+    for c in claims:
+        if c.get("x") and c.get("y"):
+            groups.setdefault(scope_key(c), []).append(c)
+    out = []
+    for key, cs in groups.items():
+        rels = {}
+        for c in cs:
+            rels.setdefault(c["relation"], []).append(c["id"])
+        if {"positive", "negative", "none"} <= rels.keys():
+            members, exhaustive = ["positive", "negative", "none"], True
+        elif {"nonzero", "none"} <= rels.keys():
+            members, exhaustive = ["nonzero", "none"], True
+        else:
+            members = [r for r in ("positive", "negative", "none") if r in rels]
+            exhaustive = False
+            if len(members) < 2:
+                continue
+        ids = [rels[r][0] for r in members]
+        Ps = [scored[i]["scores"]["posterior_P"] for i in ids]
+        tot = sum(Ps)
+        gap = abs(tot - 1) if exhaustive else max(0.0, tot - 1)
+        rec = {
+            "variables": list(key[0]), "scope": scope_label(key), "claims": ids, "relations": members,
+            "P": Ps, "sum_P": r3(tot), "exhaustive": exhaustive,
+            "normalized_P": [r3(p / tot) for p in Ps] if tot > 0 else None,
+            "most_probable": ids[Ps.index(max(Ps))], "coherence_gap": r3(gap),
+            "incoherent": gap > cfg["hypothesis_gap_threshold"],
+        }
+        if exhaustive and tot < 1 - cfg["hypothesis_gap_threshold"]:
+            rec["interpretation"] = "ΣP < 1: kanıtlar rakip hipotezleri iyi ayırt edemiyor; normalize paylara bakın."
+        elif tot > 1 + cfg["hypothesis_gap_threshold"]:
+            rec["interpretation"] = "ΣP > 1: birbirini dışlayan iddialar aynı anda yüksek olasılık almış; kodlamayı/önselleri kontrol edin."
+        out.append(rec)
     return out
 
 
@@ -586,6 +722,10 @@ def render_report(meta, lang):
                      f"{e['stance_used'] or 'istatistik'} | {cell(e['cluster'])} | {fmt(e['quality_Q'])} | "
                      f"{fmt(e['lr_raw'])} | {fmt(e['lr_effective'])} | {fmt(e['direction_d'])} | "
                      f"{e['share_of_total_effect']:.0%} | {e['status']} |")
+        if c.get("evidence_scoped_out"):
+            L.append("")
+            L.append("**Kapsam dışı bırakılan kanıtlar:** " + "; ".join(
+                f"{d['id']} ({d['reason']})" for d in c["evidence_scoped_out"]))
         if c["flags"]:
             L.append("")
             L.append("**Uyarılar:**")
@@ -602,6 +742,26 @@ def render_report(meta, lang):
         for r in rels:
             L.append(f"| {' ↔ '.join(r['claims'])} | {' / '.join(r['relations'])} | {lab[r['logical_compatibility']]} | "
                      f"{' / '.join(fmt(x) for x in r['P'])} | {fmt(r.get('incoherence'))} | {r.get('note', '')} |")
+    hs = meta.get("hypothesis_sets") or []
+    if hs:
+        L.append("")
+        L.append("### Rakip hipotez setleri")
+        L.append("")
+        L.append("Aynı kapsamda birbirini dışlayan iddialar. Kapsayıcı setlerde ΣP ≈ 1 olmalıdır; "
+                 "*normalize P* tutarlı olasılık dağılımıdır.")
+        L.append("")
+        L.append("| Değişkenler | Kapsam | Hipotezler | P | ΣP | Normalize P | En olası | Açık |")
+        L.append("|---|---|---|---|---|---|---|---|")
+        for h in hs:
+            hyp = ", ".join(f"{i}:{r}" for i, r in zip(h["claims"], h["relations"]))
+            warn = " ⚠" if h["incoherent"] else ""
+            L.append(f"| {' – '.join(h['variables'])} | {cell(h['scope'])} | {hyp} | "
+                     f"{' / '.join(fmt(p) for p in h['P'])} | {fmt(h['sum_P'])} | "
+                     f"{' / '.join(fmt(p) for p in (h['normalized_P'] or []))} | {h['most_probable']} | "
+                     f"{fmt(h['coherence_gap'])}{warn} |")
+        for h in hs:
+            if h.get("interpretation"):
+                L.append(f"- {' / '.join(h['claims'])}: {h['interpretation']}")
     if meta["variables"]:
         L.append("")
         L.append("## 4. Değişken özeti")
@@ -623,6 +783,9 @@ def render_report(meta, lang):
     L.append("- P = σ(logit P₀ + Σ ln LR_küme). S = Σ Q·d / Σ Q, d = kırpılmış log₁₀ LR_ham ∈ [−1,1]. "
              "C = 1 − ağırlıklı standart sapma(d).")
     t = meta["settings"]["decision_thresholds"]
+    L.append("- Kapsam: değişken çifti kanıtı iddianın kapsamına göre seçilir — `controls` belirten iddia yalnızca aynı "
+             "kontrollerle yapılmış analizi; ilişkisel iddia aynı veri kümesindeki ham analizi; nedensel iddia en kontrollü analizi kullanır. "
+             f"Gözlemsel kanıtın nedensel iddiaya desteği LR ≤ {10 ** meta['settings']['causal_gap_log10_cap']:.2g} ile sınırlanır.")
     L.append(f"- Karar bantları: P≥{t[0]} kabul · {t[1]}–{t[0]} koşullu · {t[2]}–{t[1]} belirsiz · "
              f"{t[3]}–{t[2]} büyük olasılıkla yanlış · <{t[3]} ret.")
     L.append("")
@@ -682,8 +845,17 @@ def main():
     year_now = dt.date.today().year
     scored = {}
     for c in claims:
-        evs = evidence_for(c, evidence)
-        scored[c["id"]] = score_claim(c, evs, cfg, a.lang, year_now)
+        evs, scoped_out = evidence_for(c, evidence)
+        scored[c["id"]] = score_claim(c, evs, cfg, a.lang, year_now, scoped_out)
+
+    hsets = hypothesis_sets(claims, scored, cfg)
+    for h in hsets:
+        if h["incoherent"]:
+            for cid in h["claims"]:
+                fl = scored[cid]["flags"]
+                if not any(f["code"] == "hypothesis_set_incoherent" for f in fl):
+                    fl.append({"code": "hypothesis_set_incoherent",
+                               "message": FLAG_TEXT["hypothesis_set_incoherent"][0 if a.lang == "tr" else 1]})
 
     meta = {
         "schema_version": SCHEMA_VERSION,
@@ -697,6 +869,7 @@ def main():
         },
         "claims": [scored[c["id"]] for c in claims],
         "claim_relations": claim_relations(claims, scored),
+        "hypothesis_sets": hsets,
         "variables": variable_summary(claims, scored),
     }
     os.makedirs(a.out_dir, exist_ok=True)

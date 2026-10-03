@@ -1,0 +1,18 @@
+{
+  "eval_id": 3,
+  "eval_name": "uzaktan-calisma-celiskili-iddialar",
+  "prompt": "Şirkette uzaktan çalışma tartışması var, üç taraf üç farklı şey söylüyor:\n- Genel müdür: \"Evden çalışan verimsiz oluyor, uzaktan çalışma verimliliği düşürüyor.\"\n- Çalışanlar: \"Uzaktan çalışma verimliliğimizi artırıyor.\"\n- İK: \"Uzaktan çalışma ile verimlilik arasında hiçbir ilişki yok.\"\nElimde 180 çalışanın verisi var: evals/files/calisan_verimlilik.csv (departman, kıdem, haftalık uzaktan gün sayısı, verimlilik puanı). Ayrıca İK şu iki kaynağı gönderdi: (a) Bloom ve ark. 2015, Quarterly Journal of Economics — Çin'de bir çağrı merkezinde rastgele deney, evden çalışanların performansı %13 artmış. (b) 2023 tarihli bir iş dergisi haberi: yöneticilerle yapılan ankete göre yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.\nHangi taraf haklı? İddiaların birbirleriyle uyuşup uyuşmadığını da görmek istiyorum. Yönetim kuruluna sunacağım, sonuçları kaydet.",
+  "assertions": [
+    "Ham (kontrolsüz) ilişki ile kıdem kontrollü analiz ayrı ayrı raporlanmış",
+    "Kıdemin karıştırıcı değişken olduğu ve kontrol edilince etkinin anlamsızlaştığı tespit edilmiş",
+    "Genel müdürün iddiası (uzaktan çalışma verimliliği düşürür) desteklenmedi: olasılık < 0.5",
+    "Üç iddia arasındaki uyum/çelişki sayısal olarak ölçülmüş (matris veya çift bazlı skor)",
+    "Nedensel ve ilişkisel iddia ayrımı yapılmış",
+    "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
+    "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
+    "Her iddia için sayısal doğru olma olasılığı raporlanmış",
+    "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+    "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+    "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış"
+  ]
+}

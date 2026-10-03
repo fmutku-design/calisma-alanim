@@ -1,0 +1,17 @@
+{
+  "eval_id": 1,
+  "eval_name": "ogrenci-verisi-iddialari",
+  "prompt": "elimde öğrenci verisi var: evals/files/ogrenci_verisi.csv (240 öğrenci). danışman hocam toplantıda şunları iddia etti: 1) haftada daha çok çalışan öğrencinin not ortalaması yüksek oluyor 2) sosyal medya notları düşürüyor 3) kızlar erkeklerden daha başarılı 4) uyku süresinin notla bir alakası yok. bunları benim verimle doğrula, hangisi tutuyor hangisi tutmuyor olasılıklarıyla birlikte söyle, raporu da kaydet",
+  "assertions": [
+    "Dört iddianın her biri için sayısal bir doğru olma olasılığı (0–1 veya %) raporlanmış",
+    "İddia 1 (çalışma saati → not) desteklendi/kabul edildi olarak sonuçlanmış",
+    "İddia 3 (kızlar daha başarılı) desteklenmedi: olasılık < 0.5 veya reddedildi/belirsiz",
+    "İddia 4 (uyku ile not ilişkisiz) çürütüldü: olasılık < 0.3 veya reddedildi",
+    "İddia 2 için ilişki ile nedensellik ayrımı yapılmış (gözlemsel veri uyarısı)",
+    "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
+    "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
+    "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
+    "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+    "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş"
+  ]
+}

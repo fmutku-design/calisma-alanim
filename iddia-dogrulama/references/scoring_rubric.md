@@ -7,8 +7,8 @@ de buradaki gerekçelere dayanın.
 ## İçindekiler
 1. Kanıt kalitesi Q
 2. Olabilirlik oranı (LR)
-3. Bağımlı kanıtlar (kümeler)
-4. Sonsal olasılık P
+3. Bağımlı kanıtlar (kümeler) ve kapsam (ham / kontrollü / nedensel)
+4. Sonsal olasılık P ve rakip hipotez setleri
 5. Spektrum skoru S ve uyum C
 6. Karar bantları
 7. Duyarlılık ve bilginin değeri
@@ -66,7 +66,9 @@ Taban yüksek çünkü veriyi doğrudan görüyoruz; ama nedensel iddialarda aş
 | `replicated: true` | ×1.10 | Bağımsız olarak tekrarlanmış |
 | yaş > 15 yıl | ×0.90 | Hızlı değişen alanlarda bağlam eskiyebilir (`settings.stale_years`) |
 | eksik veri oranı m (veri) | ×(1 − 0.5m) | Liste bazlı silme yanlılık doğurabilir |
-| **nedensel iddia + nedensel olmayan tasarım** | ×0.60 | Korelasyon nedensellik değildir; kanıt yine sayılır ama zayıflatılır |
+| `applicability: partial` | ×0.80 | Popülasyon/bağlam kısmen farklı (başka ülke, yakın sektör) |
+| `applicability: indirect` | ×0.50 | Belirgin farklı bağlam (başka iş türü, laboratuvar → saha, hayvan → insan) |
+| **nedensel iddia + nedensel olmayan tasarım** | ×0.60 | Korelasyon nedensellik değildir; kanıt yine sayılır ama zayıflatılır (ayrıca §2c tavanı) |
 
 Nedensellik kurabilen tasarımlar: `rct`, `quasi_experimental`. Bir meta-analiz yalnızca RCT'leri
 birleştiriyorsa kanıta `"causal_design": true` ekleyin.
@@ -140,6 +142,12 @@ kullanılır. Kodlanan tutum ile istatistiğin yönü uyuşmazsa `stance_stats_m
 - |log₁₀ LR_ham| ≤ 2 (`log10_lr_cap`): tek kanıt en fazla 100 kat etki yapar. Aksi halde büyük
   bir veri seti tüm literatürü tek başına ezer; ölçüm hatası, yanlış model vb. model dışı
   belirsizliklere yer bırakmak için sınır gerekir.
+- **Nedensellik tavanı:** nedensel bir iddiayı *destekleyen* gözlemsel kanıtın (deneysel olmayan veri,
+  RCT/yarı-deneysel olmayan kaynak) LR_ham değeri en fazla 3 olur (`causal_gap_log10_cap`). Gerekçe:
+  korelasyon nedenselliğin gerekli ama yeterli olmayan koşuludur. Ne kadar güçlü olursa olsun tek bir
+  korelasyon, karıştırıcı ve ters nedensellik olasılığını ortadan kaldırmaz. Birçok bağımsız gözlemsel
+  çalışmanın aynı yönü göstermesi ise P'yi yine yükseltebilir. Tavan uygulanınca `causal_cap_applied`
+  bayrağı kalkar ve `quality_trace`'e yazılır.
 - **LR_etkin = LR_ham^Q**: Q=1 ise kanıt tam sayılır, Q=0 ise hiç sayılmaz (LR=1).
 
 ## 3. Bağımlı kanıtlar (kümeler)
@@ -156,12 +164,47 @@ Cluster boş bırakılırsa her kanıt kendi kümesidir.
 çalışmayı aktaran ikincil kaynaklar → birincil çalışmanın kümesi; aynı yazar ekibinin çalışmaları
 → tek küme; bir meta-analiz ile içerdiği çalışmalar → ikisini birden girmeyin, meta-analizi tercih edin.
 
+### Kapsam: ham, kontrollü, nedensel
+
+Aynı X–Y çifti için farklı analizler farklı soruları yanıtlar. Değişken çifti kapsamlı kanıt
+(`claim_id` olmayan) her iddiaya şu kuralla uygulanır:
+
+| İddia | Uygulanan veri kanıtı (her küme içinde) |
+|---|---|
+| `controls: [a, b]` belirtilmiş | yalnızca kontrol kümesi tam olarak {a, b} olan analiz |
+| `controls: []` belirtilmiş | yalnızca ham analiz |
+| ilişkisel (`causal: false`), controls yok | en az kontrollü analiz (genelde ham) |
+| nedensel (`causal: true`), controls yok | en çok kontrollü analiz (karıştırıcıya en az açık) |
+
+Kontrol kümesi belirtilmemiş kaynaklar her kapsama uygulanır. Bir kaynak kontrollü bir sonuç
+raporluyorsa `controls` alanıyla bunu belirtin. Kapsam dışı kalan kanıtlar `evidence_scoped_out`
+alanında gerekçesiyle listelenir.
+
+Neden? Karıştırıcı bir değişken (ör. kıdem hem uzaktan çalışmayı hem verimliliği artırıyorsa) ham
+ilişkiyi güçlü, kontrollü ilişkiyi sıfır gösterir. Ham kanıtı "kıdem sabitken ilişki yok" iddiasına
+uygulamak, doğru bir iddiayı yanlış diye reddettirir.
+
 ## 4. Sonsal olasılık P
 
     logit P = logit P₀ + Σ_küme ln LR_küme
     P = 1 / (1 + e^(−logit P))
 
 Olasılık yorumu: "Önsel inancımız ve bu kanıtlar verildiğinde iddianın doğru olma olasılığı."
+
+### Rakip hipotez setleri
+
+Aynı kapsamda (aynı değişken çifti, nedensellik, kontroller ve popülasyon) olan `positive`, `negative`
+ve `none` iddiaları birbirini dışlar ve birlikte tüm olasılıkları kapsar. `nonzero` + `none` ikilisi
+için de aynısı geçerlidir. Bu yüzden ΣP ≈ 1 olmalıdır. Her iddia kendi önseliyle ayrı puanlandığı için
+toplam 1'den sapabilir:
+
+- **ΣP < 1:** kanıtlar hipotezleri iyi ayırt edemiyor. Hepsi düşük kalıyor.
+- **ΣP > 1:** çelişik iddialar aynı anda yüksek olasılık almış; kodlama veya önseller hatalı olabilir.
+
+Betik `normalized_P = P / ΣP` ile tutarlı bir dağılım ve `coherence_gap = |ΣP − 1|` verir. Açık 0.25'i
+aşarsa (`hypothesis_gap_threshold`) setteki iddialara `hypothesis_set_incoherent` bayrağı eklenir.
+"Hangi taraf haklı?" sorusunun yanıtı normalize P'dir. Farklı kapsamdaki iddialar (ham ve nedensel
+gibi) mantıksal olarak çelişmez; uyum matrisinde 0 olarak gösterilir.
 
 ## 5. Spektrum skoru S ve uyum C
 
@@ -229,6 +272,8 @@ gereken iddialar "bir çalışma uzaklıkta"dır.
 | `relation_mismatch` | Veri farklı ilişki türüyle test edilmiş | Testi iddianın ilişki türüyle tekrar çalıştır |
 | `no_counter_search` | `counter_evidence_searched` true değil | Karşı kanıt araması yap ve kaydet |
 | `prior_after_evidence` | `prior_set_before_evidence: false` | Önseli gerekçelendir; duyarlılık aralığını vurgula |
+| `causal_cap_applied` | Gözlemsel kanıt nedensel iddiada tavana takıldı | "İlişki var, nedensellik kanıtlanmadı" diye raporla; deneysel kanıt öner |
+| `hypothesis_set_incoherent` | Rakip setinde \|ΣP − 1\| > 0.25 | Normalize P'yi raporla; ΣP<1 ise ayırt edici kanıt ara |
 
 ## 9. Önsel olasılık (P₀) seçimi
 

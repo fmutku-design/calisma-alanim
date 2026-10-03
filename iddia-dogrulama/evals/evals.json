@@ -18,7 +18,8 @@
         "Her iddia için −1…+1 aralığında bir uyum/spektrum skoru verilmiş",
         "Makinece okunabilir JSON meta veri dosyası kaydedilmiş",
         "Eksik veri işlenmiş ve kullanılan gözlem sayısı (n) raporlanmış",
-        "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış"
+        "Sonuçların belirsizliği için duyarlılık analizi veya olasılık aralığı raporlanmış",
+        "Nedensel 'sosyal medya notları düşürür' iddiasına yalnızca gözlemsel veriyle 0.8'den yüksek olasılık verilmemiş"
       ]
     },
     {
@@ -55,7 +56,9 @@
         "Bloom 2015 RCT yüksek kaliteli ama farklı bağlam/popülasyon olarak ele alınmış",
         "2023 yönetici anketi haberi düşük kaliteli ve algı ölçen kanıt olarak değerlendirilmiş",
         "Her iddia için sayısal doğru olma olasılığı raporlanmış",
-        "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş"
+        "Makinece okunabilir JSON meta veri dosyası ve rapor kaydedilmiş",
+        "İK'nın kontrollü yorumu ('kıdem/departman sabitken ilişki yok') olasılık ≥ 0.5 almış veya kontrollü kapsamda en olası hipotez olarak belirlenmiş",
+        "Birbirini dışlayan hipotezlerin (artırır/azaltır/yok) olasılıkları tek bir tutarlı dağılımda (normalize veya toplamı 1) raporlanmış"
       ]
     }
   ]

@@ -202,7 +202,7 @@ def main():
         "cluster": a.cluster or f"data:{os.path.basename(a.csv)}",
         "description": f"{a.test}: {a.x} → {a.y}" + (f"; kontroller: {', '.join(controls)}" if controls else ""),
         "dataset": os.path.basename(a.csv),
-        "test": a.test, "x": a.x, "y": a.y,
+        "test": a.test, "x": a.x, "y": a.y, "controls": controls,
         **({"relation_tested": a.relation} if a.relation else {}),
         "n": n, "n_total_rows": total, "missing_frac": round(missing_frac, 4),
         "experimental": a.experimental,
