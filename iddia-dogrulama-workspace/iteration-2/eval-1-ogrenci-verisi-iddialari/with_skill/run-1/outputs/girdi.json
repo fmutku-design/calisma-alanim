@@ -1,0 +1,494 @@
+{
+  "project": {
+    "title": "Öğrenci verisiyle danışman iddialarının doğrulanması",
+    "question": "Danışmanın 4 iddiası (çalışma saati, sosyal medya, cinsiyet, uyku → not ortalaması) kullanıcının 240 öğrencilik verisiyle destekleniyor mu?",
+    "analyst": "Claude (iddia-dogrulama skill)",
+    "scope_notes": "Yalnızca kullanıcının verisi (ogrenci_verisi.csv, ';' ayraçlı, ondalık virgül, NA/boş = eksik) kullanıldı; kullanıcı 'benim verimle doğrula' dediği için literatür/kaynak araması yapılmadı. Önseller genel literatür bilgisine dayanarak veriye bakmadan (yalnızca sütun adları ve eksik değer sayıları görüldükten sonra) belirlendi. Her iddia için rakip hipotezler (pozitif/negatif/yok) eklendi; 'düşürür' ifadesi nedensel kabul edildiği için C4'ün ilişkisel versiyonu C5 de eklendi. Tüm veri analizleri aynı kümede (ogrenci_verisi). Veri gözlemseldir (deney değil).",
+    "revisions": [
+      "1. çalıştırmadan sonra: veri kanıtları --relation parametresi olmadan yeniden üretildi. Gerekçe: kanıtlar değişken çifti kapsamlı olduğu için rakip iddialara da uygulanıyor; 'relation_tested' alanı yalnızca bir iddianın ilişki türünü taşıdığından rakip iddialarda yapay 'relation_mismatch' bayrağı üretiyordu. LR hesabı iddianın kendi ilişki türüyle yapıldığından sayılar değişmedi (kodlama düzeltmesi, sonuç ayarı değil)."
+    ]
+  },
+  "settings": {},
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Haftalık çalışma saati arttıkça not ortalaması yükselir (ilişkisel)",
+      "x": "haftalik_calisma_saati",
+      "y": "not_ortalamasi",
+      "relation": "positive",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.65,
+      "prior_rationale": "Literatürde çalışma süresi–not ilişkisi genelde pozitif ama zayıf (r≈0.1–0.3); makul, yaygın kabul gören → 0.65",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "kullanıcı (danışman iddiası)"
+    },
+    {
+      "id": "C2",
+      "text": "Haftalık çalışma saati arttıkça not ortalaması düşer (rakip)",
+      "x": "haftalik_calisma_saati",
+      "y": "not_ortalamasi",
+      "relation": "negative",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.07,
+      "prior_rationale": "Mekanizma zayıf (yalnızca zorlanan öğrencinin daha çok çalışması gibi ters nedensellik) → düşük",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    },
+    {
+      "id": "C3",
+      "text": "Haftalık çalışma saati ile not ortalaması arasında ilişki yoktur (rakip)",
+      "x": "haftalik_calisma_saati",
+      "y": "not_ortalamasi",
+      "relation": "none",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.28,
+      "prior_rationale": "Bazı çalışmalar ihmal edilebilir ilişki raporluyor → kalan olasılık",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    },
+    {
+      "id": "C4",
+      "text": "Sosyal medya kullanımı not ortalamasını düşürür (nedensel)",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "relation": "negative",
+      "causal": true,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.4,
+      "prior_rationale": "Nedensel iddia ilişkiselden daha güçlü; literatürde etki küçük ve tartışmalı → 0.40",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "kullanıcı (danışman iddiası)"
+    },
+    {
+      "id": "C5",
+      "text": "Günlük sosyal medya süresi arttıkça not ortalaması düşer (ilişkisel versiyon)",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "relation": "negative",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.55,
+      "prior_rationale": "Küçük negatif ilişki bulgusu yaygın ama tutarsız → hafif olumlu önsel",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "C4'ün ilişkisel versiyonu (analist)"
+    },
+    {
+      "id": "C6",
+      "text": "Günlük sosyal medya süresi arttıkça not ortalaması yükselir (rakip)",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "relation": "positive",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.08,
+      "prior_rationale": "Makul mekanizma yok → düşük",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    },
+    {
+      "id": "C7",
+      "text": "Günlük sosyal medya süresi ile not ortalaması arasında ilişki yoktur (rakip)",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "relation": "none",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.37,
+      "prior_rationale": "Büyük çalışmalarda ihmal edilebilir etki raporlanıyor → kalan olasılık",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    },
+    {
+      "id": "C8",
+      "text": "Kız öğrencilerin not ortalaması erkeklerden yüksektir",
+      "x": "cinsiyet",
+      "y": "not_ortalamasi",
+      "relation": "positive",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.55,
+      "prior_rationale": "Okul notlarında kızlar lehine küçük fark literatürde yaygın (d≈0.2) ama örneklemden örnekleme değişir → 0.55",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "kullanıcı (danışman iddiası)",
+      "conditions": "Yön kuralı: positive = K (kız) grubu daha yüksek; group_diff --groups E,K"
+    },
+    {
+      "id": "C9",
+      "text": "Erkek öğrencilerin not ortalaması kızlardan yüksektir (rakip)",
+      "x": "cinsiyet",
+      "y": "not_ortalamasi",
+      "relation": "negative",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.1,
+      "prior_rationale": "Literatürle uyumsuz → düşük",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)",
+      "conditions": "Yön kuralı: positive = K (kız) grubu daha yüksek; group_diff --groups E,K"
+    },
+    {
+      "id": "C10",
+      "text": "Cinsiyete göre not ortalaması farkı yoktur (rakip)",
+      "x": "cinsiyet",
+      "y": "not_ortalamasi",
+      "relation": "none",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.35,
+      "prior_rationale": "Fark küçük olduğu için tek okulda/örneklemde sıfıra yakın çıkabilir → kalan olasılık",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)",
+      "conditions": "Yön kuralı: positive = K (kız) grubu daha yüksek; group_diff --groups E,K"
+    },
+    {
+      "id": "C11",
+      "text": "Uyku süresi ile not ortalaması arasında ilişki yoktur",
+      "x": "uyku_saat",
+      "y": "not_ortalamasi",
+      "relation": "none",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.3,
+      "prior_rationale": "Uyku–akademik başarı ilişkisi literatürde küçük-orta pozitif; 'ilişki yok' iddiası azınlık görüş → 0.30",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "kullanıcı (danışman iddiası)"
+    },
+    {
+      "id": "C12",
+      "text": "Uyku süresi arttıkça not ortalaması yükselir (rakip)",
+      "x": "uyku_saat",
+      "y": "not_ortalamasi",
+      "relation": "positive",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.55,
+      "prior_rationale": "Yeterli uyku–öğrenme mekanizması makul → 0.55",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    },
+    {
+      "id": "C13",
+      "text": "Uyku süresi arttıkça not ortalaması düşer (rakip)",
+      "x": "uyku_saat",
+      "y": "not_ortalamasi",
+      "relation": "negative",
+      "causal": false,
+      "population": "bu veri setindeki 240 öğrenci",
+      "prior": 0.15,
+      "prior_rationale": "Az uyuyup çok çalışma ödünleşimi olası ama zayıf → 0.15",
+      "prior_set_before_evidence": true,
+      "counter_evidence_searched": false,
+      "source_of_claim": "rakip hipotez (analist)"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "D1",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "pearson: haftalik_calisma_saati → not_ortalamasi",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "pearson",
+      "x": "haftalik_calisma_saati",
+      "y": "not_ortalamasi",
+      "controls": [],
+      "n": 240,
+      "n_total_rows": 240,
+      "missing_frac": 0.0,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "r": 0.591268,
+        "t": 11.3105,
+        "df": 238,
+        "p_two_sided": 5.09038e-24,
+        "r_equivalent": 0.591268,
+        "r_ci95": [
+          0.5022,
+          0.6679
+        ],
+        "effect_size_label": "büyük (≥0.5)",
+        "effect_sign": 1,
+        "log10_bf10": 21.2281,
+        "bf10": 1.69071e+21
+      }
+    },
+    {
+      "id": "D2",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "regression: haftalik_calisma_saati → not_ortalamasi; kontroller: gunluk_sosyal_medya_saat, uyku_saat, okul_turu, cinsiyet",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "regression",
+      "x": "haftalik_calisma_saati",
+      "y": "not_ortalamasi",
+      "controls": [
+        "gunluk_sosyal_medya_saat",
+        "uyku_saat",
+        "okul_turu",
+        "cinsiyet"
+      ],
+      "n": 226,
+      "n_total_rows": 240,
+      "missing_frac": 0.0583,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "coef": 1.399,
+        "se": 0.12147,
+        "partial_r": 0.613309,
+        "controls": [
+          "gunluk_sosyal_medya_saat",
+          "uyku_saat",
+          "okul_turu",
+          "cinsiyet"
+        ],
+        "dummy_coded": {
+          "okul_turu": [
+            "ozel"
+          ],
+          "cinsiyet": [
+            "K"
+          ]
+        },
+        "t": 11.5173,
+        "df": 220,
+        "p_two_sided": 2.50237e-24,
+        "r_equivalent": 0.613309,
+        "r_ci95": [
+          0.5248,
+          0.6887
+        ],
+        "effect_size_label": "büyük (≥0.5)",
+        "effect_sign": 1,
+        "log10_bf10": 21.9787,
+        "bf10": 9.5218e+21
+      }
+    },
+    {
+      "id": "D3",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "pearson: gunluk_sosyal_medya_saat → not_ortalamasi",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "pearson",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "controls": [],
+      "n": 234,
+      "n_total_rows": 240,
+      "missing_frac": 0.025,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "r": -0.244314,
+        "t": -3.83758,
+        "df": 232,
+        "p_two_sided": 0.000160242,
+        "r_equivalent": -0.244314,
+        "r_ci95": [
+          -0.3612,
+          -0.1198
+        ],
+        "effect_size_label": "küçük (0.1–0.3)",
+        "effect_sign": -1,
+        "log10_bf10": 1.94265,
+        "bf10": 87.6291
+      }
+    },
+    {
+      "id": "D4",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "regression: gunluk_sosyal_medya_saat → not_ortalamasi; kontroller: haftalik_calisma_saati, uyku_saat, okul_turu, cinsiyet",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "regression",
+      "x": "gunluk_sosyal_medya_saat",
+      "y": "not_ortalamasi",
+      "controls": [
+        "haftalik_calisma_saati",
+        "uyku_saat",
+        "okul_turu",
+        "cinsiyet"
+      ],
+      "n": 226,
+      "n_total_rows": 240,
+      "missing_frac": 0.0583,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "coef": -1.57451,
+        "se": 0.596663,
+        "partial_r": -0.175162,
+        "controls": [
+          "haftalik_calisma_saati",
+          "uyku_saat",
+          "okul_turu",
+          "cinsiyet"
+        ],
+        "dummy_coded": {
+          "okul_turu": [
+            "ozel"
+          ],
+          "cinsiyet": [
+            "K"
+          ]
+        },
+        "t": -2.63886,
+        "df": 220,
+        "p_two_sided": 0.00891315,
+        "r_equivalent": -0.175162,
+        "r_ci95": [
+          -0.2988,
+          -0.0457
+        ],
+        "effect_size_label": "küçük (0.1–0.3)",
+        "effect_sign": -1,
+        "log10_bf10": 0.352236,
+        "bf10": 2.25028
+      }
+    },
+    {
+      "id": "D5",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "group_diff: cinsiyet → not_ortalamasi",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "group_diff",
+      "x": "cinsiyet",
+      "y": "not_ortalamasi",
+      "controls": [],
+      "n": 240,
+      "n_total_rows": 240,
+      "missing_frac": 0.0,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "groups": {
+          "A": "E",
+          "B": "K"
+        },
+        "n_A": 121,
+        "n_B": 119,
+        "mean_A": 80.6413,
+        "mean_B": 78.7109,
+        "mean_diff_B_minus_A": -1.9304,
+        "cohens_d": -0.158656,
+        "welch_t": -1.22695,
+        "welch_df": 228.333,
+        "welch_p": 0.221104,
+        "r_point_biserial": -0.0794061,
+        "t": -1.2289,
+        "df": 238,
+        "p_two_sided": 0.220323,
+        "r_equivalent": -0.0794061,
+        "r_ci95": [
+          -0.204,
+          0.0477
+        ],
+        "effect_size_label": "önemsiz (<0.1)",
+        "effect_sign": -1,
+        "log10_bf10": -0.860461,
+        "bf10": 0.137892
+      }
+    },
+    {
+      "id": "D6",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "pearson: uyku_saat → not_ortalamasi",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "pearson",
+      "x": "uyku_saat",
+      "y": "not_ortalamasi",
+      "controls": [],
+      "n": 231,
+      "n_total_rows": 240,
+      "missing_frac": 0.0375,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "r": 0.261843,
+        "t": 4.10565,
+        "df": 229,
+        "p_two_sided": 5.61107e-05,
+        "r_equivalent": 0.261843,
+        "r_ci95": [
+          0.1374,
+          0.3781
+        ],
+        "effect_size_label": "küçük (0.1–0.3)",
+        "effect_sign": 1,
+        "log10_bf10": 2.38091,
+        "bf10": 240.386
+      }
+    },
+    {
+      "id": "D7",
+      "kind": "data",
+      "cluster": "ogrenci_verisi",
+      "description": "regression: uyku_saat → not_ortalamasi; kontroller: haftalik_calisma_saati, gunluk_sosyal_medya_saat, okul_turu, cinsiyet",
+      "dataset": "ogrenci_verisi.csv",
+      "test": "regression",
+      "x": "uyku_saat",
+      "y": "not_ortalamasi",
+      "controls": [
+        "haftalik_calisma_saati",
+        "gunluk_sosyal_medya_saat",
+        "okul_turu",
+        "cinsiyet"
+      ],
+      "n": 226,
+      "n_total_rows": 240,
+      "missing_frac": 0.0583,
+      "experimental": false,
+      "data_quality_notes": "11 öğrencinin notu 100'de (tavan etkisi, ilişkiyi hafif zayıflatabilir); öz-bildirim süreleri olası",
+      "stats": {
+        "coef": 2.23376,
+        "se": 0.743257,
+        "partial_r": 0.198586,
+        "controls": [
+          "haftalik_calisma_saati",
+          "gunluk_sosyal_medya_saat",
+          "okul_turu",
+          "cinsiyet"
+        ],
+        "dummy_coded": {
+          "okul_turu": [
+            "ozel"
+          ],
+          "cinsiyet": [
+            "K"
+          ]
+        },
+        "t": 3.00536,
+        "df": 220,
+        "p_two_sided": 0.00296048,
+        "r_equivalent": 0.198586,
+        "r_ci95": [
+          0.0699,
+          0.3208
+        ],
+        "effect_size_label": "küçük (0.1–0.3)",
+        "effect_sign": 1,
+        "log10_bf10": 0.797489,
+        "bf10": 6.27319
+      }
+    }
+  ]
+}

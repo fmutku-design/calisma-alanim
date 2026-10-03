@@ -1,0 +1,43 @@
+{
+  "tarih": "2026-10-03",
+  "iddia": "Aralıklı oruç (16:8), aynı kaloriyi alan klasik diyete göre çok daha fazla kilo verdirir ve insülin direncini tamamen düzeltir.",
+  "genel_hukum": "YANLIŞ / YANILTICI",
+  "genel_dogruluk_olasiligi": "<0.02",
+  "varsayimlar": [
+    "Klasik diyet = sürekli/günlük kalori kısıtlaması (CER/CR)",
+    "16:8 = 8 saatlik yeme penceresi olan zaman kısıtlı beslenme (TRE)",
+    "'Çok daha fazla' = ≥2 kg veya klinik açıdan anlamlı fark (BMJ 2025'teki eşik)",
+    "'Tamamen düzeltir' = insülin direnci belirteçlerinin normale dönmesi veya kalıcı remisyon",
+    "Olasılıklar kanıt ağırlığına dayalı öznel tahminlerdir"
+  ],
+  "yontem_siniri": "Web araması çalıştı ancak tam metin erişimi (WebFetch, PubMed/Crossref API) ağ proxy'si tarafından engellendi; sayılar arama özetlerinden doğrulandı, 'dogrulama' alanı 'bilinen_ozet' olanlar bu oturumda tam metinden yeniden kontrol edilemedi.",
+  "puanlama_olcutu": {
+    "tasarim": "0-4 (SR/MA=4, büyük RKÇ=3, küçük RKÇ/çapraz geçişli=2, gözlemsel=1)",
+    "orneklem_sure": "0-2",
+    "dogrudan_ilgi": "0-2",
+    "yayin_kalitesi_yanlilik": "0-2",
+    "toplam": "0-10"
+  },
+  "kaynaklar": [
+    {"id": "S1", "atif": "Garegnani LI ve ark. Cochrane Database Syst Rev 2026;Issue 2. DOI:10.1002/14651858.CD015610.pub2", "tasarim": "Sistematik derleme, 22 RKÇ, n=1995", "bulgu": "Aralıklı oruç ile standart diyet önerisi arasında yüzde kilo kaybı farkı: MD -0.33 yüzde puan (%95 GA -0.92 ile 0.26), 21 çalışma, n=1430, düşük kesinlik; müdahalesiz gruba göre -3.42%", "guvenilirlik": 9, "yon": "çürütüyor (kilo)", "dogrulama": "arama_ozeti"},
+    {"id": "S2", "atif": "Semnani-Azad Z ve ark. BMJ 2025, ağ meta-analizi", "tasarim": "Ağ meta-analizi, 99 RKÇ, n=6582", "bulgu": "CER'e karşı yalnız gün aşırı oruç -1.29 kg (orta kesinlik, <2 kg eşiği); TRE CER'den üstün değil; kardiyometabolik etkiler benzer", "guvenilirlik": 9, "yon": "çürütüyor (kilo, insülin üstünlüğü)", "dogrulama": "arama_ozeti"},
+    {"id": "S3", "atif": "Liu D ve ark. N Engl J Med 2022;386:1495-1504. DOI:10.1056/NEJMoa2114833", "tasarim": "RKÇ, n=139, 12 ay, iki grupta aynı kalori hedefi", "bulgu": "Fark -1.8 kg (anlamlı değil; %95 GA -4.0 ile 0.4); HOMA-IR, glukoz ve insülin dispozisyon indeksi gruplar arasında benzer", "guvenilirlik": 9, "yon": "çürütüyor (kilo, insülin)", "dogrulama": "arama_ozeti + bilinen_ozet (GA ve grup ortalamaları)"},
+    {"id": "S4", "atif": "Sun JC ve ark. Eur J Clin Nutr 2023. DOI:10.1038/s41430-023-01311-w", "tasarim": "Meta-analiz, 8 RKÇ, n=579 (TRE+CR / CR)", "bulgu": "Ek -1.40 kg (%95 GA -1.81 ile -1.00); glukoz, insülin ve HOMA-IR'de fark yok", "guvenilirlik": 7, "yon": "küçük kilo farkına zayıf destek; insülin iddiasını çürütüyor", "dogrulama": "arama_ozeti"},
+    {"id": "S5", "atif": "Lowe DA ve ark. JAMA Intern Med 2020;180(11):1491-1499 (TREAT)", "tasarim": "RKÇ, n=116, 12 hafta, 16:8 (12:00-20:00)", "bulgu": "TRE -0.94 kg, kontrol -0.68 kg; fark anlamlı değil; TRE'de yağsız kütle kaybı sinyali", "guvenilirlik": 7, "yon": "çürütüyor (kilo)", "dogrulama": "arama_ozeti (sonuç) + bilinen_ozet (sayılar)"},
+    {"id": "S6", "atif": "Lin S ve ark. Ann Intern Med 2023;176(7):885-895. DOI:10.7326/M23-0052", "tasarim": "RKÇ, n=90, 12 ay; TRE, %25 CR ve kontrol", "bulgu": "TRE kontrolden etkili ama CR'den etkili değil; enerji alımı azalması TRE -425, CR -405 kcal/gün", "guvenilirlik": 7, "yon": "çürütüyor (kilo)", "dogrulama": "arama_ozeti"},
+    {"id": "S7", "atif": "Jamshed H ve ark. JAMA Intern Med 2022;182(9):953-962", "tasarim": "RKÇ, n=90, 14 hafta, erken TRE 07:00-15:00 + kalori kısıtlaması ile ≥12 saat + kalori kısıtlaması", "bulgu": "-2.3 kg ek kilo kaybı (P=.002); yağ kaybı anlamsız; glukoz, insülin, HOMA-IR ve HbA1c'de fark yok", "guvenilirlik": 6, "yon": "kilo için kısmen destekliyor (erken pencere); insülin iddiasını çürütüyor", "dogrulama": "arama_ozeti"},
+    {"id": "S8", "atif": "Sutton EF ve ark. Cell Metab 2018;27(6):1212-1221", "tasarim": "Çapraz geçişli, kontrollü izokalorik besleme, n=8 erkek, prediyabet, 5 hafta, 6 saatlik erken pencere", "bulgu": "Kilo kaybı olmadan insülin duyarlılığı iyileşti", "guvenilirlik": 5, "yon": "insülin mekanizmasına zayıf destek (16:8 değil, tam düzelme yok)", "dogrulama": "arama_ozeti"},
+    {"id": "S9", "atif": "Peters B, Pivovarova-Ramich O ve ark. Sci Transl Med 2025 (ChronoFast). DOI:10.1126/scitranslmed.adv6787", "tasarim": "Çapraz geçişli RKÇ, n=31 kadın, 2 hafta, izokalorik amaçlı erken ve geç 8 saatlik TRE", "bulgu": "İnsülin duyarlılığında klinik olarak anlamlı iyileşme yok; iç saat kayması var", "guvenilirlik": 6, "yon": "çürütüyor (insülin)", "dogrulama": "arama_ozeti"},
+    {"id": "S10", "atif": "Pavlou V ve ark. JAMA Netw Open 2023;6(10):e2339337", "tasarim": "RKÇ, n=75 tip 2 diyabet, 6 ay; TRE, CR ve kontrol", "bulgu": "Kontrole göre HbA1c: TRE -0.91, CR -0.94 puan, TRE ile CR arasında fark yok", "guvenilirlik": 6, "yon": "insülin/glisemide TRE≈CR; tam düzelme yok", "dogrulama": "arama_ozeti"},
+    {"id": "S11", "atif": "Manoogian ENC ve ark. Ann Intern Med 2024;177(11). DOI:10.7326/M24-0859", "tasarim": "RKÇ, n=108 tamamlayan, 3 ay; 8-10 saatlik TRE + standart bakım", "bulgu": "Standart bakıma göre HbA1c -0.10 puan (%95 GA -0.19 ile -0.003)", "guvenilirlik": 6, "yon": "küçük glisemik etki; 'tamamen' iddiasıyla uyumsuz", "dogrulama": "arama_ozeti"}
+  ],
+  "alt_iddialar": [
+    {"id": "A1", "ifade": "16:8 kilo verdirir (serbest beslenmeye / hiçbir şey yapmamaya göre)", "olasilik": 0.90, "hukum": "Doğru", "kaynaklar": ["S1", "S2", "S6", "S10"]},
+    {"id": "A2", "ifade": "Aynı kalorideki klasik diyete göre herhangi bir miktarda daha fazla kilo verdirir", "olasilik": "0.15-0.20", "hukum": "Büyük olasılıkla yanlış", "kaynaklar": ["S1", "S2", "S3", "S4", "S5", "S7"]},
+    {"id": "A3", "ifade": "Aynı kalorideki klasik diyete göre ÇOK DAHA FAZLA (klinik açıdan anlamlı) kilo verdirir", "olasilik": "0.03-0.05", "hukum": "Yanlış", "kaynaklar": ["S1", "S2", "S3", "S4"]},
+    {"id": "B1", "ifade": "16:8 insülin direnci belirteçlerini iyileştirebilir (başlangıca/kontrole göre)", "olasilik": 0.70, "hukum": "Kısmen doğru (çoğunlukla kilo kaybına bağlı)", "kaynaklar": ["S8", "S9", "S10", "S11"]},
+    {"id": "B2", "ifade": "Aynı kalorideki klasik diyete göre insülin direncini daha fazla iyileştirir", "olasilik": "0.10-0.15", "hukum": "Büyük olasılıkla yanlış", "kaynaklar": ["S2", "S3", "S4", "S7", "S9", "S10"]},
+    {"id": "B3", "ifade": "İnsülin direncini tamamen düzeltir", "olasilik": 0.02, "hukum": "Yanlış", "kaynaklar": ["S3", "S9", "S10", "S11"]}
+  ],
+  "duzeltilmis_ifade": "16:8 aralıklı oruç, kalori kısıtlamasına benzer miktarda kilo verdirebilir ve kilo kaybına bağlı olarak insülin duyarlılığını bir miktar iyileştirebilir; klasik diyetten üstün olduğu gösterilmemiştir."
+}

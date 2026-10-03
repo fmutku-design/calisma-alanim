@@ -1,0 +1,2347 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-03T05:45:58",
+  "project": {
+    "title": "Uzaktan çalışma ve verimlilik — üç tarafın iddiası",
+    "question": "Haftalık uzaktan çalışma gün sayısı çalışan verimliliğini artırıyor mu, düşürüyor mu, yoksa ilişki yok mu? Genel müdür, çalışanlar ve İK iddialarından hangisi kanıtla daha uyumlu?",
+    "analyst": "Claude (iddia-dogrulama skill)",
+    "scope_notes": "Veri: calisan_verimlilik.csv (180 çalışan; departman, kidem_yil, haftalik_uzaktan_gun, verimlilik_puani). Veri kesitsel/gözlemsel, rastgele atama yok. Kaynaklar: İK'nın gönderdiği (a) Bloom ve ark. 2015 QJE ve (b) 2023 iş dergisi haberi (yönetici anketi); ayrıca web'de karşı kanıt araması. Her taraf için üç kapsam ayrıldı: ham ilişki (causal:false) ve nedensel etki (causal:true; veride en kontrollü analiz = kıdem + departman sabit). Varsayımlar: 'verimlilik' = verimlilik_puani; 'uzaktan çalışma' = haftalik_uzaktan_gun; puanın nasıl ölçüldüğü (yönetici değerlendirmesi mi, nesnel çıktı mı) bilinmiyor. Yönetim kurulu sunumu için karar eşikleri varsayılan bırakıldı (insan sağlığı/büyük yatırım değil; geri alınabilir politika kararı).",
+    "revisions": []
+  },
+  "settings": {
+    "rho_within_cluster": 0.5,
+    "log10_lr_cap": 2.0,
+    "prior_default": 0.5,
+    "stale_years": 15,
+    "dominance_threshold": 0.6,
+    "min_independent_clusters": 2,
+    "min_total_weight": 1.0,
+    "decision_thresholds": [
+      0.9,
+      0.7,
+      0.3,
+      0.1
+    ],
+    "causal_gap_log10_cap": 0.47712125471966244,
+    "hypothesis_gap_threshold": 0.25
+  },
+  "totals": {
+    "n_claims": 6,
+    "n_evidence": 11,
+    "decisions": {
+      "accept": 1,
+      "conditional": 0,
+      "uncertain": 1,
+      "likely_false": 1,
+      "reject": 3
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Uzaktan gün sayısı fazla olan çalışanların verimlilik puanı daha yüksektir (ham ilişki — çalışanların iddiasının ilişkisel hali)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "positive",
+        "causal": false,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "Üç yönlü rakip set (pozitif/negatif/yok). Literatür karışık: tam/hibrit uzaktan çalışma için hem pozitif hem negatif hem sıfır bulgular var. Hafif simetrik önsel: pozitif 0.35, negatif 0.30, yok 0.35 (toplam 1).",
+      "scores": {
+        "spectrum_S": 0.141,
+        "spectrum_label": "Zayıf destek",
+        "posterior_P": 0.958,
+        "posterior_odds": 22.561,
+        "log10_bayes_factor_total": 1.622,
+        "bayes_factor_total": 41.898,
+        "decision_code": "accept",
+        "decision": "Kabul — uygulanabilir",
+        "consensus_C": 0.199,
+        "mean_quality_Q": 0.378,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.398,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 4,
+        "n_contradicting": 5,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": -0.774
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.778,
+        "P_max": 0.997,
+        "decision_robustness": 0.815,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": null,
+        "next_band_up_at_P": null,
+        "lr_needed_to_move_down": 0.399,
+        "next_band_down_at_P": 0.9
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.138
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.168
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.008
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 1.6
+        }
+      },
+      "flags": [
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.284,
+          "lr_effective": 1.921,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.083
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.529,
+          "lr_effective": 0.296,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.156
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.227,
+          "lr_effective": 0.593,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.142,
+          "lr_effective": 0.721,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.042
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.257,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.155,
+          "lr_effective": 0.7,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.046
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.288,
+          "lr_effective": 1.942,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.085
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.559,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.168,
+          "lr_effective": 1.473,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.049
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.028,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.008,
+          "lr_effective": 0.981,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.002
+        },
+        {
+          "id": "D1",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "pearson: haftalik_uzaktan_gun → verimlilik_puani",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.8,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8"
+          ],
+          "status": "ok",
+          "lr_basis": "BIC-BF10=1.93e+07, r=0.440058, n=180",
+          "log10_lr_raw": 2.0,
+          "lr_raw": 100.0,
+          "log10_lr_effective": 1.6,
+          "lr_effective": 39.811,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.47
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D2",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "text": "Uzaktan gün sayısı fazla olan çalışanların verimlilik puanı daha düşüktür (ham ilişki — genel müdürün iddiasının ilişkisel hali)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "negative",
+        "causal": false,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.3,
+      "prior_rationale": "Rakip setin negatif kolu; literatürde negatif bulgular var ama çoğu tam zamanlı uzaktan / belirli iş türleri için. 0.30.",
+      "scores": {
+        "spectrum_S": -0.452,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.006,
+        "posterior_odds": 0.006,
+        "log10_bayes_factor_total": -1.853,
+        "bayes_factor_total": 0.014,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.325,
+        "mean_quality_Q": 0.378,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.398,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 4,
+        "n_contradicting": 5,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.536
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.001,
+        "P_max": 0.098,
+        "decision_robustness": 1.0,
+        "grid": {
+          "priors": [
+            0.25,
+            0.3,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 18.501,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.165
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.168
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.008
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -1.529
+        }
+      },
+      "flags": [
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.284,
+          "lr_effective": 0.521,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.085
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.529,
+          "lr_effective": 0.296,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.159
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.227,
+          "lr_effective": 1.686,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.068
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.142,
+          "lr_effective": 1.388,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.043
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.257,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.155,
+          "lr_effective": 1.428,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.047
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.087
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.559,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.168,
+          "lr_effective": 0.679,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.05
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.028,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.008,
+          "lr_effective": 1.02,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.003
+        },
+        {
+          "id": "D1",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "pearson: haftalik_uzaktan_gun → verimlilik_puani",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.8,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8"
+          ],
+          "status": "ok",
+          "lr_basis": "BIC-BF10=1.93e+07, r=0.440058, n=180",
+          "log10_lr_raw": -1.911,
+          "lr_raw": 0.012,
+          "log10_lr_effective": -1.529,
+          "lr_effective": 0.03,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.459
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D2",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "text": "Uzaktan çalışma ile verimlilik arasında hiçbir ilişki yoktur (İK'nın iddiası, ham ilişki)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "none",
+        "causal": false,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "Rakip setin 'ilişki yok' kolu; hibrit düzenlerde etkinin sıfıra yakın olduğunu gösteren çalışmalar var. 0.35.",
+      "scores": {
+        "spectrum_S": -0.454,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.006,
+        "posterior_odds": 0.006,
+        "log10_bayes_factor_total": -1.938,
+        "bayes_factor_total": 0.012,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.326,
+        "mean_quality_Q": 0.378,
+        "evidence_quality_grade": "Düşük",
+        "total_weight_W": 3.398,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 1,
+        "n_contradicting": 8,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.534
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.001,
+        "P_max": 0.085,
+        "decision_robustness": 1.0,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 17.908,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.162
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.168
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.008
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -1.6
+        }
+      },
+      "flags": [
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.284,
+          "lr_effective": 0.521,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.083
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.529,
+          "lr_effective": 3.382,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.156
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.227,
+          "lr_effective": 0.593,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.067
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.142,
+          "lr_effective": 0.721,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.042
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.257,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.155,
+          "lr_effective": 0.7,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.046
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.479,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.288,
+          "lr_effective": 0.515,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.085
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.559,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.168,
+          "lr_effective": 0.679,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.049
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.028,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.008,
+          "lr_effective": 0.981,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.002
+        },
+        {
+          "id": "D1",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "pearson: haftalik_uzaktan_gun → verimlilik_puani",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.8,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8"
+          ],
+          "status": "ok",
+          "lr_basis": "BIC-BF10=1.93e+07, r=0.440058, n=180",
+          "log10_lr_raw": -2.0,
+          "lr_raw": 0.01,
+          "log10_lr_effective": -1.6,
+          "lr_effective": 0.025,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.47
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D2",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "ilişkisel iddia: aynı veri kümesinde ham analiz var"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "text": "Uzaktan çalışma verimliliği artırır (nedensel — çalışanların iddiası)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "positive",
+        "causal": true,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "Nedensel rakip set; ham set ile aynı simetrik önsel (0.35/0.30/0.35), çünkü nedensel yön hakkında önceden ayrı bilgi yok.",
+      "scores": {
+        "spectrum_S": -0.375,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.087,
+        "posterior_odds": 0.096,
+        "log10_bayes_factor_total": -0.751,
+        "bayes_factor_total": 0.177,
+        "decision_code": "reject",
+        "decision": "Ret",
+        "consensus_C": 0.259,
+        "mean_quality_Q": 0.283,
+        "evidence_quality_grade": "Çok düşük",
+        "total_weight_W": 2.549,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 3,
+        "n_contradicting": 6,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.451
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.013,
+        "P_max": 0.451,
+        "decision_robustness": 0.593,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 1.163,
+        "next_band_up_at_P": 0.1,
+        "lr_needed_to_move_down": null,
+        "next_band_down_at_P": null
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.163
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.101
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.005
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.684
+        }
+      },
+      "flags": [
+        {
+          "code": "causal_cap_applied",
+          "message": "Gözlemsel kanıtın nedensel iddiaya desteği tavanla sınırlandı (korelasyon ≠ nedensellik)."
+        },
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        },
+        {
+          "code": "hypothesis_set_incoherent",
+          "message": "Bu iddianın ait olduğu rakip hipotez setinde olasılıklar toplamı 1'den belirgin sapıyor."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.284,
+          "lr_effective": 1.921,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.129
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.529,
+          "lr_effective": 0.296,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.24
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.227,
+          "lr_effective": 0.593,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.103
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.142,
+          "lr_effective": 0.721,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.065
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.154,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.093,
+          "lr_effective": 0.807,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.042
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.287,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)",
+            "LR_ham 4 → 3 tavanı (gözlemsel kanıt nedenselliği tek başına kanıtlayamaz)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.477,
+          "lr_raw": 3.0,
+          "log10_lr_effective": 0.137,
+          "lr_effective": 1.371,
+          "direction_d": 0.477,
+          "share_of_total_effect": 0.062
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.335,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.101,
+          "lr_effective": 1.262,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.046
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.017,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.005,
+          "lr_effective": 0.988,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.002
+        },
+        {
+          "id": "D2",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "regression: haftalik_uzaktan_gun → verimlilik_puani; kontroller: kidem_yil, departman",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.48,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8",
+            "×0.6 (nedensel iddia / gözlemsel veri)"
+          ],
+          "status": "causal_gap",
+          "lr_basis": "BIC-BF10=0.142, r=-0.0846076, n=180",
+          "log10_lr_raw": -1.425,
+          "lr_raw": 0.038,
+          "log10_lr_effective": -0.684,
+          "lr_effective": 0.207,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.311
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D1",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "text": "Uzaktan çalışma verimliliği düşürür (nedensel — genel müdürün iddiası)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "negative",
+        "causal": true,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.3,
+      "prior_rationale": "Nedensel rakip setin negatif kolu. 0.30.",
+      "scores": {
+        "spectrum_S": -0.365,
+        "spectrum_label": "Orta çelişki",
+        "posterior_P": 0.109,
+        "posterior_odds": 0.123,
+        "log10_bayes_factor_total": -0.542,
+        "bayes_factor_total": 0.287,
+        "decision_code": "likely_false",
+        "decision": "Büyük olasılıkla yanlış",
+        "consensus_C": 0.333,
+        "mean_quality_Q": 0.283,
+        "evidence_quality_grade": "Çok düşük",
+        "total_weight_W": 2.549,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 4,
+        "n_contradicting": 5,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.416
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.025,
+        "P_max": 0.546,
+        "decision_robustness": 0.296,
+        "grid": {
+          "priors": [
+            0.25,
+            0.3,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 3.487,
+        "next_band_up_at_P": 0.3,
+        "lr_needed_to_move_down": 0.904,
+        "next_band_down_at_P": 0.1
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.155
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.101
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.005
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.292
+        }
+      },
+      "flags": [
+        {
+          "code": "causal_cap_applied",
+          "message": "Gözlemsel kanıtın nedensel iddiaya desteği tavanla sınırlandı (korelasyon ≠ nedensellik)."
+        },
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        },
+        {
+          "code": "hypothesis_set_incoherent",
+          "message": "Bu iddianın ait olduğu rakip hipotez setinde olasılıklar toplamı 1'den belirgin sapıyor."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.284,
+          "lr_effective": 0.521,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.155
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.529,
+          "lr_effective": 0.296,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.29
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.227,
+          "lr_effective": 1.686,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.124
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.602,
+          "lr_raw": 4.0,
+          "log10_lr_effective": 0.142,
+          "lr_effective": 1.388,
+          "direction_d": 0.602,
+          "share_of_total_effect": 0.078
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.154,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)",
+            "LR_ham 4 → 3 tavanı (gözlemsel kanıt nedenselliği tek başına kanıtlayamaz)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=moderate",
+          "log10_lr_raw": 0.477,
+          "lr_raw": 3.0,
+          "log10_lr_effective": 0.074,
+          "lr_effective": 1.185,
+          "direction_d": 0.477,
+          "share_of_total_effect": 0.04
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.287,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.173,
+          "lr_effective": 0.671,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.095
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.335,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.101,
+          "lr_effective": 0.793,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.055
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.017,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=weak",
+          "log10_lr_raw": 0.301,
+          "lr_raw": 2.0,
+          "log10_lr_effective": 0.005,
+          "lr_effective": 1.012,
+          "direction_d": 0.301,
+          "share_of_total_effect": 0.003
+        },
+        {
+          "id": "D2",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "regression: haftalik_uzaktan_gun → verimlilik_puani; kontroller: kidem_yil, departman",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.48,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8",
+            "×0.6 (nedensel iddia / gözlemsel veri)"
+          ],
+          "status": "causal_gap",
+          "lr_basis": "BIC-BF10=0.142, r=-0.0846076, n=180",
+          "log10_lr_raw": -0.607,
+          "lr_raw": 0.247,
+          "log10_lr_effective": -0.292,
+          "lr_effective": 0.511,
+          "direction_d": -0.607,
+          "share_of_total_effect": 0.16
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D1",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "text": "Uzaktan çalışmanın verimlilik üzerinde (diğer etkenler sabitken) etkisi yoktur (nedensel 'sıfır etki' — İK iddiasının nedensel hali)",
+      "structure": {
+        "x": "haftalik_uzaktan_gun",
+        "y": "verimlilik_puani",
+        "relation": "none",
+        "causal": true,
+        "controls": null,
+        "population": "Bu şirketin çalışanları",
+        "timeframe": null,
+        "conditions": null
+      },
+      "prior": 0.35,
+      "prior_rationale": "Nedensel rakip setin 'etki yok' kolu. 0.35.",
+      "scores": {
+        "spectrum_S": -0.104,
+        "spectrum_label": "Zayıf çelişki",
+        "posterior_P": 0.356,
+        "posterior_odds": 0.553,
+        "log10_bayes_factor_total": 0.012,
+        "bayes_factor_total": 1.028,
+        "decision_code": "uncertain",
+        "decision": "Belirsiz — ek kanıt gerekli",
+        "consensus_C": 0.259,
+        "mean_quality_Q": 0.283,
+        "evidence_quality_grade": "Çok düşük",
+        "total_weight_W": 2.549,
+        "n_evidence": 9,
+        "n_active_evidence": 9,
+        "n_independent_clusters": 4,
+        "n_supporting": 2,
+        "n_contradicting": 7,
+        "n_neutral": 0,
+        "spectrum_vs_probability_gap": 0.183
+      },
+      "sensitivity": {
+        "scenarios": 27,
+        "P_min": 0.138,
+        "P_max": 0.773,
+        "decision_robustness": 0.333,
+        "grid": {
+          "priors": [
+            0.25,
+            0.35,
+            0.75
+          ],
+          "rho": [
+            0.0,
+            0.5,
+            0.8
+          ],
+          "quality_scale": [
+            0.8,
+            1.0,
+            1.2
+          ]
+        }
+      },
+      "value_of_information": {
+        "lr_needed_to_move_up": 4.217,
+        "next_band_up_at_P": 0.7,
+        "lr_needed_to_move_down": 0.774,
+        "next_band_down_at_P": 0.3
+      },
+      "dominant_evidence": null,
+      "clusters": {
+        "ekonomi_literaturu_wfh": {
+          "k": 6,
+          "k_effective": 1.714,
+          "log10_lr": -0.111
+        },
+        "meta_orgpsikoloji": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.101
+        },
+        "algi_anketi": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": -0.005
+        },
+        "veri_sirket": {
+          "k": 1,
+          "k_effective": 1.0,
+          "log10_lr": 0.229
+        }
+      },
+      "flags": [
+        {
+          "code": "causal_cap_applied",
+          "message": "Gözlemsel kanıtın nedensel iddiaya desteği tavanla sınırlandı (korelasyon ≠ nedensellik)."
+        },
+        {
+          "code": "conflicting_evidence",
+          "message": "Kanıtlar kendi aralarında çelişkili (uyum C < 0.5)."
+        },
+        {
+          "code": "fragile_decision",
+          "message": "Karar duyarlılık senaryolarının %70'inden azında aynı kalıyor."
+        },
+        {
+          "code": "unverified_sources",
+          "message": "Varlığı veya içeriği doğrulanmamış kaynak(lar) var (Q cezalandırıldı)."
+        },
+        {
+          "code": "hypothesis_set_incoherent",
+          "message": "Bu iddianın ait olduğu rakip hipotez setinde olasılıklar toplamı 1'den belirgin sapıyor."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "S1",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Liang J., Roberts J., Ying Z.J. (2015). Does Working from Home Work? Evidence from a Chinese Experiment. Quarterly Journal of Economics 130(1):165–218.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.284,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — Çin (Ctrip) çağrı merkezi, gönüllü çalışanlar, haftada 4 gün evden, 2010–11; ölçülebilir tek tip iş. Bu şirketin departmanları (destek, satış, finans, yazılım) ve 0–5 günlük hibrit yapı farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.284,
+          "lr_effective": 0.521,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.159
+        },
+        {
+          "id": "S2",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Bloom N., Han R., Liang J. (2024). Hybrid working from home improves retention without damaging performance. Nature 630:920–925.",
+          "applied_via": "variable_pair",
+          "stance_used": "supports",
+          "quality_Q": 0.529,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=1612)",
+            "×0.8 (uygulanabilirlik: partial — Trip.com (Çin), mühendislik/pazarlama/finans/muhasebe çalışanları, haftada 2 gün evden hibrit. İş türü ve hibrit yapı bu şirkete Bloom 2015'ten daha yakın; ülke farklı.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=supports, güç=strong",
+          "log10_lr_raw": 1.0,
+          "lr_raw": 10.0,
+          "log10_lr_effective": 0.529,
+          "lr_effective": 3.382,
+          "direction_d": 1.0,
+          "share_of_total_effect": 0.297
+        },
+        {
+          "id": "S3",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Atkin D., Schoar A., Shinde S. (2023). Working from Home, Worker Sorting and Development. NBER Working Paper 31515.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.227,
+          "quality_trace": [
+            "tasarım=rct → 0.9",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Hindistan (Chennai) veri girişi işi, yeni işe alınan çalışanlar, 8 haftalık tam zamanlı evden çalışma.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=strong",
+          "log10_lr_raw": -1.0,
+          "lr_raw": 0.1,
+          "log10_lr_effective": -0.227,
+          "lr_effective": 0.593,
+          "direction_d": -1.0,
+          "share_of_total_effect": 0.127
+        },
+        {
+          "id": "S4",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Emanuel N., Harrington E. (2024). Working Remotely? Selection, Treatment, and the Market for Remote Work. American Economic Journal: Applied Economics 16(4):528–559.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.236,
+          "quality_trace": [
+            "tasarım=quasi_experimental → 0.75",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.5 (uygulanabilirlik: indirect — ABD Fortune 500 perakendecisinin çağrı merkezleri, tam uzaktan; COVID ofis kapanması doğal deneyi.)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.142,
+          "lr_effective": 0.721,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.08
+        },
+        {
+          "id": "S5",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Gibbs M., Mengel F., Siemroth C. (2023). Work from Home and Productivity: Evidence from Personnel and Analytics Data on Information Technology Professionals. Journal of Political Economy Microeconomics 1(1):7–41.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.154,
+          "quality_trace": [
+            "tasarım=longitudinal → 0.7",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=10000)",
+            "×0.5 (uygulanabilirlik: indirect — Asya'da büyük BT hizmet şirketi, pandemi döneminde zorunlu tam uzaktan çalışma; pandemi koşullarıyla karışık (çocuklu çalışanlarda düşüş daha büyük). n 'over 10,000' olarak raporlanmış, alt sınır girildi.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.093,
+          "lr_effective": 0.807,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.052
+        },
+        {
+          "id": "S6",
+          "kind": "source",
+          "cluster": "ekonomi_literaturu_wfh",
+          "label": "Mang C.F., Anwar A. (2026). Does Working from Home Improve Employees' Productivity? Empirical Evidence from a Meta-Analysis. ILR Review.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.287,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.9 (n bilinmiyor)",
+            "×0.8 (uygulanabilirlik: partial — Çok ülke/sektör havuzu; hibrit ve tam uzaktan ayrı incelenmiş. Bu şirkete özgü değil.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=moderate",
+          "log10_lr_raw": -0.602,
+          "lr_raw": 0.25,
+          "log10_lr_effective": -0.173,
+          "lr_effective": 0.671,
+          "direction_d": -0.602,
+          "share_of_total_effect": 0.097
+        },
+        {
+          "id": "S7",
+          "kind": "source",
+          "cluster": "meta_orgpsikoloji",
+          "label": "Gajendran R.S., Ponnapalli A.R., Wang C., Javalagi A.A. (2024). A dual pathway model of remote work intensity: A meta-analysis of its simultaneous positive and negative effects. Personnel Psychology.",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.335,
+          "quality_trace": [
+            "tasarım=meta_analysis → 0.95",
+            "×0.7 (içerik doğrulanmadı)",
+            "×1.05 (n=45288)",
+            "×0.8 (uygulanabilirlik: partial — Uzaktan çalışma yoğunluğu (gün/oran) ile yönetici-değerlendirmeli performans — bu şirketin değişkenlerine kavramsal olarak yakın; çoğunlukla kesitsel örgütsel psikoloji çalışmaları, çok ülke.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.101,
+          "lr_effective": 0.793,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.057
+        },
+        {
+          "id": "S8",
+          "kind": "source",
+          "cluster": "algi_anketi",
+          "label": "Adı belirtilmemiş iş dergisi haberi (2023): 'Yöneticilerin %60'ı uzaktan çalışanların daha az verimli olduğunu düşünüyor.' (Benzer bir rakam Owl Labs'ın 2.050 ABD'li tam zamanlı çalışanla yaptığı anketinde geçiyor: yöneticilerin %60'ı uzaktan verimlilikten endişeli, çalışanların %62'si uzaktan daha verimli hissediyor.)",
+          "applied_via": "variable_pair",
+          "stance_used": "contradicts",
+          "quality_Q": 0.017,
+          "quality_trace": [
+            "tasarım=news → 0.2",
+            "×0.5 (varlığı doğrulanmadı)",
+            "×0.7 (içerik doğrulanmadı)",
+            "×0.8 (hakemsiz)",
+            "×0.5 (uygulanabilirlik: indirect — Ölçülen şey verimlilik değil, yöneticilerin verimlilik ALGISI (görüş anketi). ABD, karışık sektörler. Aynı anketin çalışan tarafı ters yönde algı raporluyor.)",
+            "×0.6 (nedensel iddia / nedensel olmayan tasarım)"
+          ],
+          "status": "unverified",
+          "lr_basis": "tutum=contradicts, güç=weak",
+          "log10_lr_raw": -0.301,
+          "lr_raw": 0.5,
+          "log10_lr_effective": -0.005,
+          "lr_effective": 0.988,
+          "direction_d": -0.301,
+          "share_of_total_effect": 0.003
+        },
+        {
+          "id": "D2",
+          "kind": "data",
+          "cluster": "veri_sirket",
+          "label": "regression: haftalik_uzaktan_gun → verimlilik_puani; kontroller: kidem_yil, departman",
+          "applied_via": "variable_pair",
+          "stance_used": null,
+          "quality_Q": 0.48,
+          "quality_trace": [
+            "veri analizi (gözlemsel) → 0.8",
+            "×0.6 (nedensel iddia / gözlemsel veri)",
+            "LR_ham 7.03 → 3 tavanı (gözlemsel kanıt nedenselliği tek başına kanıtlayamaz)"
+          ],
+          "status": "causal_gap",
+          "lr_basis": "BIC-BF10=0.142, r=-0.0846076, n=180",
+          "log10_lr_raw": 0.477,
+          "lr_raw": 3.0,
+          "log10_lr_effective": 0.229,
+          "lr_effective": 1.694,
+          "direction_d": 0.477,
+          "share_of_total_effect": 0.128
+        }
+      ],
+      "evidence_scoped_out": [
+        {
+          "id": "D1",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        },
+        {
+          "id": "D3",
+          "reason": "nedensel iddia: aynı veri kümesinde daha kontrollü analiz var"
+        }
+      ]
+    }
+  ],
+  "claim_relations": [
+    {
+      "claims": [
+        "C1",
+        "C2"
+      ],
+      "relations": [
+        "positive",
+        "negative"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.958,
+        0.006
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C1",
+        "C3"
+      ],
+      "relations": [
+        "positive",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.958,
+        0.006
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C1",
+        "C4"
+      ],
+      "relations": [
+        "positive",
+        "positive"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.958,
+        0.087
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C1",
+        "C5"
+      ],
+      "relations": [
+        "positive",
+        "negative"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.958,
+        0.109
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C1",
+        "C6"
+      ],
+      "relations": [
+        "positive",
+        "none"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.958,
+        0.356
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C2",
+        "C3"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.006,
+        0.006
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C2",
+        "C4"
+      ],
+      "relations": [
+        "negative",
+        "positive"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.087
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C2",
+        "C5"
+      ],
+      "relations": [
+        "negative",
+        "negative"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.109
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C2",
+        "C6"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.356
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C3",
+        "C4"
+      ],
+      "relations": [
+        "none",
+        "positive"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.087
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C3",
+        "C5"
+      ],
+      "relations": [
+        "none",
+        "negative"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.109
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C3",
+        "C6"
+      ],
+      "relations": [
+        "none",
+        "none"
+      ],
+      "same_scope": false,
+      "logical_compatibility": 0,
+      "P": [
+        0.006,
+        0.356
+      ],
+      "note": "Farklı kapsam (ilişkisel · Bu şirketin çalışanları / nedensel · Bu şirketin çalışanları): ikisi aynı anda doğru olabilir, mantıksal çelişki sayılmaz."
+    },
+    {
+      "claims": [
+        "C4",
+        "C5"
+      ],
+      "relations": [
+        "positive",
+        "negative"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.087,
+        0.109
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C4",
+        "C6"
+      ],
+      "relations": [
+        "positive",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.087,
+        0.356
+      ],
+      "incoherence": 0.0
+    },
+    {
+      "claims": [
+        "C5",
+        "C6"
+      ],
+      "relations": [
+        "negative",
+        "none"
+      ],
+      "same_scope": true,
+      "logical_compatibility": -1,
+      "P": [
+        0.109,
+        0.356
+      ],
+      "incoherence": 0.0
+    }
+  ],
+  "hypothesis_sets": [
+    {
+      "variables": [
+        "haftalik_uzaktan_gun",
+        "verimlilik_puani"
+      ],
+      "scope": "ilişkisel · Bu şirketin çalışanları",
+      "claims": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "relations": [
+        "positive",
+        "negative",
+        "none"
+      ],
+      "P": [
+        0.958,
+        0.006,
+        0.006
+      ],
+      "sum_P": 0.97,
+      "exhaustive": true,
+      "normalized_P": [
+        0.988,
+        0.006,
+        0.006
+      ],
+      "most_probable": "C1",
+      "coherence_gap": 0.03,
+      "incoherent": false
+    },
+    {
+      "variables": [
+        "haftalik_uzaktan_gun",
+        "verimlilik_puani"
+      ],
+      "scope": "nedensel · Bu şirketin çalışanları",
+      "claims": [
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "relations": [
+        "positive",
+        "negative",
+        "none"
+      ],
+      "P": [
+        0.087,
+        0.109,
+        0.356
+      ],
+      "sum_P": 0.552,
+      "exhaustive": true,
+      "normalized_P": [
+        0.158,
+        0.197,
+        0.645
+      ],
+      "most_probable": "C6",
+      "coherence_gap": 0.448,
+      "incoherent": true,
+      "interpretation": "ΣP < 1: kanıtlar rakip hipotezleri iyi ayırt edemiyor; normalize paylara bakın."
+    }
+  ],
+  "variables": {
+    "haftalik_uzaktan_gun": {
+      "claims": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "mean_S": -0.268,
+      "mean_P": 0.254
+    },
+    "verimlilik_puani": {
+      "claims": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6"
+      ],
+      "mean_S": -0.268,
+      "mean_P": 0.254
+    }
+  }
+}

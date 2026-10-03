@@ -1,0 +1,12 @@
+{
+  "aciklama": "Puanlamaya GİRMEYEN sağlamlık kontrolleri (rapor §6'da kullanıldı). Aynı veri: ogrenci_verisi.csv. statlib.py / data_evidence.py ile hesaplandı.",
+  "spearman": {"haftalik_calisma_saati": 0.579, "gunluk_sosyal_medya_saat": -0.256, "uyku_saat": 0.232},
+  "pearson_not100_haric": {"haftalik_calisma_saati": {"r": 0.575, "n": 229}, "gunluk_sosyal_medya_saat": {"r": -0.204, "n": 223}, "uyku_saat": {"r": 0.234, "n": 220}},
+  "not_100_ogrenci_sayisi": 11,
+  "uyku_karesel_terim": {"t": -0.1, "yorum": "ters-U ilişki yok"},
+  "uyku_gruplari_ort_not": {"<6": {"n": 40, "ort": 73.8}, "6-7": {"n": 84, "ort": 79.0}, "7-8": {"n": 73, "ort": 81.6}, ">=8": {"n": 34, "ort": 83.2}},
+  "cinsiyet_kontrollu_regresyon": {"kontroller": ["haftalik_calisma_saati", "gunluk_sosyal_medya_saat", "uyku_saat", "okul_turu"], "katsayi_K": -1.17, "se": 1.23, "p": 0.344, "n": 226, "log10_bf10": -0.98},
+  "cinsiyet_okul_turu_ort_not": {"devlet": {"E": 79.7, "K": 77.9}, "ozel": {"E": 81.7, "K": 79.4}},
+  "sosyal_medya_uyku_haric_regresyon": {"kontroller": ["haftalik_calisma_saati", "okul_turu", "cinsiyet"], "katsayi": -2.566, "partial_r": -0.314, "p": 1.1e-06, "n": 234},
+  "degiskenler_arasi_r": {"sosyal_medya~uyku": -0.51, "sosyal_medya~calisma": 0.01, "uyku~calisma": -0.01}
+}
