@@ -1,139 +1,150 @@
 ---
 name: flutter-python-kabul-kriterleri
-description: İnternetsiz (offline) çalışan Flutter Android uygulamaları ve onlara eşlik eden Python script/otomasyon/ML işleri için varsayımsız, ölçülebilir ve dürüst çalışma yöntemi. Hem uygulamayı hem Claude'un kendi davranışını sayısal metriklerle ölçer — varsayım sayısı, onaysız kod, testsiz özellik ve kanıtsız "bitti/çalışıyor" iddiası script ile sayılır ve 0 olmak zorundadır. Önce eksik bilgileri sorar, cevapları eşikli kabul kriterlerine ve kaynağı kayıtlı kararlara çevirir, onay alınca işi sonuna kadar yapar, her kriteri komutla ölçer ve script'in ürettiği GEÇTİ/KALDI/ÖLÇÜLEMEDİ raporuyla teslim eder. Kullanıcı Flutter, Dart, Android, APK/AAB, offline/internetsiz uygulama, TFLite/ML modeli, Python ile veri hazırlama veya build scripti, yeni ekran/özellik ekleme, "uygulama yap", "app geliştir", kabul kriteri, metrik veya test kriteri dediğinde mutlaka bu skill'i kullan — "kabul kriteri" kelimesi geçmese bile, Flutter/Android işi istendiği anda kullan.
+description: İnternetsiz (offline) çalışan Flutter Android uygulamaları ve onlara eşlik eden Python script/otomasyon/ML işleri için varsayımsız, ölçülebilir ve dürüst çalışma yöntemi. Uygulamanın tasarımını (renk, yazı, boşluk, ekran yerleşimi, ekran görüntüsü), yazılım mimarisini (katmanlar, bağımlılıklar, dosya/fonksiyon uzunluğu), işlevini ve Claude'un kendi davranışını (varsayım, onaysız kod, kanıtsız "bitti" iddiası) script ile sayılan metriklere bağlar. Tasarımı yalnızca kullanıcı verir; Claude tasarım değeri seçmez. Örnek mimari ve adım adım kurulum talimatı içerir. Önce sorar, cevapları eşikli kabul kriterlerine çevirir, onay alınca işi sonuna kadar yapar, ölçer ve GEÇTİ/KALDI/ÖLÇÜLEMEDİ raporuyla teslim eder. Kullanıcı Flutter, Dart, Android, APK, offline/internetsiz uygulama, ekran tasarımı, Figma'dan uygulama, UI, mimari, TFLite/ML modeli, Python ile veri hazırlama, yeni ekran/özellik ekleme, "uygulama yap", "app geliştir", kabul kriteri veya metrik dediğinde mutlaka bu skill'i kullan — "kabul kriteri" kelimesi geçmese bile, Flutter/Android işi istendiği anda kullan.
 ---
 
-# Flutter + Python (Offline Android) — Ölçülebilir ve Dürüst Çalışma
+# Flutter + Python (Offline Android) — Tasarımı ve Yazılımı Ölçülebilir Çalışma
 
 ## Bu skill neden var
 
-Kullanıcının sorunu: Claude belirsiz bir istek alınca boşlukları kendi tahminiyle dolduruyor ("kafasına göre iş yapıyor") ve test etmediği şeye "çalışıyor" diyor. Kural koymak bunu çözmedi, çünkü kurala uyulup uyulmadığını kullanıcı göremiyor. Bu yüzden bu skill'de **Claude'un davranışı da bir metriktir** ve script ile sayılır:
+Kullanıcının sorunu: Claude belirsiz bir istek alınca boşlukları kendi tahminiyle dolduruyor — tasarımı kafasına göre yapıyor (renk, boşluk, ekran düzeni seçiyor), mimariyi kafasına göre kuruyor ve test etmediği şeye "çalışıyor" diyor. Kural yazmak bunu çözmedi, çünkü uyulup uyulmadığı görünmüyor. Bu skill'de her şey **script'in saydığı bir sayıdır**:
 
-| ID | Metrik | Hedef | Nasıl sayılır |
-|---|---|---|---|
-| D1 | Kaynaksız karar (varsayım) sayısı | == 0 | `denetim.py kontrol`: `pubspec.yaml` ve Python bağımlılıklarındaki her paket, `kararlar.json`'daki her karar ve her kriter `kullanici:` veya `öneri-onaylandı:` kaynağına bağlı olmalı. Bağlı olmayan her biri = 1 varsayım. |
-| D2 | Onaysız yazılmış kod dosyası sayısı | == 0 | `denetim.py kontrol`: `kabul_kriterleri.json` onaylanmamışken (veya onay kanıtı yokken) var olan her `.dart`/`.py`/`.kt` dosyası. |
-| D3 | Test dosyası olmayan fonksiyonel kriter | == 0 | `denetim.py kontrol`: her F kriterinin ölçüm yöntemindeki test dosyası diskte var mı. |
-| D5 | Kriter/karar ID'si taşımayan test sayısı | == 0 | `denetim.py kontrol`: her test adında (`test('F1: ...')`, `testWidgets('... (K-08)')`, `def test_f4_...`) bir kriter veya karar ID'si geçmeli. ID'siz test = kayda geçmemiş bir davranış = gizli karar. |
-| D4 | Kanıtsız iddia sayısı | == 0 | `denetim.py mesaj`: tüm kriterler GEÇMEDEN kullanıcıya giden mesajdaki "bitti, hazır, çalışıyor, test edildi, başarıyla…" sayısı + mesajda güncel ölçüm özeti yoksa 1. |
+| Ne | Nasıl ölçülebilir hale gelir | Metrikler |
+|---|---|---|
+| Tasarım | Kullanıcının tasarımı → `tasarim.json` (renk, font, yazı, boşluk, köşe, bileşen ölçüleri) + `ekranlar.json` (her ekranda her bileşenin sırası, konumu, boyutu) + `tasarim/<ekran>.png` | T1–T6 |
+| Yazılım mimarisi | Onaylı mimari → `mimari.json` (katmanlar, izinli bağımlılıklar, satır sınırları) | Y1–Y4 |
+| İşlev ve kalite | Cevaplar → `kabul_kriterleri.json` (F, P, K, A, O, U, M) | katalog |
+| Claude'un davranışı | `kararlar.json` + onay kanıtı + test adları + teslim mesajı | D1–D5 |
 
-D1, D2, D3 ve D5 her ölçüm raporunda otomatik yer alır ve çıkarılamaz. D4 mesaj gönderilmeden önceki son kapıdır. Bunlar kullanıcının "kafana göre yapma, yalan söyleme" isteğinin ölçülebilir hâlidir.
+Davranış metrikleri (hepsi == 0, raporda otomatik, çıkarılamaz — D4 mesaj kapısıdır):
+
+| ID | Metrik | Nasıl sayılır |
+|---|---|---|
+| D1 | Kaynaksız karar (varsayım) | Kullanıcıya bağlanmayan her paket, karar, kriter (`denetim.py kontrol`) |
+| D2 | Onaysız yazılmış kod dosyası | Onay kanıtı yokken var olan `.dart/.py/.kt` |
+| D3 | Testi olmayan F kriteri | F kriterinin test dosyası diskte yok |
+| D5 | ID'siz test | Adında kriter/karar ID'si olmayan test = kayda geçmemiş davranış |
+| D4 | Kanıtsız iddia | Ölçüm tamamlanmamışken mesajdaki "bitti/hazır/çalışıyor…" (`denetim.py mesaj`) |
 
 ## Akış
 
 ```
-1. SORU TURU → 2. KRİTER + KARAR KAYDI → (kullanıcı "onaylıyorum") → 3. UYGULAMA → 4. ÖLÇÜM → 5. TESLİM
-                                                                         ↑______ KALDI varsa düzelt ___|
+1. SORU + TASARIM İSTE → 2. KRİTER, TASARIM, MİMARİ, KARAR DOSYALARI → ("Onaylıyorum")
+→ 3. UYGULAMA (adım adım) → 4. ÖLÇÜM → 5. EKRAN GÖRÜNTÜSÜ ONAYI → 6. TESLİM
+                    ↑_____________ KALDI varsa düzelt _____________|
 ```
 
-Aşama atlanmaz. Kullanıcı onay vermeden 3. aşamaya geçilmez (D2).
+Aşama atlanmaz. Onay yoksa kod yok (D2). Tasarım yoksa kod yok.
 
-## Aşama 1 — Soru turu
+## Aşama 1 — Soru turu ve tasarımı isteme
 
-`references/soru-bankasi.md`'yi oku. Kullanıcının mesajında **açıkça yazılmış** olanları işaretle, kalanları sor. Kullanıcı bir değeri kendisi yazmadıysa o değer bilinmiyordur; "not uygulaması" demek SQLite demek değildir, "eski telefonlar" minSdk 21 demek değildir. Çıkarım = varsayım = D1.
+1. `references/soru-bankasi.md`'yi oku. Kullanıcının **açıkça yazdıklarını** bir tabloda geri yansıt ("bunları tekrar sormuyorum"), kalanları sor. Kullanıcının yazmadığı her değer bilinmiyordur; çıkarım = varsayım = D1.
+2. **Tasarımı iste.** `references/tasarim.md` §1'deki kontrol listesini kullanıcıya ver: ekran PNG'leri (aynı çerçeve boyutu), renkler, font dosyaları, yazı stilleri, boşluk ölçeği, köşeler, bileşen ölçüleri, her bileşenin konum/boyutu, tolerans, T5 piksel farkı eşiği. Tasarım değeri **önerme**, PNG'den göz kararı çıkarma; eksik olan her değer bir sorudur.
+3. **Mimariyi sor.** Kullanıcının kendi mimarisi var mı? Yoksa `references/mimari.md`'deki örnek mimariyi (klasör ağacı + katman kuralları) "(öneri)" olarak göster; dosya/fonksiyon satır sınırlarını sor.
+4. Soruları numarala (S1, S2…), seçenek sun, cevabın dönüşeceği metriği yaz (ör. "→ T4 sonucKarti.ust"). Bir turda ~15 soru; mimariyi ve tasarımı belirleyenler önce.
+5. Bu aşamada kod, iskelet, `flutter create` yok.
 
-- Soruları kategoriye göre grupla, numarala (S1, S2…) ki kullanıcı "S3: b" diye cevaplayabilsin.
-- Her soruya seçenek ve cevabın dönüşeceği metriği yaz (ör. "→ P1 soğuk açılış").
-- Öneri yapabilirsin ama "(öneri)" diye işaretle. Öneri, kullanıcı kabul edene kadar karar değildir.
-- Bir turda en fazla ~15 soru; mimariyi belirleyenler önce.
-- Kullanıcının verdiği bilgileri bir tabloda geri yansıt ("bunları tekrar sormuyorum") ki yanlış anlama varsa hemen görülsün.
-- Bu aşamada kod, iskelet, `flutter create` yok.
+İşlev ve kalite eşiklerinde (P, K, U…) kullanıcı "sen seç" derse somut değer "(öneri)" olarak sunulabilir; kabul ederse kaynak `öneri-onaylandı:Sx`. **Tasarım değerlerinde öneri yoktur** — kaynakları yalnızca `kullanici:` olabilir.
 
-Kullanıcı "sen seç" derse somut değer öner ve onu da onaya sun; kabul ederse kaynak `öneri-onaylandı:Sx` olur.
+## Aşama 2 — Dosyalar ve onay
 
-## Aşama 2 — Kabul kriterleri ve karar kaydı
+Proje köküne yaz (şablonlar `assets/ornek-proje/` içinde, çalışan ve ölçülmüş hâlleriyle):
 
-Cevaplardan proje köküne iki dosya yaz:
+| Dosya | İçerik | Doğrulama |
+|---|---|---|
+| `kabul_kriterleri.json` | Tüm kriterler; **T1–T6 ve Y1–Y4 zorunlu** (blok: `assets/ty_kriterleri.ornek.json`) | `kriterler.py dogrula` |
+| `tasarim.json`, `ekranlar.json`, `tasarim/<ekran>.png` | Kullanıcının tasarımı, sayı olarak | `tasarim.py dogrula` |
+| `mimari.json` | Katmanlar, izinli bağımlılıklar, sınırlar | `mimari.py dogrula` |
+| `kararlar.json` | Ölçülmeyen kararlar (paketler, davranışlar); şablon `assets/kararlar.ornek.json` | `denetim.py kontrol` |
 
-**`kabul_kriterleri.json`** — ölçülecek hedefler. Şablon: `assets/kabul_kriterleri.ornek.json`. Metrikler ve ölçüm komutları: `references/metrik-katalogu.md`. Her kriter: `id, kategori, metrik, operator, esik (sayı), birim, olcum_yontemi (komut), olcum_ortami, kaynak`. Fonksiyonel her gereksinim, test dosyası yolu yazılmış bir F kriteridir (`integration_test/not_sil_test.dart: ekle → sola kaydır → onayla → listede yok`).
+Metrikler ve ölçüm komutları: `references/metrik-katalogu.md`. Her kriter: `id, kategori, metrik, operator, esik (sayı), birim, olcum_yontemi, olcum_ortami, kaynak`. Her F kriterinin `olcum_yontemi` test dosyasının yolunu içerir. `flutter create`'in eklediği paketler de karardır (`cupertino_icons`, `flutter_lints`).
 
-**`kararlar.json`** — ölçülmeyen ama verilmesi gereken her karar: paketler, mimari, davranış (boş liste ne gösterir, silme onay sorar mı…). Şablon: `assets/kararlar.ornek.json`. Her karar `kaynak` taşır; paket gerektiren kararlar `paketler` listesi taşır. `flutter create` şablonunun getirdiği paketler (`cupertino_icons`, `flutter_lints`) de birer karardır — kullanıcıya sor.
-
-Henüz cevaplanmamış önerilerin kaynağı `öneri-bekliyor:Sx` olur; dosya bu durumdayken onaylanamaz.
-
-Doğrula ve göster:
+Kullanıcıya şunları göster ve "Onaylıyorum" bekle:
 
 ```bash
-python <skill>/scripts/kriterler.py dogrula kabul_kriterleri.json
-python <skill>/scripts/kriterler.py tablo   kabul_kriterleri.json
+python <skill>/scripts/kriterler.py tablo kabul_kriterleri.json
+python <skill>/scripts/tasarim.py tablo --proje .        # tasarım değerleri + her ekranın bileşen tablosu
 ```
++ mimari klasör ağacı ve katman kuralları + karar listesi.
 
-`dogrula` ölçüsüz kelimeleri ("hızlı", "akıcı", "kullanıcı dostu"…), sayı olmayan eşikleri, ölçüm yöntemi olmayan ve kaynağı geçersiz kriterleri reddeder. Geçmeden kullanıcıya sunma.
+> Bu kriterleri, tasarım tablosunu, mimariyi ve kararları onaylıyor musun? "Onaylıyorum" yazarsan uygulamaya geçerim. Değiştirmek istediğin satırı ID ile yaz.
 
-Tabloyu ve karar listesini göster, şunu sor ve bekle:
-
-> Bu kriterleri ve kararları onaylıyor musun? "Onaylıyorum" yazarsan uygulamaya geçerim. Değiştirmek istediğin satırı ID ile yaz.
-
-Onay gelince `onay.durum = "onaylandi"`, `onay.tarih`, `onay.kanit = <kullanıcının cümlesi aynen>` yaz. Kanıtsız onay geçersizdir (D2 sayar).
+Onay gelince `kabul_kriterleri.json` → `onay.durum = "onaylandi"`, `onay.tarih`, `onay.kanit = <kullanıcının cümlesi aynen>`.
 
 ## Aşama 3 — Uygulama (işi sonuna kadar yap)
 
-Onaydan sonra kriterlerdeki **her şeyi** yap: kod, testler (her F kriteri için test dosyası — D3), Python script'leri, gerekli konfigürasyon. Yarım bırakıp "gerisini sen yaparsın" deme; yapamadığın bir parça varsa nedenini Aşama 5'te açıkça yaz.
+`references/mimari.md` §4'teki **12 adımı sırayla** uygula; her adımın komutu temiz geçmeden sonrakine geçme. Özet:
 
-- Kriterlerde ve `kararlar.json`'da olmayan bir paket, dosya türü veya davranış gerekirse **dur ve sor**. Cevabı `kararlar.json`'a ekle, sonra devam et. Sessizce eklenen paket D1'de yakalanır.
-- Kullanıcı ulaşılamıyorsa ve iş durmamalıysa: en dar seçeneği uygula, `kararlar.json`'a `öneri-bekliyor:Sx` kaynağıyla yaz ve teslimde soru olarak sor. Bu D1'i bilerek KALDI yapar — doğrusu budur; kaydetmeden uygulamak ise gizli varsayımdır.
-- Her testin adına hangi kriter veya kararı doğruladığını yaz (`test('F2: 250 cm → 2.5', ...)`, `test('K-10 virgüllü girdi', ...)`, `def test_f4_satir_sayisi`). Yardımcı fonksiyon testleri de hizmet ettikleri kriterin ID'sini taşır. ID bulamadığın bir davranışı test ediyorsan o davranış kayıtlı değildir: önce kaydet (D5).
-- Kapsam dışı "iyileştirme" ekleme; önce öner.
-- Offline: release manifestinde `INTERNET` olmamalı; Flutter bunu debug/profile manifestlerine kendisi ekler. Ağ kullanan paket (`google_fonts` çalışma anında indirir, analitik, crash raporlama) kullanma; fontlar asset olarak paketlenir.
-- Python cihazda mı (Chaquopy, serious_python — APK'ya onlarca MB ekler) yoksa geliştirici makinesinde mi çalışıyor, Aşama 1'de sorulmuş olmalı.
+1. İskelet (`flutter create`), onaysız şablon paketlerini çıkar.
+2. Dosyaları doğrula. 3. Fontları `assets/fonts/` + `pubspec.yaml`. 4. `python <skill>/scripts/tasarim.py uret --proje .`
+5. Çekirdek tema (yalnızca `Tasarim*` sabitleri). 6. Alan (saf Dart) + ID'li testler → Y1 = 0. 7. Veri. 8. Sunum: her bileşene `ValueKey('<ekran>.<bilesen>')`, değerler yalnızca `Tasarim*` → `flutter test test/yerlesim` T4 = 0. 9. Giriş. 10. Python `tools/`.
+11. Ekran görüntüleri → Aşama 5. 12. Ölçüm.
+
+Kurallar:
+- Tasarımda olmayan bir değer gerekirse (T4 bir farkı gösterir ve hiçbir `Tasarim*` sabiti kapatmaz) **sor**; sayı yazma (T2), renk yazma (T1), üretilmiş dosyayı düzenleme (T3).
+- Kriterlerde/kararlarda olmayan paket veya davranış gerekirse dur ve sor; cevabı `kararlar.json`'a ekle. Kullanıcıya ulaşılamıyorsa en dar seçeneği uygula, `öneri-bekliyor:Sx` olarak kaydet, teslimde sor — D1 bilerek KALDI olur; kaydetmeden uygulamak gizli varsayımdır.
+- Her testin adı doğruladığı kriter/karar ID'sini taşır (`test('F1 cevir: 5 km → 5000 m', …)`, `def test_f4_…`) — D5.
+- Offline: release manifestinde `INTERNET` yok; ağ kullanan paket (`google_fonts`, analitik) yok; fontlar gömülü.
+- Kapsam dışı "iyileştirme" ekleme; önce sor.
 
 ## Aşama 4 — Ölçüm
 
 ```bash
 python <skill>/scripts/olc.py --proje . --cikti olcumler.json [--python-klasoru tools] [--model assets/x.tflite] [--build-apk]
 python <skill>/scripts/denetim.py kontrol --proje .
-```
-
-`olc.py` araçla ölçülebilenleri (analyze, format, testler, kapsam, APK boyutu, izinler, minSdk, ağ kodu, ruff, pytest) ölçer ve her F kriterinin test dosyasını kendisi çalıştırır (geçti = 1, kaldı = 0). F sonuçlarını elle yazma; script'in sonucu geçerlidir. Araç yoksa değeri `null` yapar ve sebebini yazar; **tahmini değer yazmaz**. Cihaz gerektirenleri (soğuk açılış, bellek, jank, çıkarım süresi) katalogdaki komutlarla ölç ve `olcumler.json`'a `{"deger": x, "kanit": "<komut çıktısından satır>"}` ekle. Ölçemiyorsan `{"deger": null, "sebep": "..."}` yaz — `null` dürüsttür, uydurma değer yalandır.
-
-```bash
 python <skill>/scripts/kriterler.py rapor kabul_kriterleri.json olcumler.json > rapor.md
 ```
 
-`KALDI` varsa düzelt ve yeniden ölç. Döngü, her satır `GEÇTİ` olana veya kalan satırlar kullanıcının cihazı/verisi olmadan ölçülemeyecek (`ÖLÇÜLEMEDİ`) hâle gelene kadar sürer. Eşiği kendi başına değiştirmek yasak; eşik değişikliği kullanıcı kararıdır ve `surum` artar.
+`olc.py` kod kalitesini, F testlerini (her kriter yalnızca kendi ID'li testleriyle), tasarımı (T1–T6: statik tarama, yerleşim testleri, ekran görüntüsü ↔ tasarım PNG piksel farkı, onaylı görüntü sapması) ve mimariyi (Y1–Y4) ölçer. Araç/cihaz/veri yoksa `null` + sebep yazar — tahmini değer yazmaz. Cihaz gerektirenleri katalogdaki komutlarla ölç, `{"deger": x, "kanit": "<komut çıktısı>"}` ekle; ölçemiyorsan `{"deger": null, "sebep": "…"}`.
 
-## Aşama 5 — Teslim
+`KALDI` varsa düzelt, yeniden ölç. Eşik değiştirmek yalnızca kullanıcının kararıdır (`surum` artar).
 
-Teslim mesajını `yanit.md` olarak yaz, **şu yapıyla**:
+## Aşama 5 — Ekran görüntüsü onayı
+
+1. `test/goruntu/olcum/<ekran>.png` (uygulamanın görüntüsü), `tasarim/<ekran>.png` (kullanıcının tasarımı) ve `build/tasarim_fark/<ekran>.png` (kırmızı = farklı piksel) görüntülerini kullanıcıya göster, T5 yüzdesini yaz.
+2. Kullanıcı onaylarsa: `flutter test --update-goldens test/goruntu` → `goldens/` (T6 artık her görsel değişikliği yakalar). Onay yoksa golden üretme; T6 ÖLÇÜLEMEDİ kalır.
+
+## Aşama 6 — Teslim
+
+`yanit.md`, bu yapıyla:
 
 ```markdown
 ## Teslim raporu
 **DURUM:** <rapor.md'nin son satırı, aynen>
 
 ### Ölçüm tablosu
-<rapor.md içeriği, aynen — elle düzenleme yok>
+<rapor.md içeriği, aynen>
 
 ### Yapılanlar
-<oluşturulan/değiştirilen dosyalar, her biri hangi kriter için>
+<dosyalar, her biri hangi kriter için>
 
 ### Ölçülemeyenler
-<her ÖLÇÜLEMEDİ satırı için: neden ölçülemedi + kullanıcının çalıştıracağı komut>
+<her ÖLÇÜLEMEDİ: neden + kullanıcının çalıştıracağı komut>
 
 ### Açık sorular / sapmalar
-<varsa; yoksa "Yok">
+<öneri-bekliyor kararlar, tasarımda eksik çıkan değerler; yoksa "Yok">
 ```
-
-Sonra mesajı denetle:
 
 ```bash
 python <skill>/scripts/denetim.py mesaj yanit.md --kriterler kabul_kriterleri.json --olcumler olcumler.json
 ```
 
-D4 > 0 ise mesaj gönderilmez: iddia cümlelerini olgu cümleleriyle değiştir ("çalışıyor" → "K4: 12 testin 12'si geçti"), özet satırını ekle, tekrar denetle. Tüm kriterler GEÇTİ ise "bitti" demek serbesttir — çünkü artık kanıtı vardır.
+D4 > 0 ise gönderme: iddiayı sayıyla değiştir ("çalışıyor" → "K4: 12 testin 12'si geçti"), özet satırını ekle, tekrar denetle.
 
 ## Kısa örnek
 
-**Kullanıcı:** "İnternetsiz çalışan bir yapılacaklar listesi uygulaması yap."
+**Kullanıcı:** "İnternetsiz çalışan bir birim çevirici yap."
 
-**Yanlış:** `flutter create` + Provider + Hive ile 3 ekran yazıp "Uygulama hazır, çalışıyor" demek. Sonuç: D1 = 3 (Provider, Hive, ekran sayısı tahmin), D2 = 12 dosya, D4 = 2 iddia.
+**Yanlış:** Yeşil bir tema seçip, 16 dp boşluklarla, Provider ile tek ekran yazmak ve "hazır" demek. Sonuç: D1 = 1, D2 = 9 dosya, T1/T2 > 0 (renk ve ölçü uyduruldu), D4 = 1.
 
-**Doğru:** S1–S15 soruları → cevaplar → `kabul_kriterleri.json` + `kararlar.json` → onay → kod + testler → ölçüm → `DURUM: TAMAM DEĞİL — 2 ÖLÇÜLEMEDİ (P1, P3: fiziksel cihaz gerekiyor; komutlar aşağıda)`.
+**Doğru:** S1–S15 + tasarım kontrol listesi → kullanıcı Figma'dan değerleri ve PNG'yi verir → dosyalar → onay → 12 adım → ölçüm → ekran görüntüsü onayı → `DURUM: TAMAM — 21 kriter GEÇTİ` (bkz. `assets/ornek-proje/rapor.md`).
 
 ## Dosyalar
 
-- `references/soru-bankasi.md` — Zorunlu sorular ve hangi metriğe dönüştükleri. Aşama 1.
-- `references/metrik-katalogu.md` — Her metriğin birimi, ölçüm komutu, önerilen başlangıç eşiği, sık yapılan teknik hatalar. Aşama 2 ve 4.
-- `assets/kabul_kriterleri.ornek.json`, `assets/kararlar.ornek.json` — Şablonlar.
-- `scripts/kriterler.py` — `dogrula`, `tablo`, `rapor` (D1–D3 dahil).
-- `scripts/olc.py` — Otomatik ölçümler → `olcumler.json`.
-- `scripts/denetim.py` — `kontrol` (D1–D3), `mesaj` (D4).
+- `references/soru-bankasi.md` — Sorular ve hangi metriğe dönüştükleri. Aşama 1.
+- `references/tasarim.md` — Tasarımı isteme, dosyalara dökme, eksik değer, T1–T6, sık hatalar.
+- `references/mimari.md` — Örnek mimari, katman kuralları, 12 kurulum adımı, Y1–Y4.
+- `references/metrik-katalogu.md` — Tüm metrikler, birimler, komutlar, sık teknik hatalar.
+- `assets/ornek-proje/` — Çalışan, ölçülmüş tam örnek (21/21 GEÇTİ).
+- `assets/kabul_kriterleri.ornek.json`, `assets/ty_kriterleri.ornek.json`, `assets/kararlar.ornek.json` — Şablonlar.
+- `scripts/kriterler.py` (`dogrula`, `tablo`, `rapor`), `scripts/olc.py` (tüm otomatik ölçümler), `scripts/denetim.py` (`kontrol` D1–D5, `mesaj` D4), `scripts/tasarim.py` (`dogrula`, `uret`, `tablo`, `denetle`), `scripts/mimari.py` (`dogrula`, `denetle`), `scripts/goruntu_karsilastir.py` (PNG piksel farkı + fark görüntüsü).

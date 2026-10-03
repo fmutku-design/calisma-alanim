@@ -1,0 +1,1 @@
+Font dosyaları (assets/fonts/Roboto-*.ttf) lisans ve boyut nedeniyle örneğe konmadı; kendi projende tasarımcının verdiği font dosyalarını assets/fonts/ altına koy.

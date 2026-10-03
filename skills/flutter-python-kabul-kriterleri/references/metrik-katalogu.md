@@ -14,6 +14,8 @@ Her metrik için: birim, ölçüm yöntemi (çalıştırılabilir komut), ölç�
 - U — UI / erişilebilirlik
 - M — ML / veri (Python)
 - F — Fonksiyonel
+- T — Tasarım (zorunlu)
+- Y — Yazılım mimarisi (zorunlu)
 - Ölçüm kuralları
 
 ---
@@ -116,7 +118,34 @@ Her kullanıcı işlemi (soru 1.2) bir F kriteridir. Biçim:
 
 Adım listesi kullanıcının tarif ettiği davranıştan gelir; kenar durumların (soru 1.4) her biri ayrı bir F kriteri olur.
 
+## T — Tasarım (zorunlu)
+
+Ayrıntı: `references/tasarim.md`. Her kriter dosyasına `assets/ty_kriterleri.ornek.json` bloğu eklenir; `kriterler.py dogrula` eksikse reddeder. Tasarım değerlerinin kaynağı yalnızca kullanıcıdır.
+
+| ID | Metrik | Birim | Ölçüm (olc.py anahtarı) | Eşik |
+|---|---|---|---|---|
+| T1 | tasarim.json dışında yazılmış renk | adet | `tasarim.py denetle` (tasarim_sabit_renk) | == 0 |
+| T2 | tasarim.json dışında yazılmış ölçü (dp/sp) | adet | `tasarim.py denetle` (tasarim_sabit_olcu) | == 0 |
+| T3 | Üretilmiş dosyalarla içerik uyuşmazlığı | adet | `tasarim.py denetle` (tasarim_uretim_uyumsuz) | == 0 |
+| T4 | Yerleşim testinde başarısız kontrol (adet, sıra, konum, boyut ± tolerans) | adet | `flutter test test/yerlesim` (tasarim_yerlesim_hata) | == 0 |
+| T5 | Tasarım PNG'si ↔ ekran görüntüsü en büyük piksel farkı | % | `goruntu_karsilastir.py`, kanal eşiği 16 (tasarim_goruntu_fark_yuzde) | ≤ kullanıcı (soru 11.11) |
+| T6 | Onaylı ekran görüntüsünden sapan ekran | adet | `flutter test test/goruntu` (tasarim_onayli_goruntu_sapma) | == 0 |
+
+## Y — Yazılım mimarisi (zorunlu)
+
+Ayrıntı ve örnek mimari: `references/mimari.md`.
+
+| ID | Metrik | Birim | Ölçüm (olc.py anahtarı) | Eşik |
+|---|---|---|---|---|
+| Y1 | Katman kuralını çiğneyen import | adet | `mimari.py denetle` (mimari_yasak_bagimlilik) | == 0 |
+| Y2 | Hiçbir katmana ait olmayan lib/ dosyası | adet | `mimari.py denetle` (mimari_katmansiz_dosya) | == 0 |
+| Y3 | Satır sınırını aşan dosya | adet | `mimari.py denetle` (mimari_uzun_dosya) | == 0 |
+| Y4 | Satır sınırını aşan fonksiyon/metot | adet | `mimari.py denetle` (mimari_uzun_fonksiyon) | == 0 |
+
 ## Sık yapılan teknik hatalar (kriter yazarken kontrol et)
+
+- **Test fontu (Ahem):** Font yüklenmeyen widget testleri yazıyı kutu olarak çizer; yerleşim ve ekran görüntüsü tasarımla karşılaştırılamaz. Üretilmiş `test/yardimci/tasarim_fontlari.dart` gerçek fontu yükler.
+- **rootBundle önbelleği:** `rootBundle.loadString` önbellekli Future'ı bir sonraki `testWidgets`'ın sahte zamanlayıcısında tamamlanmaz; ikinci test boş ekranı ölçer. Asset okurken `cache: false`.
 
 - **32-bit cihazlar:** Düşük RAM'li cihazların bir kısmı (ör. 2 GB Redmi 9A) 32-bit Android çalıştırır. Yalnızca `arm64-v8a` APK bu cihazlara kurulmaz. Ölçüm cihazında `adb shell getprop ro.product.cpu.abilist` çıktısını sor/kontrol et; P4 kriteri doğru ABI'nin APK'sı için yazılmalı.
 - **Gizli izinler:** Güncel `androidx.core` merged manifest'e `<paket>.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` ekleyebilir. "Hiç izin yok" kriterinde bu izin çıkarsa kullanıcıya sor: `tools:node="remove"` mı, istisna mı.

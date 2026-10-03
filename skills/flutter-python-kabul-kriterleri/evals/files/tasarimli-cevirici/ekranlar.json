@@ -1,0 +1,26 @@
+{
+  "aciklama": "Her ekranın yerleşimi kullanıcının tasarımından ölçülerek yazılır. Testler bu dosyadan üretilir.",
+  "uygulama": {
+    "tema_import": "package:birimcevirici/cekirdek/tema/tema.dart",
+    "tema": "uygulamaTemasi()"
+  },
+  "ekran_boyutu": {"genislik": 360, "yukseklik": 800, "piksel_orani": 1, "kaynak": "kullanici:figma/Cevirici/Frame"},
+  "tolerans_dp": 1,
+  "ekranlar": [
+    {
+      "ad": "cevirici",
+      "widget": "CeviriciEkrani(depo: AssetDonusumDeposu())",
+      "import": "package:birimcevirici/ozellikler/cevirici/sunum/cevirici_ekrani.dart",
+      "ek_importlar": ["package:birimcevirici/ozellikler/cevirici/veri/asset_donusum_deposu.dart"],
+      "referans_goruntu": "tasarim/cevirici.png",
+      "kaynak": "kullanici:figma/Cevirici",
+      "bilesenler": [
+        {"anahtar": "cevirici.baslik",     "sira": 1, "ust": 0,   "sol": 0,  "genislik": 360, "yukseklik": 56},
+        {"anahtar": "cevirici.girdi",      "sira": 2, "ust": 80,  "sol": 16, "genislik": 328, "yukseklik": 56},
+        {"anahtar": "cevirici.kaynakBirim", "sira": 3, "ust": 152, "sol": 16, "genislik": 156},
+        {"anahtar": "cevirici.hedefBirim", "sira": 3, "ust": 152, "sol": 188, "genislik": 156},
+        {"anahtar": "cevirici.sonucKarti", "sira": 4, "ust": 240, "sol": 16, "genislik": 328, "yukseklik": 120}
+      ]
+    }
+  ]
+}

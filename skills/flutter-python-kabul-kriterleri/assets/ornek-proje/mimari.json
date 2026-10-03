@@ -1,0 +1,17 @@
+{
+  "aciklama": "Onaylı mimari. Katman yolları, izinli bağımlılıklar ve sınırlar burada; mimari.py denetler.",
+  "kaynak": "öneri-onaylandı:S20",
+  "paket": "birimcevirici",
+  "ozellik_koku": "lib/ozellikler",
+  "ozellikler_arasi_import": false,
+  "katmanlar": [
+    {"ad": "giris",   "yollar": ["lib/main.dart", "lib/uygulama.dart"], "izinli": ["*"]},
+    {"ad": "cekirdek", "yollar": ["lib/cekirdek/*"], "izinli": []},
+    {"ad": "alan",    "yollar": ["lib/ozellikler/*/alan/*"], "izinli": ["cekirdek"],
+     "yasak_paketler": ["package:flutter/", "dart:io", "dart:ui", "package:sqflite"]},
+    {"ad": "veri",    "yollar": ["lib/ozellikler/*/veri/*"], "izinli": ["alan", "cekirdek"]},
+    {"ad": "sunum",   "yollar": ["lib/ozellikler/*/sunum/*"], "izinli": ["alan", "cekirdek"]}
+  ],
+  "sinirlar": {"dosya_satir_max": 200, "fonksiyon_satir_max": 40},
+  "python": {"yollar": ["tools/*.py"]}
+}

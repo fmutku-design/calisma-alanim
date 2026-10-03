@@ -1,0 +1,9 @@
+{
+  "kararlar": [
+    {"id": "K-01", "konu": "State management", "karar": "setState (tek ekran)", "kaynak": "kullanici:S4"},
+    {"id": "K-02", "konu": "Lint seti", "karar": "flutter_lints", "kaynak": "kullanici:S9", "paketler": ["flutter_lints"]},
+    {"id": "K-03", "konu": "Python test araçları", "karar": "pytest, pytest-cov, ruff", "kaynak": "kullanici:S11", "paketler": ["pytest", "pytest-cov", "ruff"]},
+    {"id": "K-04", "konu": "Mimari", "karar": "references/mimari.md örnek mimarisi (mimari.json)", "kaynak": "öneri-onaylandı:S20"},
+    {"id": "K-05", "konu": "Tasarım", "karar": "Kullanıcının Figma dosyası → tasarim.json, ekranlar.json, tasarim/*.png", "kaynak": "kullanici:S15"}
+  ]
+}

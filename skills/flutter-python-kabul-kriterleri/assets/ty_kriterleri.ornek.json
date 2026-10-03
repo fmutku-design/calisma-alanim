@@ -1,0 +1,125 @@
+{
+  "aciklama": "Her kriter dosyasına eklenecek zorunlu tasarım (T) ve mimari (Y) kriterleri. T5 eşiği kullanıcıya sorulur.",
+  "kriterler": [
+    {
+      "id": "T1",
+      "kategori": "tasarim",
+      "metrik": "tasarim.json dışında lib/ içinde yazılmış renk sayısı (Color(0x…), Colors.*)",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/tasarim.py denetle → tasarim_sabit_renk",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "tasarim_sabit_renk"
+    },
+    {
+      "id": "T2",
+      "kategori": "tasarim",
+      "metrik": "tasarim.json dışında lib/ içinde yazılmış ölçü sayısı (EdgeInsets, SizedBox, fontSize, radius… içindeki sayılar)",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/tasarim.py denetle → tasarim_sabit_olcu",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "tasarim_sabit_olcu"
+    },
+    {
+      "id": "T3",
+      "kategori": "tasarim",
+      "metrik": "tasarim.json/ekranlar.json'dan üretilen dosyalarla içeriği uyuşmayan dosya sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/tasarim.py denetle → tasarim_uretim_uyumsuz",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "tasarim_uretim_uyumsuz"
+    },
+    {
+      "id": "T4",
+      "kategori": "tasarim",
+      "metrik": "ekranlar.json yerleşim testlerinde başarısız kontrol sayısı (adet, sıra, ölçü, konum)",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "flutter test test/yerlesim → başarısız test sayısı",
+      "olcum_ortami": "flutter test, ekran_boyutu ekranlar.json",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "tasarim_yerlesim_hata"
+    },
+    {
+      "id": "T5",
+      "kategori": "tasarim",
+      "metrik": "Kullanıcının tasarım görseli ile uygulama ekran görüntüsü arasındaki en büyük piksel farkı (ekran başına)",
+      "operator": "<=",
+      "esik": 2,
+      "birim": "%",
+      "olcum_yontemi": "flutter test --update-goldens --dart-define=GORUNTU_KLASORU=olcum test/goruntu → goruntu_karsilastir.py (kanal eşiği 16)",
+      "olcum_ortami": "flutter test, ekran_boyutu ekranlar.json",
+      "kaynak": "kullanici:S17",
+      "olc_anahtari": "tasarim_goruntu_fark_yuzde"
+    },
+    {
+      "id": "T6",
+      "kategori": "tasarim",
+      "metrik": "Onaylı ekran görüntüsünden (goldens/) sapan ekran sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "flutter test test/goruntu → başarısız test sayısı",
+      "olcum_ortami": "flutter test",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "tasarim_onayli_goruntu_sapma"
+    },
+    {
+      "id": "Y1",
+      "kategori": "mimari",
+      "metrik": "Katman kuralını çiğneyen import sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/mimari.py denetle → mimari_yasak_bagimlilik",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "mimari_yasak_bagimlilik"
+    },
+    {
+      "id": "Y2",
+      "kategori": "mimari",
+      "metrik": "mimari.json'daki hiçbir katmana ait olmayan lib/ dosyası sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/mimari.py denetle → mimari_katmansiz_dosya",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "mimari_katmansiz_dosya"
+    },
+    {
+      "id": "Y3",
+      "kategori": "mimari",
+      "metrik": "mimari.json dosya_satir_max sınırını aşan dosya sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/mimari.py denetle → mimari_uzun_dosya",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "mimari_uzun_dosya"
+    },
+    {
+      "id": "Y4",
+      "kategori": "mimari",
+      "metrik": "mimari.json fonksiyon_satir_max sınırını aşan fonksiyon sayısı",
+      "operator": "==",
+      "esik": 0,
+      "birim": "adet",
+      "olcum_yontemi": "python scripts/mimari.py denetle → mimari_uzun_fonksiyon",
+      "olcum_ortami": "Kaynak kod",
+      "kaynak": "kullanici:S16",
+      "olc_anahtari": "mimari_uzun_fonksiyon"
+    }
+  ]
+}

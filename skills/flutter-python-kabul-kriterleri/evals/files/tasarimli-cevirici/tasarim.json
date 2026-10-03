@@ -1,0 +1,126 @@
+{
+  "aciklama": "Kullanıcının verdiği tasarımın sayısal hali. Her değer kullanıcı kaynaklıdır; Claude tasarım değeri önermez.",
+  "font": {
+    "aile": "Roboto",
+    "dosyalar": [
+      {
+        "yol": "assets/fonts/Roboto-Regular.ttf",
+        "agirlik": 400
+      },
+      {
+        "yol": "assets/fonts/Roboto-Bold.ttf",
+        "agirlik": 700
+      }
+    ],
+    "kaynak": "kullanici:figma/Stiller/Font"
+  },
+  "renk": {
+    "birincil": {
+      "deger": "#1E6B52",
+      "kaynak": "kullanici:figma/Stiller/Renk/Birincil"
+    },
+    "birincilUstu": {
+      "deger": "#FFFFFF",
+      "kaynak": "kullanici:figma/Stiller/Renk/BirincilUstu"
+    },
+    "arkaplan": {
+      "deger": "#F4F7F5",
+      "kaynak": "kullanici:figma/Stiller/Renk/Arkaplan"
+    },
+    "yuzey": {
+      "deger": "#FFFFFF",
+      "kaynak": "kullanici:figma/Stiller/Renk/Yuzey"
+    },
+    "metin": {
+      "deger": "#1A1C1B",
+      "kaynak": "kullanici:figma/Stiller/Renk/Metin"
+    },
+    "metinIkincil": {
+      "deger": "#5B6360",
+      "kaynak": "kullanici:figma/Stiller/Renk/MetinIkincil"
+    },
+    "hata": {
+      "deger": "#B3261E",
+      "kaynak": "kullanici:figma/Stiller/Renk/Hata"
+    }
+  },
+  "yazi": {
+    "baslik": {
+      "boyut": 20,
+      "agirlik": 700,
+      "satir_yuksekligi": 28,
+      "renk": "birincilUstu",
+      "kaynak": "kullanici:figma/Stiller/Yazi/Baslik"
+    },
+    "govde": {
+      "boyut": 16,
+      "agirlik": 400,
+      "satir_yuksekligi": 24,
+      "renk": "metin",
+      "kaynak": "kullanici:figma/Stiller/Yazi/Govde"
+    },
+    "etiket": {
+      "boyut": 14,
+      "agirlik": 400,
+      "satir_yuksekligi": 20,
+      "renk": "metinIkincil",
+      "kaynak": "kullanici:figma/Stiller/Yazi/Etiket"
+    },
+    "sonuc": {
+      "boyut": 32,
+      "agirlik": 700,
+      "satir_yuksekligi": 40,
+      "renk": "birincil",
+      "kaynak": "kullanici:figma/Stiller/Yazi/Sonuc"
+    },
+    "hata": {
+      "boyut": 14,
+      "agirlik": 400,
+      "satir_yuksekligi": 20,
+      "renk": "hata",
+      "kaynak": "kullanici:figma/Stiller/Yazi/Hata"
+    }
+  },
+  "bosluk": {
+    "s8": {
+      "deger": 8,
+      "kaynak": "kullanici:figma/Stiller/Bosluk"
+    },
+    "s16": {
+      "deger": 16,
+      "kaynak": "kullanici:figma/Stiller/Bosluk"
+    },
+    "s24": {
+      "deger": 24,
+      "kaynak": "kullanici:figma/Stiller/Bosluk"
+    },
+    "s32": {
+      "deger": 32,
+      "kaynak": "kullanici:figma/Stiller/Bosluk"
+    }
+  },
+  "kose": {
+    "kart": {
+      "deger": 12,
+      "kaynak": "kullanici:figma/Stiller/Kose/Kart"
+    },
+    "girdi": {
+      "deger": 8,
+      "kaynak": "kullanici:figma/Stiller/Kose/Girdi"
+    }
+  },
+  "bilesen": {
+    "appBarYukseklik": {
+      "deger": 56,
+      "kaynak": "kullanici:figma/Cevirici/AppBar"
+    },
+    "girdiYukseklik": {
+      "deger": 56,
+      "kaynak": "kullanici:figma/Cevirici/Girdi"
+    },
+    "sonucKartYukseklik": {
+      "deger": 120,
+      "kaynak": "kullanici:figma/Cevirici/SonucKarti"
+    }
+  }
+}

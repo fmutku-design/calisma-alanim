@@ -25,6 +25,23 @@ KATEGORILER = {
     "ui_erisilebilirlik",
     "ml_veri",
     "fonksiyonel",
+    "tasarim",
+    "mimari",
+}
+
+# Tasarım ve mimari kriterleri her projede zorunludur: tasarımı ve yazılım yapısını tahmine bırakmamak için.
+# id → (kategori, olc.py anahtarı). Eşikleri kullanıcı belirler (T5 piksel farkı %, Y sınırları mimari.json'da).
+ZORUNLU_KRITERLER = {
+    "T1": ("tasarim", "tasarim_sabit_renk"),
+    "T2": ("tasarim", "tasarim_sabit_olcu"),
+    "T3": ("tasarim", "tasarim_uretim_uyumsuz"),
+    "T4": ("tasarim", "tasarim_yerlesim_hata"),
+    "T5": ("tasarim", "tasarim_goruntu_fark_yuzde"),
+    "T6": ("tasarim", "tasarim_onayli_goruntu_sapma"),
+    "Y1": ("mimari", "mimari_yasak_bagimlilik"),
+    "Y2": ("mimari", "mimari_katmansiz_dosya"),
+    "Y3": ("mimari", "mimari_uzun_dosya"),
+    "Y4": ("mimari", "mimari_uzun_fonksiyon"),
 }
 OPERATORLER = {"<=", ">=", "==", "<", ">"}
 BIRIMLER = {"ms", "sn", "MB", "KB", "%", "adet", "dp", "fps", "api_seviyesi", "oran", "evet_hayir"}
@@ -84,6 +101,17 @@ def dogrula(veri: dict) -> list[str]:
     if not isinstance(kriterler, list) or not kriterler:
         hatalar.append("Üst seviye: 'kriterler' boş olmayan bir liste olmalı.")
         return hatalar
+
+    mevcut = {k.get("id"): k for k in kriterler}
+    for zid, (kat, anahtar) in ZORUNLU_KRITERLER.items():
+        k = mevcut.get(zid)
+        if k is None:
+            hatalar.append(
+                f"Zorunlu kriter {zid} ({kat}, olc_anahtari '{anahtar}') eksik. Tasarım ve mimari kriterleri "
+                "çıkarılamaz — bkz. references/metrik-katalogu.md (T, Y)."
+            )
+        elif k.get("kategori") != kat or k.get("olc_anahtari") != anahtar:
+            hatalar.append(f"{zid}: kategori '{kat}' ve olc_anahtari '{anahtar}' olmalı.")
 
     gorulen: set[str] = set()
     for i, k in enumerate(kriterler):

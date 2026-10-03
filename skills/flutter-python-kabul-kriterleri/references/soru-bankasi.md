@@ -16,6 +16,8 @@ Kullanıcının mesajında **açıkça** cevabı olan soruları atla; çıkarım
 8. Python: script / otomasyon
 9. Python: ML / veri işleme
 10. Teslim
+11. Tasarım (kullanıcı verir — öneri yok)
+12. Yazılım mimarisi
 
 ---
 
@@ -90,8 +92,8 @@ Kullanıcı sayı veremezse `metrik-katalogu.md`'deki önerilen başlangıç eş
 | # | Soru | İşaret | Kriter |
 |---|---|---|---|
 | 7.1 | Desteklenen diller? (ör. tr, en) Varsayılan dil? | Z | U4 — eksik çeviri anahtarı == 0. |
-| 7.2 | Tema: a) sadece açık b) açık + koyu c) sistemi takip et | Z | U kriteri. |
-| 7.3 | Tasarım kaynağı var mı? (Figma, ekran görüntüsü, renk kodları) Yoksa Material 3 varsayılanı kabul mü? | Z | Görsel kararlar sorulmadan verilmez. |
+| 7.2 | Tema: a) sadece açık b) açık + koyu c) sistemi takip et (koyu tema varsa onun tasarım değerleri de §11'den istenir) | Z | U kriteri. |
+| 7.3 | Tasarım → §11. Tasarım kullanıcıdan gelmeden kod yazılmaz; Material 3 varsayılanı da bir tasarım değildir. | Z | T1–T6 |
 | 7.4 | Erişilebilirlik: dokunma alanı ≥ 48dp, kontrast, ekran okuyucu etiketi kriterlerini dahil edelim mi? | Z | U1–U3 |
 | 7.5 | En büyük yazı ölçeği (textScaleFactor) kaç olmalı ve taşma olmamalı? (ör. 1.3 / 2.0) | D | U6 |
 
@@ -124,3 +126,33 @@ Kullanıcı sayı veremezse `metrik-katalogu.md`'deki önerilen başlangıç eş
 | 10.2 | Paket adı (applicationId)? Uygulama adı? | Z | Uydurulmaz. |
 | 10.4 | Ölçüm cihazının CPU mimarisi? (`adb shell getprop ro.product.cpu.abilist`) | Z | 32-bit cihaza arm64 APK kurulmaz; P4 doğru ABI için yazılır. |
 | 10.3 | İmzalama: debug imza yeterli mi, yoksa keystore var mı? | D | Release build. |
+
+## 11. Tasarım (kullanıcı verir — öneri yok)
+
+Ayrıntı ve kontrol listesi: `references/tasarim.md` §1. Bu sorularda Claude **değer önermez**; kullanıcı vermezse değer eksik kalır ve kod yazılmaz.
+
+| # | Soru | İşaret | Kriter |
+|---|---|---|---|
+| 11.1 | Tasarım kaynağı nedir? (Figma dosyası/sayfası, ekran PNG'leri + değer listesi) | Z | Tüm T |
+| 11.2 | Her ekranın PNG dışa aktarımı, aynı çerçeve boyutunda: kaç × kaç dp, hangi ölçekte (@1x/@2x)? | Z | T5, `ekran_boyutu` |
+| 11.3 | Durum ekranları (boş liste, hata, yükleniyor, uzun metin) tasarımda var mı? Yoksa her biri için görsel iste. | Z | T4, T5 |
+| 11.4 | Renkler: ad + hex listesi | Z | T1 |
+| 11.5 | Font ailesi, font dosyaları (TTF/OTF), kullanılan ağırlıklar | Z | T4, T5 |
+| 11.6 | Yazı stilleri: her biri için boyut (sp), ağırlık, satır yüksekliği, renk | Z | T2 |
+| 11.7 | Boşluk ölçeği (dp listesi) ve köşe yarıçapları | Z | T2 |
+| 11.8 | Bileşen ölçüleri: AppBar, buton, girdi, kart, liste satırı yükseklikleri | Z | T2, T4 |
+| 11.9 | Her ekranda her bileşenin üst/sol konumu ve genişlik/yüksekliği (Figma Inspect) | Z | T4 |
+| 11.10 | Yerleşim toleransı: ± kaç dp? | Z | T4 |
+| 11.11 | Tasarım görseli ile ekran görüntüsü arasında kabul edilen en büyük piksel farkı (%)? | Z | T5 |
+
+## 12. Yazılım mimarisi
+
+Ayrıntı: `references/mimari.md`. Kullanıcının mimarisi yoksa örnek mimari "(öneri)" olarak gösterilir.
+
+| # | Soru | İşaret | Kriter |
+|---|---|---|---|
+| 12.1 | Kendi mimarin / klasör yapın var mı? Yoksa örnek mimari (giris / cekirdek / ozellikler/<ad>/{alan, veri, sunum}) uygun mu? | Z | Y1, Y2 |
+| 12.2 | Katman kuralları: sunum veriyi doğrudan import edemez, alan katmanı Flutter'a bağımlı olamaz, özellikler birbirini import edemez — onay? | Z | Y1 |
+| 12.3 | Bir dosya en fazla kaç satır olsun? (öneri: 200) | Z | Y3 |
+| 12.4 | Bir fonksiyon/metot en fazla kaç satır olsun? (öneri: 40) | Z | Y4 |
+| 12.5 | Python script'leri hangi klasörde (`tools/`) ve aynı sınırlar mı geçerli? | D | Y3, Y4 |

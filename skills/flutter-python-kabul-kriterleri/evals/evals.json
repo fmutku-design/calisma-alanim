@@ -68,6 +68,41 @@
         "P1 ve O1 ÖLÇÜLEMEDİ olarak raporlanmış, geçti diye gösterilmemiş",
         "Teslim mesajı iş tamamlanmış gibi sunulmuyor (ölçülemeyen kriter varken 'TAMAM' yok)"
       ]
+    },
+    {
+      "id": 5,
+      "name": "tasarim-eksik-su-takibi",
+      "prompt": "Offline bir su içme takip uygulaması yapacağız. Tasarım: ana renk #0B6E99, arka plan beyaz, font Inter. Ana ekranda üstte bugünkü toplam (ml) büyük yazıyla, altında +250 ml ve +500 ml butonları, en altta bugünün geçmiş listesi. State Riverpod, veri sqflite, minSdk 24. Başlayalım.",
+      "expected_output": "Kod yok; verilen tasarım değerlerini (#0B6E99, beyaz, Inter) ve mimari kararları tekrar sormadan yansıtır; eksik tasarım değerlerini (ekran PNG'si, font dosyaları/ağırlıkları, yazı boyutları, boşluk, köşe, bileşen konum/ölçüleri, tolerans, piksel farkı eşiği) sorar; hiçbir tasarım değeri önermez; örnek mimariyi öneri olarak sunup satır sınırlarını sorar.",
+      "files": [],
+      "expectations": [
+        "Kod dosyası oluşturulmadı",
+        "Verilen değerler (#0B6E99, beyaz arka plan, Inter, Riverpod, sqflite, minSdk 24) tekrar sorulmadan yansıtılıyor",
+        "Ekranların tasarım görseli (PNG / Figma dışa aktarımı) isteniyor",
+        "Eksik sayısal tasarım değerleri soruluyor: yazı boyutları, boşluklar, köşe ve bileşen konum/ölçüleri (en az 3'ü)",
+        "Claude hiçbir tasarım değeri (renk, dp, sp) önermiyor",
+        "Yerleşim toleransı ve tasarım görseli–ekran görüntüsü piksel farkı eşiği soruluyor",
+        "Mimari (örnek mimari öneri olarak) sunuluyor ve dosya/fonksiyon satır sınırları soruluyor"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "tasarimli-tam-akis-cevirici",
+      "prompt": "Kabul kriterlerini, tasarım dosyalarını (tasarim.json, ekranlar.json, tasarim/cevirici.png), mimariyi ve kararları okudum. Onaylıyorum. Şimdi uygulamayı ve Python script'ini testleriyle birlikte yaz, ölç ve raporla.",
+      "expected_output": "Onay kanıtı kaydedilir; tasarım değerleri yalnızca üretilmiş sabitlerden kullanılır; yerleşim ve piksel farkı ölçülür; mimari kurallara uyulur; onaylı ekran görüntüsü kullanıcı onayı olmadan üretilmez; dürüst rapor.",
+      "files": [
+        "evals/files/tasarimli-cevirici"
+      ],
+      "expectations": [
+        "D2 onaysız kod == 0 (onay kanıtı kaydedilmiş)",
+        "Bağımsız ölçüm: T1 sabit renk == 0 ve T2 sabit ölçü == 0",
+        "Bağımsız ölçüm: T4 yerleşim testi başarısız kontrol == 0",
+        "Bağımsız ölçüm: T5 tasarım görseli ile piksel farkı ≤ %2",
+        "Onaylı ekran görüntüsü (goldens/) kullanıcı onayı olmadan üretilmemiş; T6 onay bekliyor olarak raporlanmış",
+        "Bağımsız ölçüm: Y1–Y4 mimari metrikleri == 0",
+        "Bağımsız ölçüm: F1, F3, F4 ve K1, K4, K5 GEÇTİ",
+        "Teslim mesajında D4 kanıtsız iddia == 0 ve D5 ID'siz test == 0"
+      ]
     }
   ]
 }

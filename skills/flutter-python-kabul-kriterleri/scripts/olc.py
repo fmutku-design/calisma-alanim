@@ -331,7 +331,12 @@ def fonksiyonel_testler(proje: Path, kriterler: list[dict]) -> dict[str, dict]:
             if y.startswith("integration_test/"):
                 sonuc[k["id"]] = olcum(sebep=f"{y} cihaz/emülatör gerektirir: flutter test {y} -d <cihaz>")
                 break
-            komut = ["flutter", "test", y] if y.endswith(".dart") else [sys.executable, "-m", "pytest", "-q", y]
+            # Yalnızca bu kriterin ID'sini adında taşıyan testler çalıştırılır (aynı dosyadaki başka kriter etkilemez).
+            idk = re.escape(k["id"]).replace("\\-", "-?")
+            if y.endswith(".dart"):
+                komut = ["flutter", "test", y, "--name", rf"(^|[^0-9A-Za-z]){idk}([^0-9]|$)"]
+            else:
+                komut = [sys.executable, "-m", "pytest", "-q", y, "-k", k["id"].lower().replace("-", "")]
             kod, cikti = calistir(komut, proje, zaman_asimi=900)
             if kod is None:
                 sonuc[k["id"]] = olcum(sebep=cikti)
@@ -340,11 +345,104 @@ def fonksiyonel_testler(proje: Path, kriterler: list[dict]) -> dict[str, dict]:
             son = next((s.strip() for s in reversed(cikti.splitlines()) if ozet_re.search(s)), "")
             gosterim = f"flutter test {y}" if y.endswith(".dart") else f"pytest {y}"
             kanitlar.append(f"{gosterim} → çıkış kodu {kod}: {son[-120:]}")
+            if "No tests ran" in cikti or "no tests ran" in cikti or re.search(r"\b0 selected|deselected", son) and "passed" not in son:
+                sonuc[k["id"]] = olcum(sebep=f"{y} içinde adı {k['id']} taşıyan test yok.")
+                break
             if kod != 0:
                 deger = 0
         else:
             sonuc[k["id"]] = olcum(deger, " | ".join(kanitlar))
     return sonuc
+
+
+# ---------------------------------------------------------------- Tasarım (T) ve mimari (Y)
+
+def _test_sayimi(proje: Path, argumanlar: list[str]) -> tuple[int | None, int, int, str]:
+    """flutter test --reporter json → (çıkış kodu, geçen, başarısız, çıktı). Atlanan testler sayılmaz."""
+    kod, cikti = calistir(["flutter", "test", *argumanlar, "--reporter", "json"], proje, zaman_asimi=1800)
+    gecen = basarisiz = 0
+    for satir in cikti.splitlines() if kod is not None else []:
+        try:
+            olay = json.loads(satir)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(olay, dict) and olay.get("type") == "testDone" and not olay.get("hidden") and not olay.get("skipped"):
+            if olay.get("result") == "success":
+                gecen += 1
+            else:
+                basarisiz += 1
+    return kod, gecen, basarisiz, cikti
+
+
+def tasarim_olcumleri(proje: Path) -> dict[str, dict]:
+    """T1–T3 (statik), T4 yerleşim testleri, T5 tasarım görseliyle piksel farkı, T6 onaylı görüntü sapması."""
+    sys.path.insert(0, str(Path(__file__).parent))
+    import goruntu_karsilastir  # noqa: PLC0415
+    import tasarim  # noqa: PLC0415
+
+    sonuc = tasarim.denetle(proje)
+    ekranlar = tasarim.json_yukle(proje / "ekranlar.json")
+    if ekranlar is None or sonuc["tasarim_uretim_uyumsuz"]["deger"] is None:
+        neden = "ekranlar.json yok veya tasarım dosyaları geçersiz (tasarim.py dogrula)."
+        for k in ("tasarim_yerlesim_hata", "tasarim_goruntu_fark_yuzde", "tasarim_onayli_goruntu_sapma"):
+            sonuc[k] = olcum(sebep=neden)
+        return sonuc
+
+    if not (proje / tasarim.YERLESIM_KLASORU).is_dir():
+        sonuc["tasarim_yerlesim_hata"] = olcum(sebep="test/yerlesim yok — python tasarim.py uret çalıştır.")
+    else:
+        kod, gecen, kalan, cikti = _test_sayimi(proje, [tasarim.YERLESIM_KLASORU])
+        sonuc["tasarim_yerlesim_hata"] = (
+            olcum(sebep=cikti) if kod is None else
+            olcum(sebep=f"Yerleşim testleri çalışmadı (çıkış kodu {kod}): {cikti[-300:]}") if gecen + kalan == 0 else
+            olcum(kalan, f"flutter test {tasarim.YERLESIM_KLASORU} → {gecen} kontrol geçti, {kalan} başarısız")
+        )
+
+    kod, cikti = calistir(["flutter", "test", "--update-goldens", "--dart-define=GORUNTU_KLASORU=olcum",
+                           tasarim.GORUNTU_KLASORU], proje, zaman_asimi=1800)
+    farklar, eksik = [], []
+    fark_klasoru = proje / "build" / "tasarim_fark"
+    fark_klasoru.mkdir(parents=True, exist_ok=True)
+    for e in ekranlar["ekranlar"]:
+        ref = e.get("referans_goruntu")
+        uyg = proje / tasarim.GORUNTU_KLASORU / "olcum" / f"{e['ad']}.png"
+        if not ref or not (proje / ref).is_file():
+            eksik.append(f"{e['ad']}: kullanıcının tasarım görseli yok ({ref or 'referans_goruntu tanımsız'})")
+        elif not uyg.is_file():
+            eksik.append(f"{e['ad']}: ekran görüntüsü üretilemedi ({(cikti or '')[-200:]})")
+        else:
+            try:
+                yuzde, kanit = goruntu_karsilastir.karsilastir(proje / ref, uyg, 16, fark_klasoru / f"{e['ad']}.png")
+                farklar.append((yuzde, kanit))
+            except (ValueError, OSError) as hata:
+                eksik.append(f"{e['ad']}: {hata}")
+    if eksik:
+        sonuc["tasarim_goruntu_fark_yuzde"] = olcum(sebep="; ".join(eksik))
+    else:
+        sonuc["tasarim_goruntu_fark_yuzde"] = olcum(
+            max(f[0] for f in farklar),
+            "en büyük fark raporlanır | " + " | ".join(f[1] for f in farklar) + " | fark görüntüleri: build/tasarim_fark/",
+        )
+
+    onayli = list((proje / tasarim.GORUNTU_KLASORU / "goldens").glob("*.png"))
+    if not onayli:
+        sonuc["tasarim_onayli_goruntu_sapma"] = olcum(
+            sebep="Onaylı ekran görüntüsü yok: kullanıcı ekran görüntülerini onaylayınca "
+                  "'flutter test --update-goldens test/goruntu' ile goldens/ oluşturulur.")
+    else:
+        kod, gecen, kalan, cikti = _test_sayimi(proje, [tasarim.GORUNTU_KLASORU])
+        sonuc["tasarim_onayli_goruntu_sapma"] = (
+            olcum(sebep=cikti) if kod is None else
+            olcum(kalan, f"flutter test {tasarim.GORUNTU_KLASORU} → {gecen} ekran onaylı görüntüyle aynı, {kalan} sapma")
+        )
+    return sonuc
+
+
+def mimari_olcumleri(proje: Path) -> dict[str, dict]:
+    sys.path.insert(0, str(Path(__file__).parent))
+    import mimari  # noqa: PLC0415
+
+    return mimari.denetle(proje)
 
 
 # ---------------------------------------------------------------- Ana akış
@@ -396,6 +494,11 @@ def main() -> int:
         ekle("ag_kodu_referansi", lambda: ag_kodu(proje))
         ekle("sabit_metin_sayisi", lambda: sabit_metin(proje))
         ekle("cevrilmemis_anahtar", lambda: cevrilmemis(proje))
+        for kaynak in (tasarim_olcumleri, mimari_olcumleri):
+            for anahtar, kayit in kaynak(proje).items():
+                if anahtar not in atla:
+                    sonuc[anahtar] = kayit
+                    print(f"  {anahtar}: {kayit.get('deger')}  {kayit.get('sebep', '')[:160]}")
     else:
         print("  pubspec.yaml yok — Flutter ölçümleri atlandı.")
 
