@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 r"""
-dosya_izi.py (v1.0) - Bir dosyayi hangi yapay zeka oturumunun, ne zaman ve hangi cagriyla
+dosya_izi.py (v1.1) - Bir dosyayi hangi yapay zeka oturumunun, ne zaman ve hangi cagriyla
 degistirdigini oturum kayitlarindan bulur. Salt-okunur: hicbir dosyaya yazmaz.
 Kaynak kod sadece ASCII.
 
@@ -20,10 +20,12 @@ Secenekler:
   --fark ESKI YENI     iki surum arasindaki satir farkini BOM, satir sonu ve SHA-256 ile gosterir
 
 Bakilan kayitlar (varsa): ~\.codex\sessions, ~\.codex\archived_sessions, ~\.claude\projects,
-~\.local\share\opencode, %APPDATA%\Claude, ~\.gemini.
-Okudugu bicimler: Codex rollout ve Claude Code oturumu (.jsonl), OpenCode depo parcasi ve disa
-aktarimi, Gemini CLI sohbeti (.json). Bilinmeyen json'da ve json olmayan dosyalarda (or. Antigravity)
-adi ham olarak arar.
+~\.local\share\opencode, %APPDATA%\Claude, ~\.gemini, ~\.kimi, ~\.kimi-code.
+Okudugu bicimler: Codex rollout, Claude Code oturumu ve Kimi CLI wire.jsonl (.jsonl), OpenCode depo
+parcasi ve disa aktarimi, Gemini CLI sohbeti (.json). Bilinmeyen json'da OpenAI tarzi arac
+cagrilarini arar; json olmayan dosyalarda (or. Antigravity) adi ham olarak arar. Kimi'nin calisma
+klasorunu ~\.kimi\kimi.json'dan bulur. Kendi saati olmayan kayitta (eski Kimi context.jsonl) hedefe
+dokunan cagri "zaman yok" diye, kayit dosyasinin degisme zamaniyla yazilir.
 
 Siniflar:
   YAZMA        hedef dosyayi acikca degistiren cagri (apply_patch, Edit/Write, edit/write ...)
@@ -50,7 +52,9 @@ from pathlib import Path
 HOME = Path.home()
 LOG_DIRS = [HOME / ".codex" / "sessions", HOME / ".codex" / "archived_sessions",
             HOME / ".claude" / "projects", HOME / ".local" / "share" / "opencode",
-            Path(os.environ.get("APPDATA") or HOME) / "Claude", HOME / ".gemini"]
+            Path(os.environ.get("APPDATA") or HOME) / "Claude", HOME / ".gemini",
+            HOME / ".kimi", HOME / ".kimi-code"]
+KIMI_MAP = {}       # Kimi oturum klasoru adi (calisma klasorunun md5'i) -> calisma klasoru
 SKIP_DIRS = {"cache", "code cache", "gpucache", "dawncache", "dawngraphitecache", "dawnwebgpucache",
              "blob_storage", "service worker", "indexeddb", "local storage", "session storage",
              "crashpad", "shared_proto_db", "network", "node_modules", "vm_bundles", ".git"}
@@ -65,8 +69,13 @@ WRITE_TOOL = re.compile(r"edit|write|patch|replace|create|insert|notebook|move|r
 HID = re.compile("[\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]")
 USER_SKIP = ("<environment_context", "# agents.md", "<user_instructions", "<permissions", "<turn_aborted")
 MARKERS = ('"session_meta"', '"turn_context"', '"user_message"', '"type":"user"', '"type": "user"',
-           '"role":"user"', '"role": "user"', '_output"')
+           '"role":"user"', '"role": "user"', '"role":"tool"', '"role": "tool"', '_output"',
+           '"TurnBegin"', '"SteerInput"', '"ToolResult"')
 PATH_KEYS = ("file_path", "filePath", "notebook_path", "path", "absolute_path", "target_file", "file")
+OLD_NEW = (("old_string", "- "), ("oldString", "- "), ("old_str", "- "), ("old", "- "),
+           ("new_string", "+ "), ("newString", "+ "), ("new_str", "+ "), ("new", "+ "), ("content", "+ "))
+AGENTS = ((".kimi-code/", "kimi-code"), (".kimi/", "kimi"), (".codex/", "codex"), (".claude/", "claude"),
+          ("opencode", "opencode"), (".gemini/", "gemini"), ("/claude/", "claude-masaustu"))
 
 
 def norm(p):
@@ -162,6 +171,78 @@ def set_user(ctx, ts, txt):
         ctx["user"] = (ts, s)
 
 
+def loads(v):
+    if isinstance(v, str):
+        try:
+            return json.loads(v)
+        except ValueError:
+            pass
+    return v
+
+
+def load_kimi_map():
+    for root in (HOME / ".kimi", HOME / ".kimi-code"):
+        try:
+            data = json.loads((root / "kimi.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        dirs = data.get("work_dirs") if isinstance(data, dict) else None
+        for wd in dirs if isinstance(dirs, list) else []:
+            if isinstance(wd, dict) and isinstance(wd.get("path"), str):
+                hx = hashlib.md5(wd["path"].encode("utf-8")).hexdigest()
+                KIMI_MAP[hx] = KIMI_MAP["%s_%s" % (wd.get("kaos") or "local", hx)] = wd["path"]
+
+
+def kimi_cwd(fp):
+    parts = fp.parts
+    for i in range(len(parts) - 1):
+        if parts[i] == "sessions" and parts[i + 1] in KIMI_MAP:
+            return KIMI_MAP[parts[i + 1]]
+    return None
+
+
+def agent_of(fp):
+    s = str(fp).lower().replace("\\", "/")
+    return next((name for key, name in AGENTS if key in s), "?")
+
+
+def kimi_events(typ, pl):
+    """Kimi wire kaydi: SubagentEvent icindeki olaylari da acar."""
+    if typ == "SubagentEvent":
+        inner = pl.get("event") if isinstance(pl, dict) else None
+        if isinstance(inner, dict) and isinstance(inner.get("payload"), dict):
+            for x in kimi_events(inner.get("type"), inner["payload"]):
+                yield x
+    elif isinstance(pl, dict):
+        yield typ, pl
+
+
+def walk(v, ctx, ts, agent):
+    """Bilinmeyen bicim: OpenAI tarzi mesajlari ve ad+argumanli cagrilari arar."""
+    if isinstance(v, dict):
+        ts = ts_of(v) or ts
+        role = v.get("role")
+        if role == "user" and "content" in v:
+            set_user(ctx, ts, user_text(v.get("content")))
+        elif role == "tool" and v.get("tool_call_id"):
+            yield "sonuc", v["tool_call_id"], text_of(v.get("content")), False
+        fn = v.get("function")
+        if isinstance(fn, dict) and isinstance(fn.get("name"), str):
+            yield "cagri", ts, agent + "/" + fn["name"], loads(fn.get("arguments")), None, v.get("id")
+            return
+        key = next((k for k in ("arguments", "args", "input", "parameters") if k in v), None)
+        if isinstance(v.get("name"), str) and key:
+            yield "cagri", ts, agent + "/" + v["name"], loads(v[key]), None, v.get("id") or v.get("call_id")
+            return
+        for x in v.values():
+            for it in walk(x, ctx, ts, agent):
+                yield it
+    elif isinstance(v, list):
+        for x in v:
+            for it in walk(x, ctx, ts, agent):
+                yield it
+
+
 def items(o, ctx):
     """Kayit nesnesinden ("cagri", ts, arac, girdi, klasor, id) ve ("sonuc", id, metin, hata) uretir.
     ctx: oturum klasoru, son kullanici mesaji ve nesnenin bilinen bir bicim olup olmadigi."""
@@ -198,6 +279,19 @@ def items(o, ctx):
             yield "sonuc", p.get("call_id"), text_of(out), False
         return
     msg = o.get("message")
+    if isinstance(msg, dict) and "payload" in msg and "type" in msg and "timestamp" in o:   # Kimi wire
+        ctx["bilinen"] = True
+        for typ, pl in kimi_events(msg.get("type"), msg.get("payload")):
+            if typ in ("TurnBegin", "SteerInput"):
+                set_user(ctx, ts, user_text(pl.get("user_input")))
+            elif typ == "ToolCall" and isinstance(pl.get("function"), dict):
+                fn = pl["function"]
+                yield "cagri", ts, "kimi/" + str(fn.get("name")), loads(fn.get("arguments")), None, pl.get("id")
+            elif typ == "ToolResult":
+                rv = pl.get("return_value") if isinstance(pl.get("return_value"), dict) else {}
+                yield "sonuc", pl.get("tool_call_id"), text_of(rv.get("output") or rv.get("message")), \
+                    bool(rv.get("is_error"))
+        return
     if "sessionId" in o and "uuid" in o:                        # Claude Code satir zarfi (ek, ozet ...)
         ctx["bilinen"] = True
         ctx["cwd"] = o.get("cwd") or ctx["cwd"]
@@ -288,13 +382,16 @@ def body(h, inp, cwd, full):
                 on = False
             if on:
                 lines.append(x)
-    elif isinstance(inp, dict) and any(k in inp for k in ("old_string", "oldString", "new_string",
-                                                         "newString", "content", "edits")):
-        for e in inp["edits"] if isinstance(inp.get("edits"), list) else [inp]:
-            if not isinstance(e, dict):
-                continue
-            for k, sign in (("old_string", "- "), ("oldString", "- "), ("new_string", "+ "),
-                            ("newString", "+ "), ("content", "+ ")):
+    elif isinstance(inp, dict) and any(k in inp for k in ("edits", "edit") + tuple(k for k, _ in OLD_NEW)):
+        edits = [inp]
+        for k in ("edits", "edit"):
+            v = inp.get(k)
+            if isinstance(v, dict):
+                edits.append(v)
+            elif isinstance(v, list):
+                edits += [x for x in v if isinstance(x, dict)]
+        for e in edits:
+            for k, sign in OLD_NEW:
                 if isinstance(e.get(k), str):
                     lines += [sign + x for x in e[k].splitlines()]
     else:
@@ -358,30 +455,41 @@ def scan(fp, h, a, events, stats):
     if fp.suffix.lower() not in (".jsonl", ".json"):
         ham(fp, h, a, events, mt, st.st_size)
         return
+    if fp.name == "context.jsonl" and (fp.parent / "wire.jsonl").is_file():
+        return                      # Kimi: ayni oturum wire.jsonl'de zamanlariyla var
     stats["kayit"] += 1
-    ctx, pending = {"cwd": None, "user": None}, {}
+    agent = agent_of(fp)
+    ctx, pending = {"cwd": kimi_cwd(fp), "user": None}, {}
     for no, o, hit in objects(fp, h, bool(a.komutlar)):
         ctx["bilinen"] = False
-        for it in items(o, ctx):
+        its = list(items(o, ctx))
+        generic = not ctx["bilinen"]
+        if generic:
+            its = list(walk(o, ctx, ts_of(o), agent))
+        ncall = 0
+        for it in its:
             if it[0] == "sonuc":
                 ev = pending.pop(it[1], None) if it[1] else None
                 if ev is not None:
                     ev["sonuc"] = ("HATA: " if it[3] else "") + short(" ".join(it[2].split()), 200)
                 continue
             _, ts, tool, inp, wd, cid = it
-            if not in_window(a, ts):
-                continue
+            ncall += 1
             cwd = wd or ctx["cwd"]
             k = classify(h, tool, inp, cwd) if hit else None
+            # zamani olmayan bicimde (or. eski Kimi context.jsonl) hedefe dokunan cagri yine gosterilir:
+            # kayit dosyasi aralikta degismis, cagrinin kendi saati bilinmiyor
+            if not (ts is None and generic and k) and not in_window(a, ts):
+                continue
             if k is None and not a.komutlar:
                 continue
-            ev = {"ts": ts, "sinif": k or "KOMUT", "arac": tool, "dosya": fp, "satir": no, "klasor": cwd,
-                  "kullanici": ctx["user"],
+            ev = {"ts": ts, "mt": mt, "sinif": k or "KOMUT", "arac": tool, "dosya": fp, "satir": no,
+                  "klasor": cwd, "kullanici": ctx["user"],
                   "govde": body(h, inp, cwd, a.tam) if k else [one_line(inp)]}
             events.append(ev)
             if cid:
                 pending[cid] = ev
-        if hit and not ctx["bilinen"]:
+        if hit and generic and not ncall:
             ts = ts_of(o)
             txt = text_of(o)
             if not in_window(a, ts) or not h.in_scope(txt, None):
@@ -389,8 +497,8 @@ def scan(fp, h, a, events, stats):
             k = "YAZMA_ADAYI" if WRITE_CMD.search(txt) or any(
                 PATCH_HDR.match(x.strip()) for x in txt.splitlines()) else "BAHIS"
             i = txt.lower().find(h.base)
-            events.append({"ts": ts, "sinif": k, "arac": "bilinmeyen-bicim", "dosya": fp, "satir": no,
-                           "govde": [visible(" ".join(txt[max(0, i - 200):i + 200].split()))]})
+            events.append({"ts": ts, "mt": mt, "sinif": k, "arac": agent + "/bilinmeyen-bicim", "dosya": fp,
+                           "satir": no, "govde": [visible(" ".join(txt[max(0, i - 200):i + 200].split()))]})
 
 
 def ham(fp, h, a, events, mt, size):
@@ -405,7 +513,7 @@ def ham(fp, h, a, events, mt, size):
         return
     if h.dirname and not any(h.dirname.encode(e) in data for e in ("utf-8", "utf-16-le")):
         return
-    events.append({"ts": mt, "sinif": "HAM", "arac": fp.suffix or "-", "dosya": fp, "satir": None,
+    events.append({"ts": mt, "mt": mt, "sinif": "HAM", "arac": fp.suffix or "-", "dosya": fp, "satir": None,
                    "govde": ["adi %d kez geciyor; zaman = bu dosyanin son degisme zamani" % n]})
 
 
@@ -454,7 +562,7 @@ def parse_time(s, end):
 
 
 def show(e, full):
-    t = e["ts"].strftime("%Y-%m-%d %H:%M:%S") if e["ts"] else "????-??-?? ??:??:??"
+    t = e["ts"].strftime("%Y-%m-%d %H:%M:%S") if e["ts"] else "zaman yok (kayit %s)" % e["mt"].strftime("%m-%d %H:%M")
     where = "%s%s" % (e["dosya"], "  satir %d" % e["satir"] if e["satir"] else "")
     if e["sinif"] == "KOMUT":
         print("%s  KOMUT        %-24s %s" % (t, e["arac"], e["govde"][0]))
@@ -511,6 +619,11 @@ def main():
     dirs = LOG_DIRS + [Path(x) for x in a.kayit]
     for d in dirs:
         print("  kayit klasoru %-5s %s" % ("var" if d.is_dir() else "yok", d))
+    load_kimi_map()
+    if h.full:
+        for hx, p in sorted(KIMI_MAP.items()):
+            if len(hx) == 32 and resolve(p, None).startswith(h.dir):
+                print("  Kimi bu klasorde calismis: %s (oturumlari: sessions\\%s)" % (p, hx))
     events, stats = [], Counter()
     for d in dirs:
         if not d.is_dir():
@@ -524,7 +637,7 @@ def main():
                 except Exception as ex:      # tek bir garip kayit taramayi durdurmasin
                     stats["atlanan"] += 1
                     print("ATLANDI: %s (%s: %s)" % (fp, type(ex).__name__, ex))
-    events.sort(key=lambda e: e["ts"].timestamp() if e["ts"] else 0)
+    events.sort(key=lambda e: (e["ts"] or e["mt"]).timestamp())
     for e in events:
         if e["sinif"] != "BAHIS" or a.hepsi:
             show(e, a.tam)
